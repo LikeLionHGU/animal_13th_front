@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route></Route>
+          <Route ></Route>
         </Routes>
       </BrowserRouter>
     </div>

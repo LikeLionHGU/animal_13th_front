@@ -26,6 +26,7 @@ const CameraUpload = () => {
       });
       console.log("업로드 완료:", response.data);
     } catch (error) {
+        alert("업로드 오류");
       console.error("업로드 오류:", error);
     }
   };

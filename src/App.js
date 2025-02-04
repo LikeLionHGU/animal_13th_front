@@ -1,5 +1,7 @@
 import React from 'react';
-import FoundForm from './components/FoundForm';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Api from './components/Api';
+
 import LostForm from './components/LostForm';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './components/MainPage';
@@ -14,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage/>}/>
-          <Route path="/found-form" element={<FoundForm/>}/> 
+          <Route path="/found-form-map" element={<Api/>}/> 
           <Route path="/lost-form" element={<LostForm/>}/>
           <Route path="/mypage" element={<MyPage/>}/>
           <Route path="/found-page" element={<FoundPage/>}/> 

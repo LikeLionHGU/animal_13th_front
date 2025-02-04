@@ -33,21 +33,21 @@ const CameraUpload = () => {
 
   return (
     <div>
-      {/* 명확한 버튼 UI 추가 */}
       <button 
         onClick={() => document.getElementById("cameraInput").click()} 
       >
-        📷 카메라 시작
+        사진 첨부
       </button>
 
-      {/* 파일 선택(input type="file") - 실제로는 숨겨짐 */}
       <input 
         id="cameraInput"
         type="file" 
         accept="image/*" 
         capture="environment" 
         onChange={handleFileChange} 
+        style={{display: 'none'}}
         className="hidden"
+        placeholder="사진첨부"
       />
 
       {/* 촬영한 이미지 미리보기 */}

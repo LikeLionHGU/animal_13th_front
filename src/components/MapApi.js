@@ -1,6 +1,6 @@
 //import styled from "styled-components";
 import { NavermapsProvider } from "react-naver-maps";
-import SimpleNaverMap from "./SimpleNaverMap";
+import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 
 function Api() {
@@ -16,7 +16,7 @@ function Api() {
         ncpClientId='pfx4scf0lr' // 지도서비스 Client ID
       >
         <div style={{ display: "flex", width: "100dvw", height: "100dvh" }}>
-          <SimpleNaverMap />
+          <MapnLocation />
         </div>
       </NavermapsProvider>
       <div>

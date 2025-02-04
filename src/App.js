@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Api from './components/Api';
+import Api from './components/MapApi';
 
 import LostForm from './components/LostForm';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import MyPage from './components/MyPage';
 import LostPage from './components/LostPage';
 import FoundPage from './components/FoundPage';
 import AlertPage from './components/AlertPage';
+import FoundForm from './components/FoundForm';
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage/>}/>
           <Route path="/found-form-map" element={<Api/>}/> 
+          <Route path="/found-form" element={<FoundForm/>}/> 
           <Route path="/lost-form" element={<LostForm/>}/>
           <Route path="/mypage" element={<MyPage/>}/>
           <Route path="/found-page" element={<FoundPage/>}/> 

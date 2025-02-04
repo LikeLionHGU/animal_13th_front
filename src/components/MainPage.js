@@ -6,7 +6,7 @@ function MainPage() {
     const navigate = useNavigate();
 
     const foundFormClick = () => {
-        navigate("/found-form");
+        navigate("/found-form-map");
     }
 
     const lostFormClick = () => {
@@ -29,7 +29,6 @@ function MainPage() {
         navigate("/alert-page");
     }
     
-
     return (
         <div>
             <div>

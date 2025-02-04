@@ -31,6 +31,7 @@ function MainPage() {
     
     return (
         <div>
+            <h1>메인 페이지</h1>
             <div>
                 <button onClick={myPageClick}>마이페이지</button>
                 <button onClick={alertPageClick}>알림페이지</button>

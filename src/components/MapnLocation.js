@@ -1,5 +1,3 @@
-
- 
 import { Container as MapDiv, NaverMap, useNavermaps, Marker } from "react-naver-maps";
 
 function MapnLocation() {

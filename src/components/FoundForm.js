@@ -34,6 +34,7 @@ const CameraUpload = () => {
 
   return (
     <div>
+        <h1>Found 글 작성 페이지</h1>
         <button 
             onClick={() => document.getElementById("cameraInput").click()} 
         >

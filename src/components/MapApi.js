@@ -1,6 +1,6 @@
 //import styled from "styled-components";
 import { NavermapsProvider } from "react-naver-maps";
-import SimpleNaverMap from "./SimpleNaverMap";
+import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/FoundFormMap.module.css";
 
@@ -17,7 +17,7 @@ function Api() {
         ncpClientId='pfx4scf0lr' // 지도서비스 Client ID
       >
         <div className={styles.mapSize}>
-          <SimpleNaverMap />
+          <MapnLocation />
         </div>
       </NavermapsProvider>
       <div>

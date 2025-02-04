@@ -1,8 +1,6 @@
-
- 
 import { Container as MapDiv, NaverMap, useNavermaps, Marker } from "react-naver-maps";
 
-function SimpleNaverMap() {
+function MapnLocation() {
   const navermaps = useNavermaps();
 
   return (
@@ -17,4 +15,4 @@ function SimpleNaverMap() {
   );
 }
 
-export default SimpleNaverMap;
+export default MapnLocation;

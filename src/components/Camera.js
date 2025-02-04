@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import styles from "../styles/Form.module.css";
 
 const CameraUpload = () => {
   const [imageSrc, setImageSrc] = useState(null);
@@ -33,25 +34,25 @@ const CameraUpload = () => {
 
   return (
     <div>
-      <button 
-        onClick={() => document.getElementById("cameraInput").click()} 
-      >
-        사진 첨부
-      </button>
+        <button 
+            onClick={() => document.getElementById("cameraInput").click()} 
+        >
+            사진 첨부
+        </button>
 
-      <input 
-        id="cameraInput"
-        type="file" 
-        accept="image/*" 
-        capture="environment" 
-        onChange={handleFileChange} 
-        style={{display: 'none'}}
-        className="hidden"
-        placeholder="사진첨부"
-      />
+        <input 
+                id="cameraInput"
+                type="file" 
+                accept="image/*" 
+                capture="environment" 
+                onChange={handleFileChange} 
+                className={styles.imgInput}
+            />
 
-      {/* 촬영한 이미지 미리보기 */}
-      {imageSrc && <img src={imageSrc} alt="Captured"/>}
+        <div className={styles.imgContainer}>
+            {/* 촬영한 이미지 미리보기 */}
+            {imageSrc && <img src={imageSrc} alt="Captured" className={styles.imgDisplay}/>}
+        </div>
     </div>
   );
 };

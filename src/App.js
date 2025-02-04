@@ -1,5 +1,5 @@
 import React from 'react';
-import Api from './components/Api';
+import MapApi from './components/MapApi';
 
 import LostForm from './components/LostForm';
 import MainPage from './components/MainPage';
@@ -8,14 +8,13 @@ import LostPage from './components/LostPage';
 import FoundPage from './components/FoundPage';
 import AlertPage from './components/AlertPage';
 import FoundForm from './components/FoundForm';
-//메인에 머지~~
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage/>}/>
-          <Route path="/found-form-map" element={<Api/>}/> 
+          <Route path="/found-form-map" element={<MapApi/>}/> 
           <Route path="/found-form" element={<FoundForm/>}/> 
           <Route path="/lost-form" element={<LostForm/>}/>
           <Route path="/mypage" element={<MyPage/>}/>

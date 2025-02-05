@@ -9,11 +9,13 @@ function Api() {
     const mapCompleteClick = () => {
       navigate("/found-form")
     }
+    const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
+    console.log(MapAPIid);
 
     return (
       <div>
         <NavermapsProvider
-        ncpClientId='pfx4scf0lr' // 지도서비스 Client ID
+        ncpClientId= {MapAPIid} // 지도서비스 Client ID
       >
         <div style={{ display: "flex", width: "100dvw", height: "100dvh" }}>
           <MapnLocation />

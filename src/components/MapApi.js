@@ -10,6 +10,8 @@ function MapApi() {
     const mapCompleteClick = () => {
       navigate("/found-form")
     }
+    const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
+    console.log(MapAPIid);
 
     const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
     console.log(MapAPIid);

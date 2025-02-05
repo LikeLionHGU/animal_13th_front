@@ -1,6 +1,6 @@
 import React from 'react';
 import MapApi from './components/MapApi';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LostForm from './components/LostForm';
 import MainPage from './components/MainPage';
 import MyPage from './components/MyPage';

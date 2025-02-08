@@ -7,7 +7,7 @@ function MainPage() {
     const navigate = useNavigate();
 
     const foundFormClick = () => {
-        navigate("/found-form-map");
+        navigate("/found-form");
     }
 
     const lostFormClick = () => {

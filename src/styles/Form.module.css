@@ -20,3 +20,14 @@
     width: 60dvw;
     height: 40dvh;
 }
+
+.contentTextBox {
+    width: 30%; /* 너비 설정 */
+    resize: none;
+    min-height: 50px; /* 최소 높이 */
+    max-height: 300px; /* 최대 높이 (선택 사항) */
+    overflow-y: hidden; /* 스크롤바 숨기기 */
+    font-size: 16px;
+    padding: 8px;
+    box-sizing: border-box;
+}

@@ -3,11 +3,13 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import styles from "../styles/Form.module.css";
 
-const CameraUpload = () => {
+const FoundForm = () => {
+  const textareaRef = useRef(null);
+
   const [imageSrc, setImageSrc] = useState(null);
   const navigate = useNavigate();
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
@@ -43,40 +45,80 @@ const CameraUpload = () => {
     }
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+  }
+
+  const autoResize = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto"; // 기존 높이 초기화
+      textarea.style.height = `${textarea.scrollHeight}px`; // 내용에 맞게 높이 조절
+    }
+  };
+
   return (
     <div>
         <h1>Found 글 작성 페이지</h1>
-        <button 
-            onClick={() => document.getElementById("cameraInput").click()} 
-        >
-            사진 첨부
-        </button>
-
-        <input 
-                id="cameraInput"
-                type="file" 
-                accept="image/*" 
-                capture="environment" 
-                onChange={handleFileChange} 
-                className={styles.imgInput}
+        <form onSubmit={onSubmit}>
+          <div>
+            <input
+              id="title"
+              type="text"
+              placeholder="제목"
             />
+          </div>
+          <div>
+            <select id="category">
+              <option value="-1">카테고리</option>
+              <option value="1">전자기기</option>
+              <option value="2">옷</option>
+              <option value="3">학생증/지갑</option>
+            </select>
+          </div>
 
-        <div className={styles.imgContainer}>
-            {/* 촬영한 이미지 미리보기 */}
-            {imageSrc && <img src={imageSrc} alt="Captured" className={styles.imgDisplay}/>}
+          <button 
+              onClick={() => document.getElementById("cameraInput").click()} 
+          >
+              사진 첨부
+          </button>
+
+          <input 
+            id="cameraInput"
+            type="file" 
+            accept="image/*" 
+            capture="environment" 
+            onChange={handleFileChange} 
+            className={styles.imgInput}
+          />
+
+          <div className={styles.imgContainer}>
+              {/* 촬영한 이미지 미리보기 */}
+              {imageSrc && <img src={imageSrc} alt="Captured" className={styles.imgDisplay}/>}
+          </div>
+          <div>
+            <textarea
+              className={styles.contentTextBox}
+              id="content"
+              type="text"
+              placeholder="내용"
+              onInput={autoResize}
+              ref={textareaRef}
+            />
+          </div>
+          <NavermapsProvider
+          ncpClientId={MapAPIid} // 지도서비스 Client ID
+        >
+          <div className={styles.mapSize}>
+            <MapnLocation />
+          </div>
+        </NavermapsProvider>
+        <div>
+          <button onClick={CompleteClick}>완료</button>
         </div>
-        <NavermapsProvider
-        ncpClientId={MapAPIid} // 지도서비스 Client ID
-      >
-        <div className={styles.mapSize}>
-          <MapnLocation />
-        </div>
-      </NavermapsProvider>
-      <div>
-        <button onClick={CompleteClick}>완료</button>
-      </div>
+      </form>
     </div>
-  );
+  ); 
 };
 
-export default CameraUpload;
+export default FoundForm;

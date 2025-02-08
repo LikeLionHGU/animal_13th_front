@@ -1,5 +1,4 @@
 import React from 'react';
-import MapApi from './components/MapApi';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './styles/font.css';
 
@@ -20,7 +19,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage/>}/>
-          <Route path="/found-form-map" element={<MapApi/>}/> 
           <Route path="/found-form" element={<FoundForm/>}/> 
           <Route path="/lost-form" element={<LostForm/>}/>
           <Route path="/mypage" element={<MyPage/>}/>

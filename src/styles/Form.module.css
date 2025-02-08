@@ -14,3 +14,9 @@
     height: 100%;
     object-fit: fill;
 }
+
+.mapSize {
+    display: flex;
+    width: 60dvw;
+    height: 40dvh;
+}

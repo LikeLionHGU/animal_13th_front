@@ -1,9 +1,20 @@
+//import styled from "styled-components";
+import { NavermapsProvider } from "react-naver-maps";
+import MapnLocation from "./MapnLocation";
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 import axios from "axios";
 import styles from "../styles/Form.module.css";
 
 const CameraUpload = () => {
   const [imageSrc, setImageSrc] = useState(null);
+  const navigate = useNavigate();
+  const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
+
+  const CompleteClick = () => {
+    navigate("/")
+  }
 
   // 파일 선택 시 자동 업로드
   const handleFileChange = async (event) => {
@@ -54,6 +65,16 @@ const CameraUpload = () => {
             {/* 촬영한 이미지 미리보기 */}
             {imageSrc && <img src={imageSrc} alt="Captured" className={styles.imgDisplay}/>}
         </div>
+        <NavermapsProvider
+        ncpClientId={MapAPIid} // 지도서비스 Client ID
+      >
+        <div className={styles.mapSize}>
+          <MapnLocation />
+        </div>
+      </NavermapsProvider>
+      <div>
+        <button onClick={CompleteClick}>완료</button>
+      </div>
     </div>
   );
 };

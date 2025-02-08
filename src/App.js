@@ -1,6 +1,7 @@
 import React from 'react';
 import MapApi from './components/MapApi';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './styles/font.css';
 
 import LostForm from './components/LostForm';
 import MainPage from './components/MainPage';
@@ -11,7 +12,7 @@ import AlertPage from './components/AlertPage';
 import FoundForm from './components/FoundForm';
 import MyPageFound from './components/MyPageFound';
 import MyPageLost from './components/MyPageLost';
-import GoogleLoginPage from './components/GoogleLoginPage';
+import GoogleLoginPage from './components/GoogleLoginButton';
 
 function App() {
   return (

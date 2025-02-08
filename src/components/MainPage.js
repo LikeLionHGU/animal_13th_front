@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import GoogleLoginPage from './GoogleLoginPage';
+import GoogleLoginButton from './GoogleLoginButton';
 
 
 function MainPage() {
@@ -33,7 +33,7 @@ function MainPage() {
     return (
         <div>
             <h1>메인 페이지</h1>
-            <div><GoogleLoginPage/></div>
+            <div><GoogleLoginButton/></div>
             <div>
                 <button onClick={myPageClick}>마이페이지</button>
                 <button onClick={alertPageClick}>알림페이지</button>

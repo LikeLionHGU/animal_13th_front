@@ -14,14 +14,9 @@ function MapnLocation() {
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation(new navermaps.LatLng(latitude, longitude)); // 위치 상태 업데이트
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
         }
       );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
+    } 
   }, [navermaps]);
 
   return (

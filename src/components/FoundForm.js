@@ -109,7 +109,6 @@ const FoundForm = () => {
           </select>
         </div>
 
-
         <div>
           <button type="button" onClick={() => document.getElementById("galleryInput").click()}>
             사진 첨부

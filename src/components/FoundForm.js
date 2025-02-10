@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,13 @@ const FoundForm = () => {
   const navigate = useNavigate();
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
   const [location, setLocation] = useState({ lat: 36.08333, lng: 129.36667 }); // MapnLocation에서 값 받아오기
+
+  const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
+
+  useEffect(() => {
+    // location이 변경될 때마다 displayLocation을 업데이트
+    setDisplayLocation(`${location.lat}, ${location.lng}`);
+  }, [location]);
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {
@@ -137,7 +144,7 @@ const FoundForm = () => {
         </NavermapsProvider>
 
         <div>
-          <input name="location" type="text" value={`${location.lat}, ${location.lng}`} className={styles.textboxSize} readOnly />
+          <input name="location" type="text" value={displayLocation} className={styles.textboxSize} readOnly />
         </div>
 
         <div>

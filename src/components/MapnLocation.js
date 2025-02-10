@@ -30,6 +30,7 @@ function MapnLocation({ setLocation }) {
   const handleMarker = (e) => {
     const lat = e.coord.lat();
     const lng = e.coord.lng();
+    setMapLocation(new navermaps.LatLng(lat, lng));
     setLocation(new navermaps.LatLng(lat, lng));
     console.log(lat, lng);
   };
@@ -41,7 +42,7 @@ function MapnLocation({ setLocation }) {
         center={mapLocation || { lat: 36.08333, lng: 129.36667 }} // 기본값: 포항시
         onClick={handleMarker}
       >
-        {mapLocation && <Marker position={new navermaps.LatLng(mapLocation.lat, mapLocation.lng)} />}
+        {mapLocation && <Marker position={mapLocation} />}
       </NaverMap>
       }
     </MapDiv>

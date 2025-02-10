@@ -83,16 +83,16 @@ const FoundForm = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
+      <form onSubmit={onSubmit} className={styles.formContainer}>
       <h1>Found 글 작성 페이지</h1>
-      {browser === "web" ?
-      <>
-        <div>웹입니다</div>
-      </> :
-      <>
-        <div>모바일입니다</div>
-      </>}
-      <form onSubmit={onSubmit}>
+        {browser === "web" ?
+        <>
+          <div>웹입니다</div>
+        </> :
+        <>
+          <div>모바일입니다</div>
+        </>}
         <div>
           <input name="title" type="text" placeholder="제목" required />
         </div>
@@ -108,6 +108,7 @@ const FoundForm = () => {
             <option value="7">기타</option>
           </select>
         </div>
+
 
         <div>
           <button type="button" onClick={() => document.getElementById("galleryInput").click()}>
@@ -160,6 +161,19 @@ const FoundForm = () => {
           <button type="submit">완료</button>
         </div>
       </form>
+      <div className={styles.sidebar}>
+        <h2>Lost 게시글</h2>
+        <ul className={styles.postList}>
+          <div className={styles.postItem}>Lost 게시글</div>
+          <div className={styles.postItem}>Lost 게시글</div>
+          <div className={styles.postItem}>Lost 게시글</div>
+          <div className={styles.postItem}>Lost 게시글</div>
+          <div className={styles.postItem}>Lost 게시글</div>
+          <div className={styles.postItem}>Lost 게시글</div>
+          <div className={styles.postItem}>Lost 게시글</div>
+          <div className={styles.postItem}>Lost 게시글</div>
+        </ul>
+      </div>
     </div>
   );
 };

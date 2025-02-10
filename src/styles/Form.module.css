@@ -1,3 +1,9 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
 .imgContainer {
     width: 200px;
     height: 200px;
@@ -34,4 +40,48 @@
 
 .textboxSize{
     width: 250px
+}
+
+.postList {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar {
+    flex: 1;
+    height: 700px;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+.formContainer {
+    flex: 3;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.postItem {
+    padding: 40px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  padding: 15px 0;
+  z-index: 100;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+}
+
+.postItem:hover {
+    background: #f1f1f1;
 }

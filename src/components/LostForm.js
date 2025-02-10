@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import styles from "../styles/Form.module.css";
 
-const FoundForm = () => {
+const LostForm = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
@@ -111,4 +111,4 @@ const FoundForm = () => {
   );
 };
 
-export default FoundForm;
+export default LostForm;

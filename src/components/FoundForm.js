@@ -128,6 +128,8 @@ const FoundForm = () => {
           <input name="phoneNum" type="text" maxlength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234)" className={styles.textboxSize}/>
         </div>
 
+        <h1>물건을 찾은 위치를 입력해 주세요!</h1>
+
         <NavermapsProvider ncpClientId={MapAPIid}>
           <div className={styles.mapSize}>
             <MapnLocation setLocation={setLocation} />

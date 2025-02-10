@@ -1,7 +1,9 @@
 import { Container as MapDiv, NaverMap, useNavermaps, Marker } from "react-naver-maps";
+
 import { useEffect, useState } from "react";
 
 function MapnLocation({ setLocation }) {
+
   const navermaps = useNavermaps();
   const [mapLocation, setMapLocation] = useState(null);
 
@@ -23,11 +25,19 @@ function MapnLocation({ setLocation }) {
     }
   }, [setLocation]);
 
+  const handleMarker = (e) => {
+    const lat = e.coord.lat();
+    const lng = e.coord.lng();
+    setLocation(new navermaps.LatLng(lat, lng));
+    console.log(lat, lng);
+  };
+
   return (
     <MapDiv style={{ width: "100%", height: "100%" }}>
-      <NaverMap
+      {load === 0? "loading...": <NaverMap
         zoom={19}
         center={mapLocation || { lat: 36.08333, lng: 129.36667 }} // 기본값: 포항시
+        onClick={handleMarker}
       >
         {mapLocation && <Marker position={new navermaps.LatLng(mapLocation.lat, mapLocation.lng)} />}
       </NaverMap>

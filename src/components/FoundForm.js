@@ -96,6 +96,7 @@ const FoundForm = () => {
             required
           />
         </div>
+        <h1>물건을 잃어버린 위치를 입력해 주세요!</h1>
         <NavermapsProvider ncpClientId={MapAPIid}>
           <div className={styles.mapSize}>
             <MapnLocation />

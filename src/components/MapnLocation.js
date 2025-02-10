@@ -1,26 +1,29 @@
-
-
- 
-import { useEffect, useState } from "react";
 import { Container as MapDiv, NaverMap, useNavermaps, Marker } from "react-naver-maps";
-function MapnLocation() {
+
+import { useEffect, useState } from "react";
+
+function MapnLocation({ setLocation }) {
+
   const navermaps = useNavermaps();
-  const [location, setLocation] = useState(null); //처음 유저 정보
-  const [zoom, setZoom] = useState(10);
-  const [load, setLoad] = useState(0);
+  const [mapLocation, setMapLocation] = useState(null);
+
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation(new navermaps.LatLng(latitude, longitude)); // 위치 상태 업데이트
-          setZoom(30);
-          setLoad(1);
+          const newLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+          setMapLocation(newLocation);
+          setLocation(newLocation);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
         }
       );
-    } 
-  }, [navermaps]);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, [setLocation]);
 
   const handleMarker = (e) => {
     const lat = e.coord.lat();
@@ -32,13 +35,12 @@ function MapnLocation() {
   return (
     <MapDiv style={{ width: "100%", height: "100%" }}>
       {load === 0? "loading...": <NaverMap
-        zoom={zoom}
-        center={location} // 위치가 없으면 기본값
+        zoom={19}
+        center={mapLocation || { lat: 36.08333, lng: 129.36667 }} // 기본값: 포항시
         onClick={handleMarker}
-        
       >
-        {location && <Marker position={location} />} 
-      </NaverMap>}
+        {mapLocation && <Marker position={new navermaps.LatLng(mapLocation.lat, mapLocation.lng)} />}
+      </NaverMap>
     </MapDiv>
   );
 }

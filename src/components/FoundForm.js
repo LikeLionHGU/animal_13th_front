@@ -14,6 +14,19 @@ const FoundForm = () => {
 
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
 
+  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
+
+  useEffect(()=>{
+    const user = navigator.userAgent;
+    // 기본 환경 웹으로 설정
+    setBrowser("web")
+  
+    // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
+    if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
+        setBrowser("mobile")
+    }
+},[])
+
   useEffect(() => {
     // location이 변경될 때마다 displayLocation을 업데이트
     setDisplayLocation(`${location.lat}, ${location.lng}`);
@@ -72,6 +85,13 @@ const FoundForm = () => {
   return (
     <div>
       <h1>Found 글 작성 페이지</h1>
+      {browser === "web" ?
+      <>
+        <div>웹입니다</div>
+      </> :
+      <>
+        <div>모바일입니다</div>
+      </>}
       <form onSubmit={onSubmit}>
         <div>
           <input name="title" type="text" placeholder="제목" required />

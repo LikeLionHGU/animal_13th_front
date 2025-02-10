@@ -5,6 +5,7 @@ function MapnLocation({ setLocation }) {
   const navermaps = useNavermaps();
   const [mapLocation, setMapLocation] = useState(null);
 
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

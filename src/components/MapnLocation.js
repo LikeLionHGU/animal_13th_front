@@ -3,7 +3,7 @@ import { Container as MapDiv, NaverMap, useNavermaps, Marker } from "react-naver
 import { useEffect, useState } from "react";
 
 function MapnLocation({ setLocation }) {
-
+  const [load, setLoad] = useState(null);
   const navermaps = useNavermaps();
   const [mapLocation, setMapLocation] = useState(null);
 
@@ -15,6 +15,7 @@ function MapnLocation({ setLocation }) {
           const newLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
           setMapLocation(newLocation);
           setLocation(newLocation);
+          setLoad(1);
         },
         (error) => {
           console.error("Geolocation error:", error);
@@ -24,6 +25,7 @@ function MapnLocation({ setLocation }) {
       console.error("Geolocation is not supported by this browser.");
     }
   }, [setLocation]);
+
 
   const handleMarker = (e) => {
     const lat = e.coord.lat();
@@ -41,6 +43,7 @@ function MapnLocation({ setLocation }) {
       >
         {mapLocation && <Marker position={new navermaps.LatLng(mapLocation.lat, mapLocation.lng)} />}
       </NaverMap>
+      }
     </MapDiv>
   );
 }

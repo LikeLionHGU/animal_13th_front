@@ -109,24 +109,9 @@ const FoundForm = () => {
           </select>
         </div>
 
-        {/* 두 개의 파일 입력 버튼 추가 */}
-        <div>
-          <button type="button" onClick={() => document.getElementById("cameraInput").click()}>
-            사진 촬영
-          </button>
-          <input            
-            id="cameraInput"
-            type="file"
-            accept="image/*"
-            capture="environment" // 카메라를 실행하도록 설정
-            onChange={handleFileChange}
-            className={styles.imgInput}
-          />
-        </div>
-
         <div>
           <button type="button" onClick={() => document.getElementById("galleryInput").click()}>
-            갤러리에서 선택
+            사진 첨부
           </button>
           <input
             id="galleryInput"

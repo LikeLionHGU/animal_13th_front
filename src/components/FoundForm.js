@@ -17,7 +17,7 @@ const FoundForm = () => {
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
 
-  const [textAddress, setTextAddress] = useState("");
+  // const [textAddress, setTextAddress] = useState("");
 
   useEffect(()=>{
     const user = navigator.userAgent;
@@ -49,28 +49,42 @@ const FoundForm = () => {
   // 폼 제출 시 모든 데이터를 formData에 추가
   const onSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
-
+  
+    const formData = new FormData();
+  
+    // 이미지 파일이 있으면 추가
     if (imageFile) {
       formData.append("image", imageFile);
     }
-
-    formData.append("latitude", location.lat);
-    formData.append("longitude", location.lng);
-
+  
+    // 폼 데이터 수집
+    const boardData = {
+      title: event.target.title.value,
+      category: selectCategory,
+      phoneNum: event.target.phoneNum.value,
+      content: event.target.content.value,
+      location: displayLocation,
+      detailLocation: event.target.detailLocation.value,
+      boardType: 0,
+      latitude: location.lat,
+      longitude: location.lng,
+    };
+  
+    // JSON 형태로 변환 후 추가
+    formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
+  
     try {
-      // FormData 확인용 코드
+      // FormData 확인용 (나중에 제거)
       console.log("FormData 내용:");
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
-      // 나중에 여기까지는 지우기
-
+  
+      // 서버로 데이터 전송
       const response = await axios.post("https://koyangyee.info/board/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+  
       console.log("업로드 완료:", response.data);
       alert("업로드 완료");
       navigate("/");
@@ -166,6 +180,10 @@ const FoundForm = () => {
         <div className={styles.formGroup}>
           <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />
           <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
+        </div>
+
+        <div>
+          <input id="boardType" name="boardType" type="number" value="0"/>
         </div>
 
         <div>

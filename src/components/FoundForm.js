@@ -90,7 +90,7 @@ const FoundForm = () => {
       alert("업로드 완료");
       navigate("/");
     } catch (error) {
-      alert("업로드 오류");
+      // alert("업로드 오류");
       console.error("업로드 오류:", error);
     }
   };

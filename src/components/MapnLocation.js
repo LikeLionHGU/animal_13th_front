@@ -1,12 +1,11 @@
-import { Container as MapDiv, NaverMap, Marker, /*useNavermaps*/} from "react-naver-maps";
-
+import { Container as MapDiv, NaverMap, Marker, useNavermaps} from "react-naver-maps";
 
 import { useEffect, useState } from "react";
 
 
 function MapnLocation({ setLocation, setAddress }) {
   const [load, setLoad] = useState(0);
-  const navermaps = useNavermaps();
+  // const navermaps = useNavermaps();
   const [mapLocation, setMapLocation] = useState(null);
   //const navermaps = useNavermaps();
   useEffect(() => {

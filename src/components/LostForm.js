@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/Form.module.css";
 
@@ -7,6 +7,8 @@ const LostForm = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
+
+  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {
@@ -54,10 +56,21 @@ const LostForm = () => {
     }
   };
 
+  useEffect(()=>{
+    const user = navigator.userAgent;
+    // 기본 환경 웹으로 설정
+    setBrowser("web")
+  
+    // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
+    if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
+        setBrowser("mobile")
+    }
+},[])
+
   return (
-    <div>
+    <div className={styles.container}>
+      <form onSubmit={onSubmit} className={styles.formContainer}>
       <h1>Lost 글 작성 페이지</h1>
-      <form onSubmit={onSubmit}>
       <div className={styles.formGroup}>
           <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
           <label htmlFor="title" className={styles.formLabel}>제목</label>
@@ -111,6 +124,25 @@ const LostForm = () => {
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>
+      {browser === "web" ?
+        <>
+          <div className={styles.sidebar}>
+            <h2>Found 게시글</h2>
+            <ul className={styles.postList}>
+              <div className={styles.postItem}>Found 게시글</div>
+              <div className={styles.postItem}>Found 게시글</div>
+              <div className={styles.postItem}>Found 게시글</div>
+              <div className={styles.postItem}>Found 게시글</div>
+              <div className={styles.postItem}>Found 게시글</div>
+              <div className={styles.postItem}>Found 게시글</div>
+              <div className={styles.postItem}>Found 게시글</div>
+              <div className={styles.postItem}>Found 게시글</div>
+            </ul>
+          </div>
+        </> :
+        <>
+          <div></div>
+        </>}
     </div>
   );
 };

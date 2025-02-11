@@ -16,6 +16,7 @@ const FoundForm = () => {
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
+  const [address, setAddress] = useState(""); //좌표 주소로 변환 
 
   useEffect(()=>{
     const user = navigator.userAgent;
@@ -34,7 +35,7 @@ const FoundForm = () => {
     } else {
       setDisplayLocation(`${location.lat}, ${location.lng}`); // 아니면 그냥 사용
     }
-  }, [location]);
+  }, [location]); //마커 위치 업데이트 
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {
@@ -153,12 +154,12 @@ const FoundForm = () => {
 
         <NavermapsProvider ncpClientId={MapAPIid}>
           <div className={styles.mapSize}>
-            <MapnLocation setLocation={setLocation} />
+            <MapnLocation setLocation={setLocation} setAddress={setAddress}/>
           </div>
         </NavermapsProvider>
 
         <div>
-          <input name="location" type="text" value={displayLocation} className={styles.addressDisplay} readOnly />
+          <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
         </div>
 
         <div className={styles.formGroup}>

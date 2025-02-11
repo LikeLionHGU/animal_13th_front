@@ -35,35 +35,43 @@ function MapnLocation({ setLocation, setAddress }) {
   
     setMapLocation({ lat, lng });
     setLocation({ lat, lng });
+  
     if (!window.naver.maps.Service) {
       console.error("네이버 지도 API Service가 완전히 로드되지 않았습니다.");
       return;
     }
-    
+  
     if (!window.naver.maps.Service.reverseGeocode) {
       console.error("reverseGeocode 기능이 지원되지 않음.");
       return;
     }
-    
   
-    // 네이버 reverseGeocode API 호출
+    // ✅ 네이버 reverseGeocode API 호출
     window.naver.maps.Service.reverseGeocode(
       {
         coords: latlng,
-        orders: [window.naver.maps.Service.OrderType.ADDR, window.naver.maps.Service.OrderType.ROAD_ADDR].join(','),
+        orders: [window.naver.maps.Service.OrderType.ADDR, window.naver.maps.Service.OrderType.ROAD_ADDR].join(","),
       },
       function (status, response) {
         if (status !== window.naver.maps.Service.Status.OK) {
-          alert('주소 변환 오류 발생!');
+          console.error("주소 변환 오류 발생!", status);
+          setAddress("주소를 찾을 수 없음");
           return;
         }
   
-        // 도로명 주소가 있다면 도로명 주소를, 없다면 지번 주소를 가져옴
-        const address = response.v2.address.roadAddress
-          ? response.v2.address.roadAddress
-          : response.v2.address.jibunAddress;
+        // ✅ 응답 데이터가 있는지 확인 후 안전하게 처리
+        if (!response.v2 || !response.v2.addresses || response.v2.addresses.length === 0) {
+          console.error("🚨 역 지오코딩 응답이 비어 있음.");
+          setAddress("주소를 찾을 수 없음");
+          return;
+        }
+  
+        // ✅ 도로명 주소가 있으면 도로명 주소를, 없으면 지번 주소를 사용
+        const address =
+          response.v2.addresses[0]?.roadAddress || response.v2.addresses[0]?.jibunAddress || "주소를 찾을 수 없음";
   
         setAddress(address);
+        console.log("변환된 주소:", address);
       }
     );
   };

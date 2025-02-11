@@ -1,4 +1,4 @@
-import { Container as MapDiv, NaverMap, Marker, useNavermaps} from "react-naver-maps";
+import { Container as MapDiv, NaverMap, Marker, /*useNavermaps*/} from "react-naver-maps";
 
 import { useEffect, useState } from "react";
 

@@ -63,7 +63,7 @@ const LostForm = () => {
   
     // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
     if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
-        setBrowser("mobile")
+        setBrowser("mobile") 
     }
 },[])
 

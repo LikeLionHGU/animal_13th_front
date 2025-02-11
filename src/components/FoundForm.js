@@ -92,6 +92,7 @@ const FoundForm = () => {
     } catch (error) {
       // alert("업로드 오류");
       console.error("업로드 오류:", error);
+      navigate("/");
     }
   };
 
@@ -122,15 +123,15 @@ const FoundForm = () => {
         </div>
         <div className={styles.formGroup}>
           <select name="category" id="category" onChange={onCategorySelect} className={styles.formField} style={{cursor: "pointer"}} required>
-            <option value="">카테고리</option>
-            <option value="1">전자기기</option>
-            <option value="2">카드/학생증</option>
-            <option value="3">지갑/현금</option>
-            <option value="4">택배</option>
-            <option value="5">도서 및 서류</option>
-            <option value="6">의류/액세서리</option>
-            <option value="7">가방</option>
-            <option value="8">기타</option>
+            <option value="" readOnly>카테고리</option>
+            <option value="1" readOnly>전자기기</option>
+            <option value="2" readOnly>카드/학생증</option>
+            <option value="3" readOnly>지갑/현금</option>
+            <option value="4" readOnly>택배</option>
+            <option value="5" readOnly>도서 및 서류</option>
+            <option value="6" readOnly>의류/액세서리</option>
+            <option value="7" readOnly>가방</option>
+            <option value="8" readOnly>기타</option>
           </select>
         </div>
 
@@ -152,7 +153,7 @@ const FoundForm = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <input id="phoneNum" name="phoneNum" type="text" maxlength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
+          <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
           <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택) (예시: 010-1234-1234)</label>
         </div>
 
@@ -183,8 +184,9 @@ const FoundForm = () => {
           <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
         </div>
 
-        <div>
-          <input id="boardType" name="boardType" type="number" value="0"/>
+        {/* boardType 전송 (보여주지는 않음) */}
+        <div> 
+          <input id="boardType" name="boardType" type="number" value="0" style={{display: "none"}} readOnly/> 
         </div>
 
         <div>

@@ -35,7 +35,7 @@ const FoundForm = () => {
     } else {
       setDisplayLocation(`${location.lat}, ${location.lng}`); // 아니면 그냥 사용
     }
-  }, [location]);
+  }, [location]); //마커 위치 업데이트 
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {

@@ -1,12 +1,12 @@
-import { Container as MapDiv, NaverMap, Marker,  useNavermaps} from "react-naver-maps";
+import { Container as MapDiv, NaverMap, Marker, /*useNavermaps*/} from "react-naver-maps";
 
 
 import { useEffect, useState } from "react";
 
 function MapnLocation({ setLocation, setAddress }) {
-  const [load, setLoad] = useState(null);
+  const [load, setLoad] = useState(0);
   const [mapLocation, setMapLocation] = useState(null);
-  const navermaps = useNavermaps();
+  //const navermaps = useNavermaps();
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -17,7 +17,7 @@ function MapnLocation({ setLocation, setAddress }) {
 
           setMapLocation(newLocation);
           setLocation(newLocation);
-          setLoad(true);
+          setLoad(1);
 
         },
         (error) => {
@@ -29,25 +29,34 @@ function MapnLocation({ setLocation, setAddress }) {
       console.error("Geolocation is not supported by this browser.");
     }
   }, [setLocation]);
-  
+
+  //좌표-> 주소 변환 확인 코드
   const handleMarker = (e) => {
     const lat = e.coord.lat();
     const lng = e.coord.lng();
-    const latlng = new navermaps.LatLng(lat, lng); // 네이버 LatLng 객체 생성
+    const latlng = new window.naver.maps.LatLng(lat, lng); // 네이버 LatLng 객체 생성
   
     setMapLocation({ lat, lng });
     setLocation({ lat, lng });
-  
-    console.log("좌표:", lat, lng);
+    if (!window.naver.maps.Service) {
+      console.error("네이버 지도 API Service가 완전히 로드되지 않았습니다.");
+      return;
+    }
+    
+    if (!window.naver.maps.Service.reverseGeocode) {
+      console.error("reverseGeocode 기능이 지원되지 않습니다.");
+      return;
+    }
+    
   
     // 네이버 reverseGeocode API 호출
-    navermaps.Service.geocode(
+    window.naver.maps.Service.reverseGeocode(
       {
         coords: latlng,
-        orders: [navermaps.Service.OrderType.ADDR, navermaps.Service.OrderType.ROAD_ADDR].join(','),
+        orders: [window.naver.maps.Service.OrderType.ADDR, window.naver.maps.Service.OrderType.ROAD_ADDR].join(','),
       },
       function (status, response) {
-        if (status !== navermaps.Service.Status.OK) {
+        if (status !== window.naver.maps.Service.Status.OK) {
           alert('주소 변환 오류 발생!');
           return;
         }
@@ -64,7 +73,7 @@ function MapnLocation({ setLocation, setAddress }) {
   
   return (
     <MapDiv style={{ width: "100%", height: "100%" }}>
-      {load === 0? "loading...": <NaverMap
+      {load === 0 ? "loading...": <NaverMap
         zoom={19}
         center={mapLocation || { lat: 36.103096, lng: 129.387299 }} // 기본값: 한동대
         onClick={handleMarker}

@@ -68,10 +68,6 @@
     border-radius: 16px;
     border: 2px solid #CFECF0;
     margin-top: 10px;
-
-    @media screen and (max-width: 450px) {
-      width: 100%;
-    }
 }
 
 .textboxSize{
@@ -127,9 +123,14 @@
   padding: 15px 0 0;
   margin-top: 10px;
   width: 70%;
-  align-items: flex-start;
+}
 
-  @media screen and (max-width: 450px) {
+@media screen and (max-width: 450px) {
+  .formGroup {
+    width: 100%;
+  }
+
+  .contentTextBox {
     width: 100%;
   }
 }

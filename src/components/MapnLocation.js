@@ -3,7 +3,7 @@ import { Container as MapDiv, NaverMap, useNavermaps, Marker } from "react-naver
 import { useEffect, useState } from "react";
 
 function MapnLocation({ setLocation }) {
-  const [load, setLoad] = useState(null);
+  const [load, setLoad] = useState(0);
   const navermaps = useNavermaps();
   const [mapLocation, setMapLocation] = useState(null);
 
@@ -17,12 +17,8 @@ function MapnLocation({ setLocation }) {
 
           setMapLocation(newLocation);
           setLocation(newLocation);
-          setLoad(true);
+          setLoad(1);
 
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-          setLoad(true); // 에커 발생시에도 로딩 중단
         }
       );
     } else {

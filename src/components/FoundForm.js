@@ -17,6 +17,8 @@ const FoundForm = () => {
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
 
+  const [textAddress, setTextAddress] = useState("");
+
   useEffect(()=>{
     const user = navigator.userAgent;
     // 기본 환경 웹으로 설정

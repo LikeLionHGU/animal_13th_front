@@ -44,7 +44,7 @@ function MapnLocation({ setLocation, setAddress }) {
     }
     
     if (!window.naver.maps.Service.reverseGeocode) {
-      console.error("reverseGeocode 기능이 지원되지 않습니다.");
+      console.error("reverseGeocode 기능이 지원되지 않음.");
       return;
     }
     

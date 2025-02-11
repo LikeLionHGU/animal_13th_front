@@ -18,31 +18,6 @@ const FoundForm = () => {
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
 
-  const fetchAddressFromCoords = (lat, lng) => {
-  if (!window.naver || !window.naver.maps) {
-    console.error("네이버 지도 API가 로드되지 않았습니다.");
-    return;
-  }
-
-  window.naver.maps.Service.reverseGeocode(
-    {
-      coords: new window.naver.maps.LatLng(lat, lng),
-      orders: [window.naver.maps.Service.OrderType.ADDR, window.naver.maps.Service.OrderType.ROAD_ADDR].join(","),
-    },
-    (status, response) => {
-      if (status !== window.naver.maps.Service.Status.OK) {
-        console.error("역 지오코딩 실패:", status);
-        return;
-      }
-      
-      const result = response.v2.addresses[0]?.roadAddress || response.v2.addresses[0]?.jibunAddress || "주소를 찾을 수 없음";
-      setAddress(result);
-      console.log("변환된 주소:", result);
-    }
-  );
-};
-
-
   // const [textAddress, setTextAddress] = useState("");
 
   useEffect(()=>{
@@ -200,9 +175,9 @@ const FoundForm = () => {
           </div>
         </NavermapsProvider>
 
-        <div>
+        {/* <div>
           <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
-        </div>
+        </div> */}
 
         <div className={styles.formGroup}>
           <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />

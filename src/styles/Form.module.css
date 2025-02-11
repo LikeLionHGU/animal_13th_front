@@ -27,8 +27,9 @@
     border: 2px solid #CFECF0;
     margin-top: 10px;
     height: 50px;
-    width: 75px;
+    width: 130px;
     font-size: 15px;
+    cursor: pointer;
 }
 
 .mapSize {
@@ -38,7 +39,7 @@
 }
 
 .addressDisplay{
-    width: 50%;
+    width: 70%;
     border-radius: 16px;
     border: 2px solid #CFECF0;
     margin-top: 10px;
@@ -47,7 +48,7 @@
 }
 
 .contentTextBox {
-    width: 50%; /* 너비 설정 */
+    width: 70%;
     resize: none;
     min-height: 180px; /* 최소 높이 */
     max-height: 300px; /* 최대 높이 (선택 사항) */
@@ -112,7 +113,7 @@
   position: relative;
   padding: 15px 0 0;
   margin-top: 10px;
-  width: 50%;
+  width: 70%;
   align-items: flex-start;
 }
 

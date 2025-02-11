@@ -3,7 +3,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "../styles/Form.module.css";
+import styles from "../styles/Form.module.css?v=2";
 
 const FoundForm = () => {
   const textareaRef = useRef(null);

@@ -36,6 +36,11 @@
     display: flex;
     width: 50%;
     height: 40dvh;
+
+    @media screen and (max-width: 450px) {
+      width: 100%;
+      height: 23%;
+    }
 }
 
 .addressDisplay{
@@ -45,6 +50,10 @@
     margin-top: 10px;
     height: 50px;
     font-size: 20px;
+
+    @media screen and (max-width: 450px) {
+      width: 100%;
+    }
 }
 
 .contentTextBox {
@@ -59,6 +68,10 @@
     border-radius: 16px;
     border: 2px solid #CFECF0;
     margin-top: 10px;
+
+    @media screen and (max-width: 450px) {
+      width: 100%;
+    }
 }
 
 .textboxSize{
@@ -115,6 +128,10 @@
   margin-top: 10px;
   width: 70%;
   align-items: flex-start;
+
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
 }
 
 .formField {

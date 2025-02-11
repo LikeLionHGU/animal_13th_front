@@ -18,6 +18,8 @@ const FoundForm = () => {
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
 
+  const [textAddress, setTextAddress] = useState("");
+
   useEffect(()=>{
     const user = navigator.userAgent;
     // 기본 환경 웹으로 설정

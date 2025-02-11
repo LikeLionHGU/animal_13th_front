@@ -10,11 +10,12 @@ const FoundForm = () => {
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
-  const [location, setLocation] = useState({ lat: 36.08333, lng: 129.36667 }); // MapnLocation에서 값 받아오기
+  const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
 
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
+  const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
 
   useEffect(()=>{
     const user = navigator.userAgent;
@@ -28,8 +29,11 @@ const FoundForm = () => {
 },[])
 
   useEffect(() => {
-    // location이 변경될 때마다 displayLocation을 업데이트
-    setDisplayLocation(`${location.lat}, ${location.lng}`);
+    if (location && typeof location.lat === "function") {
+      setDisplayLocation(`${location.lat()}, ${location.lng()}`); // 함수면 호출해서 값만 저장
+    } else {
+      setDisplayLocation(`${location.lat}, ${location.lng}`); // 아니면 그냥 사용
+    }
   }, [location]);
 
   // 파일 선택 시 상태에 저장
@@ -74,6 +78,15 @@ const FoundForm = () => {
     }
   };
 
+  const onCategorySelect = (e) => {
+    console.log(e.target.value);
+    setCategory(e.target.value);
+  }
+
+  useEffect(() => {
+    console.log(selectCategory); // 카테고리 변경시 마다 카테고리 Int 값 selectCategory에 업데이트
+  }, [selectCategory]);
+
    const autoResize = () => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -86,18 +99,12 @@ const FoundForm = () => {
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
       <h1>Found 글 작성 페이지</h1>
-        {browser === "web" ?
-        <>
-          <div>웹입니다</div>
-        </> :
-        <>
-          <div>모바일입니다</div>
-        </>}
-        <div>
-          <input name="title" type="text" placeholder="제목" required />
+        <div className={styles.formGroup}>
+          <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
+          <label htmlFor="title" className={styles.formLabel}>제목</label>
         </div>
-        <div>
-          <select name="category" required>
+        <div className={styles.formGroup}>
+          <select name="category" id="category" onChange={onCategorySelect} className={styles.formField} style={{cursor: "pointer"}} required>
             <option value="">카테고리</option>
             <option value="1">전자기기</option>
             <option value="2">카드/지갑/현금</option>
@@ -107,10 +114,11 @@ const FoundForm = () => {
             <option value="6">가방</option>
             <option value="7">기타</option>
           </select>
+          {/* <label htmlFor="category" className={styles.formLabel}>카테고리</label> */}
         </div>
 
         <div>
-          <button type="button" onClick={() => document.getElementById("galleryInput").click()}>
+          <button type="button" className={styles.button} onClick={() => document.getElementById("galleryInput").click()}>
             사진 첨부
           </button>
           <input
@@ -126,21 +134,22 @@ const FoundForm = () => {
           {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
         </div>
 
+        <div className={styles.formGroup}>
+          <input id="phoneNum" name="phoneNum" type="text" maxlength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
+          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택) (예시: 010-1234-1234)</label>
+        </div>
+
         <div>
           <textarea 
             name="content" 
-            placeholder="내용" 
+            placeholder="추가적인 정보가 있으면 알려주세요." 
             ref={textareaRef} 
             onInput={autoResize} 
             className={styles.contentTextBox}
             required />
         </div>
 
-        <div>
-          <input name="phoneNum" type="text" maxlength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234)" className={styles.textboxSize}/>
-        </div>
-
-        <h1>물건을 찾은 위치를 입력해 주세요!</h1>
+        <h2>물건을 찾은 위치를 입력해 주세요!</h2>
 
         <NavermapsProvider ncpClientId={MapAPIid}>
           <div className={styles.mapSize}>
@@ -149,30 +158,37 @@ const FoundForm = () => {
         </NavermapsProvider>
 
         <div>
-          <input name="location" type="text" value={displayLocation} className={styles.textboxSize} readOnly />
+          <input name="location" type="text" value={displayLocation} className={styles.addressDisplay} readOnly />
+        </div>
+
+        <div className={styles.formGroup}>
+          <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />
+          <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
         </div>
 
         <div>
-          <input name="detailLocation" type="text" placeholder="상세위치" className={styles.textboxSize} />
-        </div>
-
-        <div>
-          <button type="submit">완료</button>
+          <button className={styles.button} type="submit">완료</button>
         </div>
       </form>
-      <div className={styles.sidebar}>
-        <h2>Lost 게시글</h2>
-        <ul className={styles.postList}>
-          <div className={styles.postItem}>Lost 게시글</div>
-          <div className={styles.postItem}>Lost 게시글</div>
-          <div className={styles.postItem}>Lost 게시글</div>
-          <div className={styles.postItem}>Lost 게시글</div>
-          <div className={styles.postItem}>Lost 게시글</div>
-          <div className={styles.postItem}>Lost 게시글</div>
-          <div className={styles.postItem}>Lost 게시글</div>
-          <div className={styles.postItem}>Lost 게시글</div>
-        </ul>
-      </div>
+      {browser === "web" ?
+        <>
+          <div className={styles.sidebar}>
+            <h2>Lost 게시글</h2>
+            <ul className={styles.postList}>
+              <div className={styles.postItem}>Lost 게시글</div>
+              <div className={styles.postItem}>Lost 게시글</div>
+              <div className={styles.postItem}>Lost 게시글</div>
+              <div className={styles.postItem}>Lost 게시글</div>
+              <div className={styles.postItem}>Lost 게시글</div>
+              <div className={styles.postItem}>Lost 게시글</div>
+              <div className={styles.postItem}>Lost 게시글</div>
+              <div className={styles.postItem}>Lost 게시글</div>
+            </ul>
+          </div>
+        </> :
+        <>
+          <div></div>
+        </>}
     </div>
   );
 };

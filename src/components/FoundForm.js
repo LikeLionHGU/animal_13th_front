@@ -75,26 +75,53 @@ const FoundForm = () => {
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
   
     try {
-      // FormData 확인용 (나중에 제거)
+      // FormData 확인용
       console.log("FormData 내용:");
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
+      //여기까지는 나중에 삭제
   
       // 서버로 데이터 전송
       const response = await axios.post("https://koyangyee.info/board/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
-      console.log("업로드 완료:", response.data);
+
+      // ✅ 서버 응답 데이터 확인
+    const { isLogin, isSuccess } = response.data;
+
+    if (isLogin === 1 && isSuccess === 1) {
+      console.log("✅ 업로드 완료:", response.data);
       alert("업로드 완료");
       navigate("/");
-    } catch (error) {
-      // alert("업로드 오류");
-      console.error("업로드 오류:", error);
-      navigate("/");
+    } else {
+      // 실패 사유에 따라 메시지 구분
+      if (isLogin === 0) {
+        alert("로그인이 필요합니다.");
+        console.error("❌ 로그인되지 않은 상태에서 요청이 수행되었습니다.");
+      } else if (isSuccess === 0) {
+        alert("업로드에 실패했습니다. 다시 시도해주세요.");
+        console.error("❌ 서버에서 업로드를 실패로 처리했습니다.");
+      }
     }
-  };
+  } catch (error) {
+    // 예상치 못한 오류 처리
+    console.error("❌ 요청 중 오류 발생:", error.message);
+    alert("알 수 없는 오류가 발생했습니다.");
+  }
+};
+      // if (error.response) {
+      //   console.error("서버 응답 오류:", error.response.status, error.response.data);
+      //   alert(`업로드 오류: ${error.response.status}`);
+      // } else if (error.request) {
+      //   console.error("요청은 전송되었으나 응답이 없습니다.", error.request);
+      //   alert("서버 응답이 없습니다.");
+      // } else {
+      //   console.error("요청 중 오류 발생:", error.message);
+      //   alert("알 수 없는 오류가 발생했습니다.");
+      // }
+      // navigate("/");
+
 
   const onCategorySelect = (e) => {
     console.log(e.target.value);

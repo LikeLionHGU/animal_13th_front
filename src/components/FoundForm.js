@@ -196,7 +196,7 @@ const FoundForm = () => {
             className={styles.imgInput}
           />
         </div>
-      
+        
         <div className={styles.imgContainer}>
           {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
         </div>

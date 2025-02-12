@@ -4,7 +4,7 @@ import SimpleNaverMap from "./SimpleNaverMap";
 function Api() {
     return (
       <NavermapsProvider
-      ncpClientId='pfx4scf0lr' // 지도서비스 Client ID
+      ncpClientId=Client ID // 지도서비스 Client ID
     >
       <div style={{ display: "flex", width: "100dvw", height: "100dvh" }}>
         <SimpleNaverMap />

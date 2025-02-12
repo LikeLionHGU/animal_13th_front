@@ -21,7 +21,6 @@ function MapnLocation({ setLocation, setAddress }) {
     return () => clearInterval(checkNaverAPI);
   }, []);
 
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Container as MapDiv, NaverMap, Marker, useNavermaps } from "react-naver-maps";
 
@@ -19,6 +20,11 @@ function MapnLocation({ setLocation, setAddress }) {
 
     return () => clearInterval(checkNaverAPI);
   }, []);
+
+
+ 
+  const [mapLocation, setMapLocation] = useState(null);
+
 
   useEffect(() => {
     if (navigator.geolocation) {

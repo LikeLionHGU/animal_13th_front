@@ -3,7 +3,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "../styles/Form.module.css";
+import styles from "../styles/Form.module.css?v=2";
 
 const FoundForm = () => {
   const textareaRef = useRef(null);
@@ -17,6 +17,8 @@ const FoundForm = () => {
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
+
+  // const [textAddress, setTextAddress] = useState("");
 
   useEffect(()=>{
     const user = navigator.userAgent;
@@ -48,36 +50,78 @@ const FoundForm = () => {
   // 폼 제출 시 모든 데이터를 formData에 추가
   const onSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
-
+  
+    const formData = new FormData();
+  
+    // 이미지 파일이 있으면 추가
     if (imageFile) {
       formData.append("image", imageFile);
     }
-
-    formData.append("latitude", location.lat);
-    formData.append("longitude", location.lng);
-
+  
+    // 폼 데이터 수집
+    const boardData = {
+      title: event.target.title.value,
+      category: selectCategory,
+      phoneNum: event.target.phoneNum.value,
+      content: event.target.content.value,
+      location: displayLocation,
+      detailLocation: event.target.detailLocation.value,
+      boardType: 0,
+      latitude: location.lat,
+      longitude: location.lng,
+    };
+  
+    // JSON 형태로 변환 후 추가
+    formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
+  
     try {
-      // FormData 확인용 코드
+      // FormData 확인용
       console.log("FormData 내용:");
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
-      // 나중에 여기까지는 지우기
-
+      //여기까지는 나중에 삭제
+  
+      // 서버로 데이터 전송
       const response = await axios.post("https://koyangyee.info/board/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log("업로드 완료:", response.data);
+      // ✅ 서버 응답 데이터 확인
+    const { isLogin, isSuccess } = response.data;
+
+    if (isLogin === 1 && isSuccess === 1) {
+      console.log("✅ 업로드 완료:", response.data);
       alert("업로드 완료");
       navigate("/");
-    } catch (error) {
-      alert("업로드 오류");
-      console.error("업로드 오류:", error);
+    } else {
+      // 실패 사유에 따라 메시지 구분
+      if (isLogin === 0) {
+        alert("로그인이 필요합니다.");
+        console.error("❌ 로그인되지 않은 상태에서 요청이 수행되었습니다.");
+      } else if (isSuccess === 0) {
+        alert("업로드에 실패했습니다. 다시 시도해주세요.");
+        console.error("❌ 서버에서 업로드를 실패로 처리했습니다.");
+      }
     }
-  };
+  } catch (error) {
+    // 예상치 못한 오류 처리
+    console.error("❌ 요청 중 오류 발생:", error.message);
+    alert("알 수 없는 오류가 발생했습니다.");
+  }
+};
+      // if (error.response) {
+      //   console.error("서버 응답 오류:", error.response.status, error.response.data);
+      //   alert(`업로드 오류: ${error.response.status}`);
+      // } else if (error.request) {
+      //   console.error("요청은 전송되었으나 응답이 없습니다.", error.request);
+      //   alert("서버 응답이 없습니다.");
+      // } else {
+      //   console.error("요청 중 오류 발생:", error.message);
+      //   alert("알 수 없는 오류가 발생했습니다.");
+      // }
+      // navigate("/");
+
 
   const onCategorySelect = (e) => {
     console.log(e.target.value);
@@ -106,16 +150,16 @@ const FoundForm = () => {
         </div>
         <div className={styles.formGroup}>
           <select name="category" id="category" onChange={onCategorySelect} className={styles.formField} style={{cursor: "pointer"}} required>
-            <option value="">카테고리</option>
-            <option value="1">전자기기</option>
-            <option value="2">카드/지갑/현금</option>
-            <option value="3">택배</option>
-            <option value="4">도서 및 서류</option>
-            <option value="5">의류/액세서리</option>
-            <option value="6">가방</option>
-            <option value="7">기타</option>
+            <option value="" readOnly>카테고리</option>
+            <option value="1" readOnly>전자기기</option>
+            <option value="2" readOnly>카드/학생증</option>
+            <option value="3" readOnly>지갑/현금</option>
+            <option value="4" readOnly>택배</option>
+            <option value="5" readOnly>도서 및 서류</option>
+            <option value="6" readOnly>의류/액세서리</option>
+            <option value="7" readOnly>가방</option>
+            <option value="8" readOnly>기타</option>
           </select>
-          {/* <label htmlFor="category" className={styles.formLabel}>카테고리</label> */}
         </div>
 
         <div>
@@ -136,7 +180,7 @@ const FoundForm = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <input id="phoneNum" name="phoneNum" type="text" maxlength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
+          <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
           <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택) (예시: 010-1234-1234)</label>
         </div>
 
@@ -158,13 +202,18 @@ const FoundForm = () => {
           </div>
         </NavermapsProvider>
 
-        <div>
+        {/* <div>
           <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
-        </div>
+        </div> */}
 
         <div className={styles.formGroup}>
           <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />
           <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
+        </div>
+
+        {/* boardType 전송 (보여주지는 않음) */}
+        <div> 
+          <input id="boardType" name="boardType" type="number" value="0" style={{display: "none"}} readOnly/> 
         </div>
 
         <div>

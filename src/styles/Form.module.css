@@ -34,12 +34,12 @@
 
 .mapSize {
     display: flex;
-    width: 50%;
+    width: 90%;
     height: 40dvh;
 }
 
 .addressDisplay{
-    width: 70%;
+    width: 90%;
     border-radius: 16px;
     border: 2px solid #CFECF0;
     margin-top: 10px;
@@ -48,7 +48,7 @@
 }
 
 .contentTextBox {
-    width: 70%;
+    width: 90%;
     resize: none;
     min-height: 180px; /* 최소 높이 */
     max-height: 300px; /* 최대 높이 (선택 사항) */
@@ -113,8 +113,7 @@
   position: relative;
   padding: 15px 0 0;
   margin-top: 10px;
-  width: 70%;
-  align-items: flex-start;
+  width: 90%;
 }
 
 .formField {
@@ -172,3 +171,22 @@
 .formField{
   &:required,&:invalid { box-shadow:none; }
 }
+
+/* @media screen and (max-width: 450px) {
+  .formGroup {
+    width: 100%;
+  }
+
+  .contentTextBox {
+    width: 100%;
+  }
+
+  .mapSize {
+    height: 23%;
+    width: 100%;
+  }
+
+  .addressDisplay {
+    width: 100%;
+  }
+} */

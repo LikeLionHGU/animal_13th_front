@@ -63,7 +63,7 @@ const LostForm = () => {
   
     // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
     if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
-        setBrowser("mobile")
+        setBrowser("mobile") 
     }
 },[])
 
@@ -79,12 +79,13 @@ const LostForm = () => {
           <select name="category" id="category" className={styles.formField} style={{cursor: "pointer"}} required>
             <option value="">카테고리</option>
             <option value="1">전자기기</option>
-            <option value="2">카드/지갑/현금</option>
-            <option value="3">택배</option>
-            <option value="4">도서 및 서류</option>
-            <option value="5">의류/액세서리</option>
-            <option value="6">가방</option>
-            <option value="7">기타</option>
+            <option value="2">카드/학생증</option>
+            <option value="3">지갑/현금</option>
+            <option value="4">택배</option>
+            <option value="5">도서 및 서류</option>
+            <option value="6">의류/액세서리</option>
+            <option value="7">가방</option>
+            <option value="8">기타</option>
           </select>
           {/* <label htmlFor="category" className={styles.formLabel}>카테고리</label> */}
         </div>

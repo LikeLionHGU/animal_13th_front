@@ -4,6 +4,7 @@ import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/Form.module.css?v=2";
+import FoundSearch from "./API/FoundSearch";
 
 const FoundForm = () => {
   const textareaRef = useRef(null);
@@ -110,19 +111,6 @@ const FoundForm = () => {
     alert("알 수 없는 오류가 발생했습니다.");
   }
 };
-      // if (error.response) {
-      //   console.error("서버 응답 오류:", error.response.status, error.response.data);
-      //   alert(`업로드 오류: ${error.response.status}`);
-      // } else if (error.request) {
-      //   console.error("요청은 전송되었으나 응답이 없습니다.", error.request);
-      //   alert("서버 응답이 없습니다.");
-      // } else {
-      //   console.error("요청 중 오류 발생:", error.message);
-      //   alert("알 수 없는 오류가 발생했습니다.");
-      // }
-      // navigate("/");
-
-
   const onCategorySelect = (e) => {
     console.log(e.target.value);
     setCategory(e.target.value);

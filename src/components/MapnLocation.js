@@ -22,10 +22,6 @@ function MapnLocation({ setLocation, setAddress }) {
   }, []);
 
 
- 
-  const [mapLocation, setMapLocation] = useState(null);
-
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

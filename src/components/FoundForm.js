@@ -4,6 +4,7 @@ import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/Form.module.css?v=2";
+import FoundSearch from "./API/FoundSearch";
 
 const FoundForm = () => {
   const textareaRef = useRef(null);
@@ -113,7 +114,6 @@ const FoundForm = () => {
     window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfYkjugkc1bBMr0GrQh1fgu1M8jOziIRAluLOaAgLpNW3JywQ/viewform"; // 이벤트시에만 오류떠도 그냥 폼으로 이동
   }
 };
-
   const onCategorySelect = (e) => {
     console.log(e.target.value);
     setCategory(e.target.value);

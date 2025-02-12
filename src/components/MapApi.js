@@ -14,7 +14,7 @@ function Api() {
     return (
       <div>
         <NavermapsProvider
-        ncpClientId='pfx4scf0lr' // 지도서비스 Client ID
+        ncpClientId=Client ID // 지도서비스 Client ID
       >
         <div className={styles.mapSize}>
           <MapnLocation />

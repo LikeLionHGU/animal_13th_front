@@ -165,7 +165,7 @@ const FoundForm = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
-      <h1>Found 글 작성 페이지</h1>
+      <h1>Found 글 작성</h1>
         <div className={styles.formGroup}>
           <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
           <label htmlFor="title" className={styles.formLabel}>습득물명 (필수)</label>
@@ -184,7 +184,7 @@ const FoundForm = () => {
           </select>
         </div>
 
-        <div>
+        <div className={styles.buttonContainer}>
           <button type="button" className={styles.button} onClick={() => document.getElementById("galleryInput").click()}>
             사진 첨부
           </button>
@@ -196,14 +196,14 @@ const FoundForm = () => {
             className={styles.imgInput}
           />
         </div>
-
+      
         <div className={styles.imgContainer}>
           {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
         </div>
 
         <div className={styles.formGroup}>
           <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
-          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택) (예시: 010-1234-1234)</label>
+          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택)</label> {/* (예시: 010-1234-1234) */}
         </div>
 
         <div>
@@ -238,7 +238,7 @@ const FoundForm = () => {
           <input id="boardType" name="boardType" type="number" value="0" style={{display: "none"}} readOnly/> 
         </div>
 
-        <div>
+        <div className={styles.buttonContainer}>
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>

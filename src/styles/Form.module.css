@@ -5,7 +5,7 @@
   }
 
 .imgContainer {
-    width: 200px;
+    width: auto;
     height: 200px;
     overflow: hidden;
     position: relative;
@@ -16,10 +16,13 @@
 }
 
 .imgDisplay {
+    display: block; /* margin: auto 적용을 위해 block 설정 */
+    margin: auto; /* 가로 중앙 정렬 */
     width: 100%;
     height: 100%;
-    object-fit: fill;
-    border-radius: 16px;
+    object-fit: contain;
+    border-radius: 10px;
+    padding-top: 7px;
 }
 
 .button {
@@ -30,6 +33,12 @@
     width: 130px;
     font-size: 15px;
     cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* 가로 가운데 정렬 */
+  align-items: center; /* 세로 가운데 정렬 (필요 시) */
 }
 
 .mapSize {
@@ -182,11 +191,28 @@
   }
 
   .mapSize {
-    height: 23%;
+    height: 22%;
     width: 100%;
   }
 
   .addressDisplay {
     width: 100%;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 17px;
+  }
+
+  .formLabel {
+    font-size: 10px;
+  }
+
+  label {
+    font-size: 10px;
   }
 }

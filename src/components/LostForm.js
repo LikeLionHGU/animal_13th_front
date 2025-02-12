@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import styles from "../styles/Form.module.css?v=2";
+import styles from "../styles/Form.module.css";
 
 const LostForm = () => {
   const textareaRef = useRef(null);

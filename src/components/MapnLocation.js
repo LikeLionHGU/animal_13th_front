@@ -22,8 +22,7 @@ function MapnLocation({ setLocation, setAddress }) {
   }, []);
 
 
- 
-  const [mapLocation, setMapLocation] = useState(null);
+  // const [mapLocation, setMapLocation] = useState(null);
 
 
   useEffect(() => {

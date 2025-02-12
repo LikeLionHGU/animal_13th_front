@@ -220,10 +220,9 @@ const FoundForm = () => {
             <MapnLocation setLocation={setLocation} setAddress={setAddress}/>
           </div>
         </NavermapsProvider>
-
-        {/* <div>
+        <div>
           <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
-        </div> */}
+        </div>
 
         <div className={styles.formGroup}>
           <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />

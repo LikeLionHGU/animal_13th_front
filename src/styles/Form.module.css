@@ -5,7 +5,7 @@
   }
 
 .imgContainer {
-    width: auto;
+    width: 200px;
     height: 200px;
     overflow: hidden;
     position: relative;
@@ -16,8 +16,6 @@
 }
 
 .imgDisplay {
-    display: block; /* margin: auto 적용을 위해 block 설정 */
-    margin: auto; /* 가로 중앙 정렬 */
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -37,8 +35,6 @@
 
 .buttonContainer {
   display: flex;
-  justify-content: center; /* 가로 가운데 정렬 */
-  align-items: center; /* 세로 가운데 정렬 (필요 시) */
 }
 
 .mapSize {
@@ -181,6 +177,10 @@
   &:required,&:invalid { box-shadow:none; }
 }
 
+.formField option:first-child {
+    color: #A2A0A0;
+}
+
 @media screen and (max-width: 450px) {
   .formGroup {
     width: 100%;
@@ -214,5 +214,20 @@
 
   label {
     font-size: 10px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center; /* 세로 가운데 정렬 (필요 시) */
+  }
+
+  .imgDisplay {
+    display: block; /* margin: auto 적용을 위해 block 설정 */
+    margin: auto; /* 가로 중앙 정렬 */
+  }
+
+  .imgContainer {
+    width: 100%;
   }
 }

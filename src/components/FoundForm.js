@@ -148,21 +148,20 @@ const FoundForm = () => {
           </select>
         </div>
 
-        <div className={styles.buttonContainer}>
-          <button type="button" className={styles.button} onClick={() => document.getElementById("galleryInput").click()}>
-            사진 첨부
-          </button>
-          <input
-            id="galleryInput"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className={styles.imgInput}
-          />
+        <h2>물건을 찾은 위치를 입력해 주세요!</h2>
+
+        <NavermapsProvider ncpClientId={MapAPIid}>
+          <div className={styles.mapSize}>
+            <MapnLocation setLocation={setLocation} setAddress={setAddress}/>
+          </div>
+        </NavermapsProvider>
+        <div>
+          <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
         </div>
-        
-        <div className={styles.imgContainer}>
-          {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
+
+        <div className={styles.formGroup}>
+          <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />
+          <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
         </div>
 
         <div className={styles.formGroup}>
@@ -181,20 +180,21 @@ const FoundForm = () => {
             />
         </div>
 
-        <h2>물건을 찾은 위치를 입력해 주세요!</h2>
-
-        <NavermapsProvider ncpClientId={MapAPIid}>
-          <div className={styles.mapSize}>
-            <MapnLocation setLocation={setLocation} setAddress={setAddress}/>
-          </div>
-        </NavermapsProvider>
-        <div>
-          <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
+        <div className={styles.buttonContainer}>
+          <button type="button" className={styles.button} onClick={() => document.getElementById("galleryInput").click()}>
+            사진 첨부
+          </button>
+          <input
+            id="galleryInput"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className={styles.imgInput}
+          />
         </div>
-
-        <div className={styles.formGroup}>
-          <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />
-          <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
+        
+        <div className={styles.imgContainer}>
+          {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
         </div>
 
         {/* boardType 전송 (보여주지는 않음) */}

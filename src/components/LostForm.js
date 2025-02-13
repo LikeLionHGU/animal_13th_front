@@ -89,6 +89,28 @@ const LostForm = () => {
           </select>
           {/* <label htmlFor="category" className={styles.formLabel}>카테고리</label> */}
         </div>
+
+        <div className={styles.formGroup}>
+          <input id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}`}/>
+          <label htmlFor="location" className={styles.formLabel}>예상 분실 위치 (선택)</label>
+        </div>
+
+        <div className={styles.formGroup}>
+          <input id="phoneNum" name="phoneNum" type="text" maxlength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
+          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택) (예시: 010-1234-1234)</label>
+        </div>
+
+        <div>
+          <textarea
+            className={styles.contentTextBox}
+            name="content"
+            placeholder="추가적인 정보가 있으면 알려주세요."
+            onInput={autoResize}
+            ref={textareaRef}
+            required
+          />
+        </div>
+
         <button type="button" className={styles.button} onClick={() => document.getElementById("cameraInput").click()}>
           사진 첨부
         </button>
@@ -103,24 +125,7 @@ const LostForm = () => {
         <div className={styles.imgContainer}>
           {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Captured" className={styles.imgDisplay} />}
         </div>
-        <div>
-          <textarea
-            className={styles.contentTextBox}
-            name="content"
-            placeholder="추가적인 정보가 있으면 알려주세요."
-            onInput={autoResize}
-            ref={textareaRef}
-            required
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <input id="phoneNum" name="phoneNum" type="text" maxlength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
-          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택) (예시: 010-1234-1234)</label>
-        </div>
-        <div className={styles.formGroup}>
-          <input id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}`}/>
-          <label htmlFor="location" className={styles.formLabel}>예상 분실 위치 (선택)</label>
-        </div>
+
         <div>
           <button className={styles.button} type="submit">완료</button>
         </div>

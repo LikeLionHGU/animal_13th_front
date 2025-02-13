@@ -124,4 +124,4 @@ function MapnLocation({ setLocation, setAddress }) {
 
 export default MapnLocation;
 
-//마커가 입력될 때, ar=ddress가 추가되어야 한다 
+//마커가 입력될 때, address가 추가되어야 한다 

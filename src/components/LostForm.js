@@ -70,10 +70,10 @@ const LostForm = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
-      <h1>Lost 글 작성 페이지</h1>
+      <h1>LOST 글 작성 페이지</h1>
       <div className={styles.formGroup}>
           <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
-          <label htmlFor="title" className={styles.formLabel}>제목</label>
+          <label htmlFor="title" className={styles.formLabel}>분실물명</label>
         </div>
         <div className={styles.formGroup}>
           <select name="category" id="category" className={styles.formField} style={{cursor: "pointer"}} required>

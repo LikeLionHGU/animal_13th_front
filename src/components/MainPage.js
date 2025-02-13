@@ -1,7 +1,9 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import GoogleLoginButton from './GoogleLoginButton';
-import styles from '../styles/Form.module.css';
+import styles from '../styles/Page.module.css'
+import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
+import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
 
 
 function MainPage() {
@@ -22,30 +24,31 @@ function MainPage() {
     const lostPageClick = () => {
         navigate("/lost-page");
     }
-
-    const myPageClick = () => {
-        navigate("/mypage");
-    }
-
-    const alertPageClick = () => {
-        navigate("/alert-page");
-    }
     
     return (
         <div>
-            <h1>메인 페이지</h1>
             <div><GoogleLoginButton/></div>
-            <div>
-                <button className={styles.button} onClick={myPageClick}>마이페이지</button>
-                <button className={styles.button} onClick={alertPageClick}>알림페이지</button>
+            <div className={styles.mainpageButtons}>
+                <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
+                <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
             </div>
-            <div>
-                <button className={styles.button} onClick={foundFormClick}>Found 글 작성</button>
-                <button className={styles.button} onClick={lostFormClick}> Lost 글 작성</button>
+            <div className={styles.title} style={{justifyContent: "space-between"}}>
+                <div className={styles.titleText}>
+                    <span className={styles.Lost}>LOST</span> 
+                    <span className={styles.comma}>, </span>
+                    <span  className={styles.restTitle}>물건을 잃어버렸어요</span>
+                    <div className={styles.stroke}></div>
+                </div>
+                <span className={styles.showMore} onClick={foundPageClick}>더보기</span>
             </div>
-            <div>
-                <button className={styles.button} onClick={foundPageClick}>Found 게시판</button>
-                <button className={styles.button} onClick={lostPageClick}>Lost 게시판</button>
+            <div className={styles.title} style={{justifyContent: "space-between"}}>
+                <div className={styles.titleText}>
+                    <span className={styles.Lost}>FOUND</span> 
+                    <span className={styles.comma}>,</span>
+                    <span className={styles.restTitle}>물건을 찾았어요</span>
+                    <div className={styles.stroke}></div>
+                </div>
+                <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
             </div>
         </div>
     )

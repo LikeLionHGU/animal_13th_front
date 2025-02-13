@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { GoogleLogin} from "@react-oauth/google";
-//import styles from "./GoogleLoginStyle.module.css";
+import styles from "../styles/GoogleLoginStyle.module.css";
 
 function GoogleLoginButton() {
     const [clientId, setClientId] = useState("");
@@ -10,7 +10,7 @@ function GoogleLoginButton() {
     useEffect(() => {
         const fetchClientId = async () => {
             try {
-                const response = await axios.get("https://koyangyee.info/auth/login/clientid");
+                const response = await axios.get("https://koyangyee.info/auth/login/clientid..");
                 setClientId(response.data.clientId); // { clientId: "YOUR_CLIENT_ID" }
             } catch (error) {
                 console.error("❌ 클라이언트 ID 가져오기 실패:", error);
@@ -33,7 +33,7 @@ function GoogleLoginButton() {
         try {
             // 2️) 백엔드에 토큰 전달
             const request = await axios.post(
-                "https://koyangyee.info/auth/login",
+                "https://koyangyee.info/auth/login..",
                 { googleIdToken},
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -53,7 +53,7 @@ function GoogleLoginButton() {
     return (
         <div>
             {clientId ? (
-                <div /*className={styles.googleLoginButton}*/>
+                <div className={styles.googleLoginButton}>
                     <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
                 </div>
             ) : (

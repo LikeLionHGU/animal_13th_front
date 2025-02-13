@@ -1,0 +1,76 @@
+.floatingContainer {
+    position: fixed;
+    bottom: 48.7px; 
+    right: 48.7px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 글쓰기 버튼 (항상 고정) */
+.floatingButton {
+    background-color: #1E293B;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 71px;
+    height: 71px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.floatingButton:hover {
+    background-color: #334155;
+}
+
+/* 드롭다운 메뉴 (초기 숨김) */
+.dropdownMenu {
+    background-color: #1E293B;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    position: absolute;
+    bottom: 80px; 
+    right: 0;
+    width: 130px;
+    pointer-events: none;
+}
+
+/* 드롭다운 활성화 시 표시 */
+.dropdownMenu.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.dropdownItem {
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.dropdownItem:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 5px 10px;
+}

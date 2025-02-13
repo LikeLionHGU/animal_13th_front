@@ -40,6 +40,7 @@ function MainPage() {
                     <div className={styles.stroke}></div>
                 </div>
                 <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
+
             </div>
             <div className={styles.title} style={{justifyContent: "space-between"}}>
                 <div className={styles.titleText}>

@@ -6,20 +6,22 @@ import axios from "axios";
 function GoogleLoginButton() {
     const postData = async (e) => {
         try {
-          const url = "https://koyangyee.info/auth/login"; // ✅ 요청을 보낼 엔드포인트
-          const data = {
-            token: e,
-          }; // ✅ 전송할 데이터
-      
-          const headers = {
-            "Content-Type": "application/json",
-            Authorization: "Bearer your_token", // ✅ 필요 시 인증 토큰 추가
-          }; // ✅ 요청 헤더 설정
-      
-          const response = await axios.post(url, data, { headers });
-      
-          console.log("✅ 응답 데이터:", response.data);
-          return response.data;
+            // 1️⃣ 백엔드에 토큰 전달하여 OAuth 인증 진행
+            const request = await axios.post(
+
+                "https://koyangyee.info/auth/login",
+                { googleIdToken },
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            console.log("✅ 로그인 성공:", request.data);
+
+            // 2️⃣ 로그인 성공 후, 백엔드에서 Client ID 가져오기
+            const responseClientId = await axios.get("https://koyangyee.info/auth/login/clientid");
+            setClientId(responseClientId.data.clientId); // { clientId: "YOUR_CLIENT_ID" }
+
+            console.log("✅ 백엔드에서 받아온 Client ID:", responseClientId.data.clientId);
+            alert("로그인 성공");
         } catch (error) {
           console.error("❌ 요청 실패:", error.response ? error.response.data : error.message);
         }

@@ -1,66 +1,44 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+import { GoogleLogin } from '@react-oauth/google';
+import styles from '../styles/GoogleLoginStyle.module.css';
 import axios from "axios";
-import { GoogleLogin} from "@react-oauth/google";
-import styles from "../styles/GoogleLoginStyle.module.css";
 
 function GoogleLoginButton() {
-    const [clientId, setClientId] = useState("");
-
-    // 1️) 백엔드에서 Google Client ID 가져오기
-    useEffect(() => {
-        const fetchClientId = async () => {
-            try {
-                const response = await axios.get("https://koyangyee.info/auth/login/clientid");
-                setClientId(response.data.clientId); // { clientId: "YOUR_CLIENT_ID" }
-            } catch (error) {
-                console.error("❌ 클라이언트 ID 가져오기 실패:", error);
-            }
-        };
-
-        fetchClientId();
-    }, []);
-
-    const responseMessage = async (response) => {
-        console.log("✅ 구글 로그인 응답:", response);
-        const googleIdToken = response.credential;
-
-        if (!googleIdToken) {
-            console.error("❌ 토큰이 없습니다.");
-            alert("로그인 실패. 다시 시도해주세요.");
-            return;
-        }
-
+    const postData = async (e) => {
         try {
-            // 2️) 백엔드에 토큰 전달
-            const request = await axios.post(
-                "https://koyangyee.info/auth/login",
-                { googleIdToken},
-                { headers: { "Content-Type": "application/json" } }
-            );
-
-            console.log("✅ 로그인 성공:", request.data);
-            alert("로그인 성공");
+          const url = "https://koyangyee.info/auth/login"; // ✅ 요청을 보낼 엔드포인트
+          const data = {
+            token: e,
+          }; // ✅ 전송할 데이터
+      
+          const headers = {
+            "Content-Type": "application/json",
+            Authorization: "Bearer your_token", // ✅ 필요 시 인증 토큰 추가
+          }; // ✅ 요청 헤더 설정
+      
+          const response = await axios.post(url, data, { headers });
+      
+          console.log("✅ 응답 데이터:", response.data);
+          return response.data;
         } catch (error) {
-            console.error("❌ 로그인 요청 실패:", error);
-            alert("로그인 실패. 다시 시도해주세요.");
+          console.error("❌ 요청 실패:", error.response ? error.response.data : error.message);
         }
-    };
+      };
 
+    const responseMessage = (response) => {
+        console.log(response); // 로그인 성공시 response.credential 로 토큰 받아올 수 있음
+        postData(response.credential);
+        alert("로그인 성공");
+    };
     const errorMessage = (error) => {
-        console.error("❌ 구글 로그인 오류:", error);
+        console.log(error);
     };
-
     return (
         <div>
-            {clientId ? (
-                <div className={styles.googleLoginButton}>
-                    <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-                </div>
-            ) : (
-                <p>Google 로그인 정보를 불러오는 중...</p>
-            )}
+            <div className={styles.googleLoginButton}>
+                <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            </div>
         </div>
-    );
+    )
 }
-
 export default GoogleLoginButton;

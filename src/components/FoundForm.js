@@ -1,14 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "./MapnLocation";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/Form.module.css?v=2";
 
 const FoundForm = () => {
   const textareaRef = useRef(null);
-  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
-  const navigate = useNavigate();
+  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태s
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
   const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
 

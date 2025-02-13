@@ -17,6 +17,8 @@
 .logo {
     display: flex;
     align-items: center;
+    position: relative;
+    left: 50px;
 }
 
 .icons {

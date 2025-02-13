@@ -39,7 +39,7 @@ function MainPage() {
                     <span  className={styles.restTitle}>물건을 잃어버렸어요</span>
                     <div className={styles.stroke}></div>
                 </div>
-                <span className={styles.showMore} onClick={foundPageClick}>더보기</span>
+                <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
             </div>
             <div className={styles.title} style={{justifyContent: "space-between"}}>
                 <div className={styles.titleText}>
@@ -48,7 +48,7 @@ function MainPage() {
                     <span className={styles.restTitle}>물건을 찾았어요</span>
                     <div className={styles.stroke}></div>
                 </div>
-                <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
+                <span className={styles.showMore} onClick={foundPageClick}>더보기</span>
             </div>
         </div>
     )

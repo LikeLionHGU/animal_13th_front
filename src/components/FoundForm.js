@@ -131,37 +131,6 @@ const FoundForm = () => {
     }
   };
 
-  const reverseGeocode = async (lat, lng) => {
-    const apiKeyId = MapAPIid; // ✅ 네이버 API Key ID
-    const apiKey = "t9vaWmMEVx1SWuovJaExn75FhPjEnOnVf8bNES5g"; // ✅ 네이버 API Key
-  
-    try {
-      const response = await axios.get("https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc", {
-        params: {
-          coords: `${lng},${lat}`, // ✅ 위도, 경도를 좌표 형식으로 전달 (경도,위도 순)
-          output: "json",
-          orders: "legalcode,admcode,addr,roadaddr",
-        },
-        headers: {
-          "x-ncp-apigw-api-key-id": apiKeyId,
-          "x-ncp-apigw-api-key": apiKey,
-        },
-      });
-  
-      console.log("✅ 역지오코딩 응답:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error("❌ 역지오코딩 오류:", error);
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    if (location?.lat && location?.lng) {
-      reverseGeocode(location.lat, location.lng);
-    }
-  }, [location]);
-
   return (
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>

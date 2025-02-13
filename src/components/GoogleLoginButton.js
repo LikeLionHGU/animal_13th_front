@@ -20,6 +20,7 @@ function GoogleLoginButton() {
         try {
             // 1️⃣ 백엔드에 토큰 전달하여 OAuth 인증 진행
             const request = await axios.post(
+
                 "https://koyangyee.info/auth/login",
                 { googleIdToken },
                 { headers: { "Content-Type": "application/json" } }

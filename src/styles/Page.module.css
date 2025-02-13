@@ -13,25 +13,20 @@
     line-height: normal;
 }
 
-.zummLogoContainer {
-    display: flex;
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 (필요 시) */
-    margin-top: 20px;
-}
-
-.zuumLogo {
-    width: 150px; /* 크기 조절 */
-    height: auto;
-}
-
 .title {
+    display: flex;
+    align-items: center;
     color: #193946;
     font-family: Pretendard;
     font-size: 35px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+}
+
+.titleText {
+    display: flex;
+    align-items: center; 
 }
 
 .Lost {
@@ -53,5 +48,28 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    padding-top: 7px;
+    padding-top: 3px;
+}
+
+.showMore {
+    color: #858282;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.stroke {
+    flex-grow: 1; /* 🟢 남은 공간을 모두 사용하여 선을 늘림 */
+    height: 2px;
+    background-color: rgba(0, 0, 0, 2); /* 🟢 연한 회색 선 */
+}
+
+.mainpageButtons {
+    display: flex;
+    justify-content: center; 
+    gap: 22px; 
+    margin-bottom: 75px;
 }

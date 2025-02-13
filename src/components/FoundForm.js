@@ -4,7 +4,6 @@ import MapnLocation from "./MapnLocation";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/Form.module.css?v=2";
-import FoundSearch from "./API/FoundSearch";
 
 const FoundForm = () => {
   const textareaRef = useRef(null);
@@ -18,8 +17,6 @@ const FoundForm = () => {
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
-
-  // const [textAddress, setTextAddress] = useState("");
 
   useEffect(()=>{
     const user = navigator.userAgent;
@@ -134,7 +131,7 @@ const FoundForm = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
-      <h1>Found 글 작성</h1>
+      <h1>FOUND 글 작성</h1>
         <div className={styles.formGroup}>
           <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
           <label htmlFor="title" className={styles.formLabel}>습득물명 (필수)</label>

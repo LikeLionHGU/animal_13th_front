@@ -113,27 +113,27 @@ const LostForm = () => {
           />
         </div>
 
-        <h3>사진</h3>
-        <div className={styles.buttonContainer}>
-          <div>
-            <input
-              id="galleryInput"
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className={styles.imgInput}
-            />
-            {imageFile ? 
-            <>
-              <div onClick={() => document.getElementById("galleryInput").click()}  className={styles.imgContainer}>
-                {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
-              </div>
-            </> :
-            <>
-              <ImageUploadField style={{cursor: "pointer"}} onClick={() => document.getElementById("galleryInput").click()}/>
-            </>}
-          </div>
+        
+        <div>
+          <h3>사진</h3>
+          <input
+            id="galleryInput"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className={styles.imgInput}
+          />
+          {imageFile ? 
+          <>
+            <div onClick={() => document.getElementById("galleryInput").click()}  className={styles.imgContainer}>
+              {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
+            </div>
+          </> :
+          <>
+            <ImageUploadField className={styles.imgUploadField} style={{cursor: "pointer"}} onClick={() => document.getElementById("galleryInput").click()}/>
+          </>}
         </div>
+     
 
         <div>
           <button className={styles.button} type="submit">완료</button>

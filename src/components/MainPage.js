@@ -14,24 +14,24 @@ function MainPage() {
     const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("https://koyangyee.info/board/lost/main");
-                console.log("Lost: ", response);
-                // setFoundMain(response.data);
-            } catch (error) {
-                console.error("오류 발생:", error);
-            }
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get("https://koyangyee.info/board/lost/main");
+    //             console.log("Lost: ", response.data.board);
+    //             setFoundMain(response.data);
+    //         } catch (error) {
+    //             console.error("오류 발생:", error);
+    //         }
+    //     };
+    //     fetchData();
+    // }, []);
 
     useEffect(() => {
         const fetchData = async () => {
           try {
                 const response = await axios.get("https://koyangyee.info/board/found/main");
-                console.log("Found: ", response);
+                console.log("Found: ", response.data.board);
                 setLostMain(response.data);
           } catch (error) {
                 console.error("오류 발생:", error);
@@ -80,7 +80,7 @@ function MainPage() {
             </div>
 
             <div>
-                {lostMain ? 
+                {/* {lostMain ? 
                 <>
                     <div>
                     {lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
@@ -94,7 +94,7 @@ function MainPage() {
                             <div>
                                 <span>{item.board.title}</span>
                                 <span>{item.board.category}</span>
-                                <span>{item.board.updateDate}분 전</span>
+                                <span>{item.board.printDate}분 전</span>
                             </div>
                         </div>
                         ))}
@@ -102,7 +102,7 @@ function MainPage() {
                 </> :
                 <>
                     불러온 정보 없음
-                </>}
+                </>} */}
                 
             </div>
 

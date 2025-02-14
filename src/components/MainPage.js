@@ -13,6 +13,7 @@ function MainPage() {
     
     const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -35,6 +36,8 @@ function MainPage() {
                 setFoundMain(response.data);
           } catch (error) {
                 console.error("오류 발생:", error);
+          } finally {
+            setLoading(false); // 로딩 완료
           }
         };
         fetchData();
@@ -118,29 +121,30 @@ function MainPage() {
             </div>
 
             <div>
-            {foundMain ? 
-                <>
+            {loading ? (
+        <p>로딩 중...</p> // 로딩 중 메시지 표시
+            ) : foundMain ? ( // foundMain이 빈 배열이 아닐 때만 표시
+                <div>
+                {foundMain.map((item) => (
+                    <div
+                    key={item.id} // key는 item.board.id가 아닌 item.id 사용
+                    onClick={() => handleClick(item)}
+                    style={{ cursor: "pointer" }}
+                    >
                     <div>
-                    {foundMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                        <div
-                        // className={styles.cell}
-                        key={item.board.id}
-                        onClick={() => handleClick(item)}
-                        style={{ cursor: "pointer" }}
-                        >
-                            <div>{item.board.image}</div>
-                            <div>
-                                <span>{item.board.title}</span>
-                                <span>{item.board.category}</span>
-                                <span>{item.board.updateDate}분 전</span>
-                            </div>
-                        </div>
-                        ))}
+                        <img src={item.image} alt={item.title} width={100} />
                     </div>
-                </> :
-                <>
-                    불러온 정보 없음
-                </>}
+                    <div>
+                        <span>{item.title}</span>
+                        <span>{item.category}</span>
+                        <span>{item.updateDate}분 전</span>
+                    </div>
+                    </div>
+                ))}
+                </div>
+            ) : (
+                <p>불러온 정보 없음</p> // 데이터가 없을 경우
+            )}
             </div>
         </div>
     )

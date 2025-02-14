@@ -18,8 +18,8 @@ function MainPage() {
         const fetchData = async () => {
             try {
                 const response = await axios.get("https://koyangyee.info/board/lost/main");
-                console.log("Lost: ", response);
-                // setFoundMain(response.data);
+                console.log("Lost: ", response.data.board);
+                setFoundMain(response.data);
             } catch (error) {
                 console.error("오류 발생:", error);
             }
@@ -31,7 +31,7 @@ function MainPage() {
         const fetchData = async () => {
           try {
                 const response = await axios.get("https://koyangyee.info/board/found/main");
-                console.log("Found: ", response);
+                console.log("Found: ", response.data.board);
                 setLostMain(response.data);
           } catch (error) {
                 console.error("오류 발생:", error);
@@ -94,7 +94,7 @@ function MainPage() {
                             <div>
                                 <span>{item.board.title}</span>
                                 <span>{item.board.category}</span>
-                                <span>{item.board.updateDate}분 전</span>
+                                <span>{item.board.printDate}분 전</span>
                             </div>
                         </div>
                         ))}

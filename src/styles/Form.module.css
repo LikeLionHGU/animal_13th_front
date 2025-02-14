@@ -182,6 +182,35 @@
   &:required,&:invalid { box-shadow:none; }
 }
 
+.filterContainer {
+  display: flex;
+  gap: 19px; 
+  overflow-x: auto; 
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.filterButton {
+  border: none;
+  background-color: #eee; 
+  color: black;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 7px 13px;
+  border-radius: 19px; 
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.filterButton.active {
+  background-color: black; 
+  color: white;
+}
+
+.filterButton:hover {
+  transform: scale(1.05); 
+}
+
 .formField option:first-child {
     color: #A2A0A0;
 }

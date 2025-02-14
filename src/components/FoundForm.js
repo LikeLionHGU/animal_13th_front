@@ -7,6 +7,17 @@ import styles from "../styles/Form.module.css?v=2";
 
 import { ReactComponent as ImageUploadField } from "../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
+const categories = [
+  { id: "1", name: "전자기기" },
+  { id: "2", name: "카드/학생증" },
+  { id: "3", name: "지갑/현금" },
+  { id: "4", name: "택배" },
+  { id: "5", name: "도서 및 서류" },
+  { id: "6", name: "의류/액세서리" },
+  { id: "7", name: "가방" },
+  { id: "8", name: "기타" },
+];
+
 const FoundForm = () => {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
@@ -87,33 +98,30 @@ const FoundForm = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // ✅ 서버 응답 데이터 확인
     const { isLogin, isSuccess } = response.data;
 
     if (isLogin === 1 && isSuccess === 1) {
-      console.log("✅ 업로드 완료:", response.data);
+      console.log("업로드 완료:", response.data);
       alert("업로드 완료");
-      navigate("/"); // 이벤트시에만 주석처리
+      navigate("/"); 
     } else {
-      // 실패 사유에 따라 메시지 구분
       if (isLogin === 0) {
         alert("로그인이 필요합니다.");
-        console.error("❌ 로그인되지 않은 상태에서 요청이 수행되었습니다.");
+        console.error("로그인되지 않은 상태에서 요청이 수행되었습니다.");
       } else if (isSuccess === 0) {
         alert("업로드에 실패했습니다. 다시 시도해주세요.");
-        console.error("❌ 서버에서 업로드를 실패로 처리했습니다.");
+        console.error("서버에서 업로드를 실패로 처리했습니다.");
       }
       
     }
   } catch (error) {
-    // 예상치 못한 오류 처리
-    console.error("❌ 요청 중 오류 발생:", error.message);
+    console.error("요청 중 오류 발생:", error.message);
     alert("알 수 없는 오류가 발생했습니다.");
   }
 };
-  const onCategorySelect = (e) => {
-    console.log(e.target.value);
-    setCategory(e.target.value);
+  const onCategorySelect = (categoryId) => {
+    console.log(categoryId);
+    setCategory(categoryId);
   }
 
   useEffect(() => {
@@ -136,19 +144,20 @@ const FoundForm = () => {
           <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
           <label htmlFor="title" className={styles.formLabel}>습득물명 (필수)</label>
         </div>
-        <div className={styles.formGroup}>
-          <select name="category" id="category" onChange={onCategorySelect} className={styles.formField} style={{cursor: "pointer"}} required>
-            <option value="" readOnly>카테고리 (필수)</option>
-            <option value="1" readOnly>전자기기</option>
-            <option value="2" readOnly>카드/학생증</option>
-            <option value="3" readOnly>지갑/현금</option>
-            <option value="4" readOnly>택배</option>
-            <option value="5" readOnly>도서 및 서류</option>
-            <option value="6" readOnly>의류/액세서리</option>
-            <option value="7" readOnly>가방</option>
-            <option value="8" readOnly>기타</option>
-          </select>
-        </div>
+
+      <h3>카테고리</h3>     
+      <div className={styles.filterContainer}>
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            type="button"
+            className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
+            onClick={() => onCategorySelect(category.id)}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
 
         <h2>물건을 찾은 위치를 입력해 주세요!</h2>
 

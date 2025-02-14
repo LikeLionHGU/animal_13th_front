@@ -44,6 +44,8 @@
     color: black;
     font-weight: bold;
     border-radius: 24px 0 0 24px; 
+    right: 0;
+    box-shadow: 35px 35px 0 10px var(--white);
 }
 
 .nav a:hover {

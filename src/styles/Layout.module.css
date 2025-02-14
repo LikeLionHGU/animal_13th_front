@@ -11,7 +11,7 @@
     background-color: white;
     padding: 10px 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative; 
+    position: relative;
 }
 
 .logo {
@@ -48,6 +48,6 @@
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
-    margin-left: 300px; /* 사이드바 공간 확보 */
-    margin-right: 200px;
+    margin-left: 292px; /* 사이드바 공간 확보 */
+    margin-right: 192px;
 }

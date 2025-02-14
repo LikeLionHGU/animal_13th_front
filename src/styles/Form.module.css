@@ -1,7 +1,6 @@
 .container {
     display: flex;
     justify-content: space-between;
-    padding: 30px;
   }
 
 .imgContainer {
@@ -39,12 +38,12 @@
 
 .mapSize {
     display: flex;
-    width: 70%;
+    width: 100%;
     height: 40dvh;
 }
 
 .addressDisplay{
-    width: 70%;
+    width: 100%;
     border-radius: 16px;
     border: 2px solid #CFECF0;
     margin-top: 10px;
@@ -53,7 +52,7 @@
 }
 
 .contentTextBox {
-    width: 70%;
+    width: 100%;
     resize: none;
     min-height: 180px; /* 최소 높이 */
     max-height: 300px; /* 최대 높이 (선택 사항) */
@@ -118,7 +117,7 @@
   position: relative;
   padding: 15px 0 0;
   margin-top: 10px;
-  width: 70%;
+  width: 100%;
 }
 
 .formField {
@@ -182,21 +181,11 @@
 }
 
 @media screen and (max-width: 450px) {
-  .formGroup {
-    width: 100%;
-  }
-
-  .contentTextBox {
-    width: 100%;
-  }
-
   .mapSize {
     height: 22%;
-    width: 100%;
   }
 
   .addressDisplay {
-    width: 100%;
     font-size: 14px;
   }
 
@@ -226,9 +215,5 @@
   .imgDisplay {
     display: block; /* margin: auto 적용을 위해 block 설정 */
     margin: auto; /* 가로 중앙 정렬 */
-  }
-
-  .imgContainer {
-    width: 100%;
   }
 }

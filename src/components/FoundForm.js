@@ -79,7 +79,7 @@ const FoundForm = () => {
       //여기까지는 나중에 삭제
   
       // 서버로 데이터 전송
-      const response = await axios.post("https://koyangyee.info/board/add", formData, {
+      const response = await axios.post("https://koyangyee.info/board/found/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import styles from "../styles/GoogleLoginStyle.module.css";
-
+axios.defaults.withCredentials = true;
 function GoogleLoginButton() {
     const [clientId, setClientId] = useState(""); // 백엔드에서 받아온 Client ID 저장
 
@@ -10,9 +10,7 @@ function GoogleLoginButton() {
         // 1) 백엔드에서 Google Client ID 가져오기
         const fetchClientId = async () => {
             try {
-                const response = await axios.get("https://koyangyee.info/auth/login/clientid", {
-                    withCredentials: true, // 이 옵션을 설정하여 쿠키와 인증 정보를 함께 보냄
-                  });
+                const response = await axios.get("https://koyangyee.info/auth/login/clientid" );
                 setClientId(response.data.clientId);
                 console.log("✅ 백엔드에서 받아온 Client ID:", response.data.clientId);
             } catch (error) {
@@ -38,7 +36,8 @@ function GoogleLoginButton() {
             const request = await axios.post(
                 "https://koyangyee.info/auth/login",
                 { googleIdToken },
-                { headers: { "Content-Type": "application/json" } }
+                { headers: { "Content-Type": "application/json" }, 
+                    withCredentials: true},
             );
 
             console.log("✅ 로그인 성공:", request.data);

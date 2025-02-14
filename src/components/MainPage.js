@@ -19,7 +19,7 @@ function MainPage() {
     //         try {
     //             const response = await axios.get("https://koyangyee.info/board/lost/main");
     //             console.log("Lost: ", response.data.board);
-    //             setFoundMain(response.data);
+    //             setLoundMain(response.data);
     //         } catch (error) {
     //             console.error("오류 발생:", error);
     //         }
@@ -32,7 +32,7 @@ function MainPage() {
           try {
                 const response = await axios.get("https://koyangyee.info/board/found/main");
                 console.log("Found: ", response.data.board);
-                setLostMain(response.data);
+                setFoundMain(response.data);
           } catch (error) {
                 console.error("오류 발생:", error);
           }

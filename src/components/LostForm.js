@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/Form.module.css";
 
+import { ReactComponent as ImageUploadField } from "../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
+
 const LostForm = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
@@ -111,19 +113,26 @@ const LostForm = () => {
           />
         </div>
 
-        <button type="button" className={styles.button} onClick={() => document.getElementById("cameraInput").click()}>
-          사진 첨부
-        </button>
-        <input
-          id="cameraInput"
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={handleFileChange}
-          className={styles.imgInput}
-        />
-        <div className={styles.imgContainer}>
-          {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Captured" className={styles.imgDisplay} />}
+        <h3>사진</h3>
+        <div className={styles.buttonContainer}>
+          <div>
+            <input
+              id="galleryInput"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className={styles.imgInput}
+            />
+            {imageFile ? 
+            <>
+              <div onClick={() => document.getElementById("galleryInput").click()}  className={styles.imgContainer}>
+                {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
+              </div>
+            </> :
+            <>
+              <ImageUploadField style={{cursor: "pointer"}} onClick={() => document.getElementById("galleryInput").click()}/>
+            </>}
+          </div>
         </div>
 
         <div>

@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "./MapnLocation";
 import axios from "axios";
 import styles from "../styles/Form.module.css?v=2";
 
+import { ReactComponent as ImageUploadField } from "../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
+
 const FoundForm = () => {
+  const navigate = useNavigate();
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태s
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
@@ -89,24 +93,22 @@ const FoundForm = () => {
     if (isLogin === 1 && isSuccess === 1) {
       console.log("✅ 업로드 완료:", response.data);
       alert("업로드 완료");
-      // navigate("/"); // 이벤트시에만 주석처리
-      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfYkjugkc1bBMr0GrQh1fgu1M8jOziIRAluLOaAgLpNW3JywQ/viewform";
+      navigate("/"); // 이벤트시에만 주석처리
     } else {
       // 실패 사유에 따라 메시지 구분
-      // if (isLogin === 0) {
-      //   alert("로그인이 필요합니다.");
-      //   console.error("❌ 로그인되지 않은 상태에서 요청이 수행되었습니다.");
-      // } else if (isSuccess === 0) {
-      //   alert("업로드에 실패했습니다. 다시 시도해주세요.");
-      //   console.error("❌ 서버에서 업로드를 실패로 처리했습니다.");
-      // }
-      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfYkjugkc1bBMr0GrQh1fgu1M8jOziIRAluLOaAgLpNW3JywQ/viewform"; // 이벤트시에만 오류떠도 그냥 폼으로 이동
+      if (isLogin === 0) {
+        alert("로그인이 필요합니다.");
+        console.error("❌ 로그인되지 않은 상태에서 요청이 수행되었습니다.");
+      } else if (isSuccess === 0) {
+        alert("업로드에 실패했습니다. 다시 시도해주세요.");
+        console.error("❌ 서버에서 업로드를 실패로 처리했습니다.");
+      }
+      
     }
   } catch (error) {
     // 예상치 못한 오류 처리
-    // console.error("❌ 요청 중 오류 발생:", error.message);
-    // alert("알 수 없는 오류가 발생했습니다.");
-    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfYkjugkc1bBMr0GrQh1fgu1M8jOziIRAluLOaAgLpNW3JywQ/viewform"; // 이벤트시에만 오류떠도 그냥 폼으로 이동
+    console.error("❌ 요청 중 오류 발생:", error.message);
+    alert("알 수 없는 오류가 발생했습니다.");
   }
 };
   const onCategorySelect = (e) => {
@@ -170,6 +172,7 @@ const FoundForm = () => {
         </div>
 
         <div>
+          <h3>상세정보</h3>
           <textarea 
             name="content" 
             placeholder="추가적인 정보가 있으면 알려주세요." 
@@ -180,23 +183,28 @@ const FoundForm = () => {
             />
         </div>
 
+        <h3>사진</h3>
         <div className={styles.buttonContainer}>
-          <button type="button" className={styles.button} onClick={() => document.getElementById("galleryInput").click()}>
-            사진 첨부
-          </button>
-          <input
-            id="galleryInput"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className={styles.imgInput}
-          />
+          <div>
+            <input
+              id="galleryInput"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className={styles.imgInput}
+            />
+            {imageFile ? 
+            <>
+              <div onClick={() => document.getElementById("galleryInput").click()}  className={styles.imgContainer}>
+                {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
+              </div>
+            </> :
+            <>
+              <ImageUploadField style={{cursor: "pointer"}} onClick={() => document.getElementById("galleryInput").click()}/>
+            </>}
+          </div>
         </div>
         
-        <div className={styles.imgContainer}>
-          {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />}
-        </div>
-
         {/* boardType 전송 (보여주지는 않음) */}
         <div> 
           <input id="boardType" name="boardType" type="number" value="0" style={{display: "none"}} readOnly/> 

@@ -22,14 +22,17 @@ function GoogleLoginButton() {
             const request = await axios.post(
                 "https://koyangyee.info/auth/login",
                 { googleIdToken },
-                { headers: { "Content-Type": "application/json" } }
+                { headers: { "Content-Type": "application/json" ,
+                    withCredentials: true },
+                },
+                
             );
 
             console.log("✅ 로그인 성공:", request.data);
 
             // 2️⃣ 로그인 성공 후, 백엔드에서 Client ID 가져오기
             const responseClientId = await axios.get("https://koyangyee.info/auth/login/clientid");
-            setClientId(responseClientId.data.clientId); // { clientId: "YOUR_CLIENT_ID" }
+            setClientId(responseClientId.data.clientId); 
 
             console.log("✅ 백엔드에서 받아온 Client ID:", responseClientId.data.clientId);
             alert("로그인 성공");

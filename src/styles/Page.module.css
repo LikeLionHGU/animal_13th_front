@@ -109,7 +109,7 @@
     border-radius: 2px; /* 둥근 끝 */
     position: relative;
     margin-left: 35px;
-    margin-right: 10px;
+    margin-right: 11px;
     min-width: 150px; /* 최소 너비 설정 */
     max-width: 30vw;
 }

@@ -98,6 +98,11 @@
     cursor: pointer;
 }
 
+.imgUploadField {
+  width: 100%;
+  height: auto;
+}
+
 .sidebar h2 {
   font-size: 18px;
   margin-bottom: 10px;

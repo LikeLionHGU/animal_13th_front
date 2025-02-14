@@ -18,7 +18,8 @@ function MainPage() {
         const fetchData = async () => {
             try {
                 const response = await axios.get("https://koyangyee.info/board/lost/main");
-                setFoundMain(response.data);
+                console.log("Lost: ", response);
+                // setFoundMain(response.data);
             } catch (error) {
                 console.error("오류 발생:", error);
             }
@@ -30,6 +31,7 @@ function MainPage() {
         const fetchData = async () => {
           try {
                 const response = await axios.get("https://koyangyee.info/board/found/main");
+                console.log("Found: ", response);
                 setLostMain(response.data);
           } catch (error) {
                 console.error("오류 발생:", error);

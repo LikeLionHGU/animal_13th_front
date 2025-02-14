@@ -10,7 +10,9 @@ function GoogleLoginButton() {
         // 1) 백엔드에서 Google Client ID 가져오기
         const fetchClientId = async () => {
             try {
-                const response = await axios.get("https://koyangyee.info/auth/login/clientid");
+                const response = await axios.get("https://koyangyee.info/auth/login/clientid", {
+                    withCredentials: true, // 이 옵션을 설정하여 쿠키와 인증 정보를 함께 보냄
+                  });
                 setClientId(response.data.clientId);
                 console.log("✅ 백엔드에서 받아온 Client ID:", response.data.clientId);
             } catch (error) {
@@ -36,7 +38,7 @@ function GoogleLoginButton() {
             const request = await axios.post(
                 "https://koyangyee.info/auth/login",
                 { googleIdToken },
-                { headers: { "Content-Type": "application/json" }, withCredentials: true }
+                { headers: { "Content-Type": "application/json" } }
             );
 
             console.log("✅ 로그인 성공:", request.data);

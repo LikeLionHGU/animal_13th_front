@@ -188,27 +188,29 @@
   overflow-x: auto; 
   white-space: nowrap;
   padding: 10px 0;
-}
+}        
 
 .filterButton {
-  border: none;
-  background-color: #eee; 
+  border: 2px solid #CFECF0;
+  background-color: white; 
   color: black;
   font-size: 15px;
   font-weight: 400;
   padding: 7px 13px;
   border-radius: 19px; 
+  flex-shrink: 0;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s;
 }
 
 .filterButton.active {
-  background-color: black; 
-  color: white;
+  background-color: #CFECF0; 
+  color: black;
 }
 
 .filterButton:hover {
   transform: scale(1.05); 
+  background-color: #CFECF0;
 }
 
 .formField option:first-child {

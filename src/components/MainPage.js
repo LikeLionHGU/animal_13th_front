@@ -14,18 +14,18 @@ function MainPage() {
     const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("https://koyangyee.info/board/lost/main");
-                console.log("Lost: ", response.data.board);
-                setFoundMain(response.data);
-            } catch (error) {
-                console.error("오류 발생:", error);
-            }
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get("https://koyangyee.info/board/lost/main");
+    //             console.log("Lost: ", response.data.board);
+    //             setFoundMain(response.data);
+    //         } catch (error) {
+    //             console.error("오류 발생:", error);
+    //         }
+    //     };
+    //     fetchData();
+    // }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -80,7 +80,7 @@ function MainPage() {
             </div>
 
             <div>
-                {lostMain ? 
+                {/* {lostMain ? 
                 <>
                     <div>
                     {lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
@@ -102,7 +102,7 @@ function MainPage() {
                 </> :
                 <>
                     불러온 정보 없음
-                </>}
+                </>} */}
                 
             </div>
 

@@ -22,6 +22,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    flex-wrap: nowrap;
 }
 
 .titleText {
@@ -75,12 +76,15 @@
 }
 /* 글씨 옆 선 */
 .lineLost {
-    width: 40vw; /* 선의 길이 */
+    flex-grow: 1;
+    width: 700px; /* 선의 길이 */
     height: 4px; /* 선의 두께 */
     background-color: #8ac4d0; /* 선 색상 */
     border-radius: 2px; /* 둥근 끝 */
     position: relative;
     margin-left: 20px;
+    min-width: 150px; /* 최소 너비 설정 */
+    max-width: 30vw;
 }
 
 .lineLost::after {
@@ -96,12 +100,15 @@
 }
 
 .lineFound {
-    width: 40vw;
+    flex-grow: 1;
+    width: 700px; /* 선의 길이 */
     height: 4px; /* 선의 두께 */
     background-color: #8ac4d0; /* 선 색상 */
     border-radius: 2px; /* 둥근 끝 */
     position: relative;
     margin-left: 40px;
+    min-width: 150px; /* 최소 너비 설정 */
+    max-width: 30vw;
 }
 
 .lineFound::after {

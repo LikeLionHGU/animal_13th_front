@@ -73,3 +73,45 @@
     gap: 22px; 
     margin-bottom: 75px;
 }
+/* 글씨 옆 선 */
+.lineLost {
+    width: 700px; /* 선의 길이 */
+    height: 4px; /* 선의 두께 */
+    background-color: #8ac4d0; /* 선 색상 */
+    border-radius: 2px; /* 둥근 끝 */
+    position: relative;
+    margin-left: 20px;
+}
+
+.lineLost::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: #8ac4d0;
+    border-radius: 50%; 
+    position: absolute;
+    right: 0; 
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lineFound {
+    width: 700px; /* 선의 길이 */
+    height: 4px; /* 선의 두께 */
+    background-color: #8ac4d0; /* 선 색상 */
+    border-radius: 2px; /* 둥근 끝 */
+    position: relative;
+    margin-left: 40px;
+}
+
+.lineFound::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: #8ac4d0;
+    border-radius: 50%; 
+    position: absolute;
+    right: 0; 
+    top: 50%;
+    transform: translateY(-50%);
+}

@@ -36,7 +36,9 @@ function MainPage() {
                 <div className={styles.titleText}>
                     <span className={styles.Lost}>LOST</span> 
                     <span className={styles.comma}>, </span>
-                    <span  className={styles.restTitle}>물건을 잃어버렸어요</span>
+                    <span  className={styles.restTitle}>물건을 잃어버렸어요
+                    </span>
+                    <span className={styles.lineLost}></span>
                     <div className={styles.stroke}></div>
                 </div>
                 <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
@@ -47,6 +49,7 @@ function MainPage() {
                     <span className={styles.Lost}>FOUND</span> 
                     <span className={styles.comma}>,</span>
                     <span className={styles.restTitle}>물건을 찾았어요</span>
+                    <span className={styles.lineFound}></span>
                     <div className={styles.stroke}></div>
                 </div>
                 <span className={styles.showMore} onClick={foundPageClick}>더보기</span>

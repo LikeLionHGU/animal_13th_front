@@ -1,40 +1,47 @@
 import { useEffect, useState } from "react";
-
 import axios from "axios";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import styles from "../styles/GoogleLoginStyle.module.css";
 
 function GoogleLoginButton() {
-    const [clientId, setClientId] = useState(""); // 로그인 후 받아올 Client ID 저장
+    const [clientId, setClientId] = useState(""); // 백엔드에서 받아온 Client ID 저장
+
+    useEffect(() => {
+        // 1) 백엔드에서 Google Client ID 가져오기
+        const fetchClientId = async () => {
+            try {
+                const response = await axios.get("https://koyangyee.info/auth/login/clientid");
+                setClientId(response.data.clientId);
+                console.log("✅ 백엔드에서 받아온 Client ID:", response.data.clientId);
+            } catch (error) {
+                console.error("❌ Client ID 가져오기 실패:", error);
+            }
+        };
+
+        fetchClientId();
+    }, []);
 
     const responseMessage = async (response) => {
-        console.log("✅ 구글 로그인 응답:", response);
-        const googleIdToken = response.credential;
-
-        if (!googleIdToken) {
-            console.error("❌ 토큰이 없습니다.");
-            alert("로그인 실패. 다시 시도해주세요.");
-            return;
-        }
-
         try {
-            // 1️⃣ 백엔드에 토큰 전달하여 OAuth 인증 진행
+            console.log("✅ 구글 로그인 응답:", response);
+            const googleIdToken = response.credential;
+
+            if (!googleIdToken) {
+                console.error("❌ 토큰이 없습니다.");
+                alert("로그인 실패. 다시 시도해주세요.");
+                return;
+            }
+
+            // 2) 백엔드 클라이언트 아이디로 구글에서 토큰 받아오기 
             const request = await axios.post(
                 "https://koyangyee.info/auth/login",
                 { googleIdToken },
-                { headers: { "Content-Type": "application/json" },
-                withCredentials: true },
-                
+                { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
 
             console.log("✅ 로그인 성공:", request.data);
-
-            // 2️⃣ 로그인 성공 후, 백엔드에서 Client ID 가져오기
-            const responseClientId = await axios.get("https://koyangyee.info/auth/login/clientid");
-            setClientId(responseClientId.data.clientId); 
-
-            console.log("✅ 백엔드에서 받아온 Client ID:", responseClientId.data.clientId);
             alert("로그인 성공");
+
         } catch (error) {
             console.error("❌ 로그인 요청 실패:", error);
             alert("로그인 실패. 다시 시도해주세요.");
@@ -47,9 +54,15 @@ function GoogleLoginButton() {
 
     return (
         <div>
-            <div className={styles.googleLoginButton}>
-                <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-            </div>
+            {clientId ? (
+                <GoogleOAuthProvider clientId={clientId}>
+                    <div className={styles.googleLoginButton}>
+                        <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+                    </div>
+                </GoogleOAuthProvider>
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
 }

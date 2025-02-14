@@ -96,6 +96,7 @@ const FoundForm = () => {
       // 서버로 데이터 전송
       const response = await axios.post("https://koyangyee.info/board/found/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true, 
       });
 
     const { isLogin, isSuccess } = response.data;

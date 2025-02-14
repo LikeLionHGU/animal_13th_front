@@ -53,6 +53,7 @@
 }
 
 .showMore {
+    flex-grow: 1;
     color: #858282;
     font-family: Pretendard;
     font-size: 15px;
@@ -83,6 +84,7 @@
     border-radius: 2px; /* 둥근 끝 */
     position: relative;
     margin-left: 20px;
+    margin-right: 10px;
     min-width: 150px; /* 최소 너비 설정 */
     max-width: 30vw;
 }
@@ -106,7 +108,8 @@
     background-color: #8ac4d0; /* 선 색상 */
     border-radius: 2px; /* 둥근 끝 */
     position: relative;
-    margin-left: 40px;
+    margin-left: 35px;
+    margin-right: 11px;
     min-width: 150px; /* 최소 너비 설정 */
     max-width: 30vw;
 }

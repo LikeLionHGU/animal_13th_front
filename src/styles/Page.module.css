@@ -75,7 +75,7 @@
 }
 /* 글씨 옆 선 */
 .lineLost {
-    width: 700px; /* 선의 길이 */
+    width: 40vw; /* 선의 길이 */
     height: 4px; /* 선의 두께 */
     background-color: #8ac4d0; /* 선 색상 */
     border-radius: 2px; /* 둥근 끝 */
@@ -96,7 +96,7 @@
 }
 
 .lineFound {
-    width: 700px; /* 선의 길이 */
+    width: 40vw;
     height: 4px; /* 선의 두께 */
     background-color: #8ac4d0; /* 선 색상 */
     border-radius: 2px; /* 둥근 끝 */

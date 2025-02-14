@@ -22,9 +22,8 @@ function GoogleLoginButton() {
             const request = await axios.post(
                 "https://koyangyee.info/auth/login",
                 { googleIdToken },
-                { headers: { "Content-Type": "application/json" ,
-                    withCredentials: true },
-                },
+                { headers: { "Content-Type": "application/json" },
+                withCredentials: true },
                 
             );
 

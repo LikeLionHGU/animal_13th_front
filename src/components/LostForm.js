@@ -5,12 +5,24 @@ import styles from "../styles/Form.module.css";
 
 import { ReactComponent as ImageUploadField } from "../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
+const categories = [
+  { id: "1", name: "전자기기" },
+  { id: "2", name: "카드/학생증" },
+  { id: "3", name: "지갑/현금" },
+  { id: "4", name: "택배" },
+  { id: "5", name: "도서 및 서류" },
+  { id: "6", name: "의류/액세서리" },
+  { id: "7", name: "가방" },
+  { id: "8", name: "기타" },
+];
+
 const LostForm = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
+  const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {
@@ -49,6 +61,11 @@ const LostForm = () => {
     }
   };
 
+  const onCategorySelect = (categoryId) => {
+    console.log(categoryId);
+    setCategory(categoryId);
+  }
+
   // 자동 높이 조절
   const autoResize = () => {
     const textarea = textareaRef.current;
@@ -77,19 +94,19 @@ const LostForm = () => {
           <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
           <label htmlFor="title" className={styles.formLabel}>분실물명</label>
         </div>
-        <div className={styles.formGroup}>
-          <select name="category" id="category" className={styles.formField} style={{cursor: "pointer"}} required>
-            <option value="">카테고리</option>
-            <option value="1">전자기기</option>
-            <option value="2">카드/학생증</option>
-            <option value="3">지갑/현금</option>
-            <option value="4">택배</option>
-            <option value="5">도서 및 서류</option>
-            <option value="6">의류/액세서리</option>
-            <option value="7">가방</option>
-            <option value="8">기타</option>
-          </select>
-          {/* <label htmlFor="category" className={styles.formLabel}>카테고리</label> */}
+
+        <h3>카테고리</h3>     
+        <div className={styles.filterContainer}>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              type="button"
+              className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
+              onClick={() => onCategorySelect(category.id)}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
 
         <div className={styles.formGroup}>

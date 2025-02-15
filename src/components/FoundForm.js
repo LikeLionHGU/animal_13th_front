@@ -106,10 +106,7 @@ const FoundForm = () => {
       alert("업로드 완료");
       navigate("/"); 
     } else {
-      if (isLogin === 0) {
-        alert("로그인이 필요합니다.");
-        console.error("로그인되지 않은 상태에서 요청이 수행되었습니다.");
-      } else if (isSuccess === 0) {
+      if (isSuccess === 0) {
         alert("업로드에 실패했습니다. 다시 시도해주세요.");
         console.error("서버에서 업로드를 실패로 처리했습니다.");
       }

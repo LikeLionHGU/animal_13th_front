@@ -75,7 +75,7 @@ const FoundForm = () => {
       category: selectCategory,
       phoneNum: event.target.phoneNum.value,
       content: event.target.content.value,
-      location: displayLocation,
+      locaton: displayLocation,
       detailLocation: event.target.detailLocation.value,
       boardType: 0,
       latitude: location.lat,

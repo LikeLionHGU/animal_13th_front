@@ -132,3 +132,10 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+/*카드 CSS*/
+.card{
+    display:flex;
+    align-items: center; 
+    gap: 20px;
+}

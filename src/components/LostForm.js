@@ -132,7 +132,7 @@ useEffect(() => {
         </div>
 
         <div className={styles.formGroup}>
-          <input value={location} id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}` }  onChange={(e) => setLocation(e.target.value)}/>
+          <input id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}` }  onChange={(e) => setLocation(e.target.value)}/>
           <label htmlFor="location" className={styles.formLabel}>예상 분실 위치 (선택)</label>
         </div>
 

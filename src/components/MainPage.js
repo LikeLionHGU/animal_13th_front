@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import GoogleLoginButton from './GoogleLoginButton';
+//import GoogleLoginButton from './GoogleLoginButton';
 import styles from '../styles/Page.module.css'
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
 import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
@@ -11,22 +11,22 @@ import axios from "axios";
 function MainPage() {
     const navigate = useNavigate();
     
-    //const [lostMain, setLostMain] = useState();
+    const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get("https://koyangyee.info/board/lost/main");
-    //             console.log("Lost: ", response.data.board);
-    //             setLoundMain(response.data);
-    //         } catch (error) {
-    //             console.error("오류 발생:", error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, []);
+     useEffect(() => {
+         const fetchData = async () => {
+             try {
+                 const response = await axios.get("https://koyangyee.info/board/lost/main");
+                 console.log("Lost: ", response.data.board);
+                 setLostMain(response.data);
+             } catch (error) {
+                 console.error("오류 발생:", error);
+             }
+         };
+         fetchData();
+     }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -83,7 +83,7 @@ function MainPage() {
             </div>
 
             <div>
-                {/* {lostMain ? 
+                {lostMain ? 
                 <>
                     <div>
                     {lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
@@ -93,11 +93,13 @@ function MainPage() {
                         onClick={() => handleClick(item)}
                         style={{ cursor: "pointer" }}
                         >
-                            <div>{item.board.image}</div>
-                            <div>
-                                <span>{item.board.title}</span>
-                                <span>{item.board.category}</span>
-                                <span>{item.board.printDate}분 전</span>
+                            <div className={styles.cardContainer}>
+                                <img src={item.image} alt={item.title} className={styles.cardImage} />
+                                <div className={styles.cardContent}>
+                                    <span className={styles.cardTitle}>{item.title}</span>
+                                    <span className={styles.cardCategory}>{item.category}</span>
+                                    <span className={styles.cardDate}>{item.updateDate}분 전</span>
+                                </div>
                             </div>
                         </div>
                         ))}
@@ -105,7 +107,7 @@ function MainPage() {
                 </> :
                 <>
                     불러온 정보 없음
-                </>} */}
+                </>} 
                 
             </div>
 

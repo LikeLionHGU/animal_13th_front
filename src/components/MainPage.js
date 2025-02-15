@@ -130,18 +130,16 @@ function MainPage() {
                     onClick={() => handleClick(item)}
                     style={{ cursor: "pointer" }}
                     >
-                        <div >
-                            <img src={item.image} alt={item.title} width={100} />
+                    <div className={styles.cardContainer}>
+                        <img src={item.image} alt={item.title} className={styles.cardImage} />
+                        <div className={styles.cardContent}>
+                            <span className={styles.cardTitle}>{item.title}</span>
+                            <span className={styles.cardCategory}>{item.category}</span>
+                            <span className={styles.cardDate}>{item.updateDate}분 전</span>
                         </div>
-                            <div className={styles.content}>
-                                <span>ID: {item.id}</span>
-                                <span>title: {item.title}</span>
-                                <span>category: {item.category}</span>
-                                <span>updateDate: {item.updateDate}분 전</span>
-                                <span>printDate: {item.printDate}</span>
-                            </div>
+                    </div>
 
-                        </div>
+                </div>
                 ))}
                 </div>
             ) : (

@@ -136,7 +136,7 @@
 
 .cardContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     background: white;
     border-radius: 12px;

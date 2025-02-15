@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'yg-jalnan';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .writeIcon {
     position: absolute;
     right: 37px;
@@ -6,7 +13,6 @@
 
 .h2 {
     color: #000;
-    font-family: Pretendard;
     font-size: 21px;
     font-style: normal;
     font-weight: 500;
@@ -17,7 +23,6 @@
     display: flex;
     align-items: center;
     color: #193946;
-    font-family: Pretendard;
     font-size: 35px;
     font-style: normal;
     font-weight: 600;
@@ -31,20 +36,22 @@
 }
 
 .Lost {
+    font-family: 'yg-jalnan';
     font-size: 35px;
 }
 
 .comma {
+    font-family: 'yg-jalnan';
     font-size: 25px;
 }
 
 .restTitle{
+    font-family: 'yg-jalnan';
     font-size: 28px;
 }
 
 .intro {
     color: #000;
-    font-family: Pretendard;
     font-size: 21px;
     font-style: normal;
     font-weight: 500;
@@ -54,8 +61,8 @@
 
 .showMore {
     flex-grow: 1;
+    font-family: 'yg-jalnan';
     color: #858282;
-    font-family: Pretendard;
     font-size: 15px;
     font-style: normal;
     font-weight: 400;

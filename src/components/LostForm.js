@@ -48,7 +48,7 @@ const LostForm = () => {
       category: selectCategory,
       phoneNum: event.target.phoneNum.value,
       content: event.target.content.value,
-      location: event.target.location.value ,
+      location: event.target.location.value , //오류 원인: event. 연결 안 해줘서&detail대신에 location쓰므로 detail 삭제!
       boardType: 0,
       latitude: 3.5555,
       longitude: 2.434234,

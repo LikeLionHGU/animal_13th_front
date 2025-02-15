@@ -23,8 +23,8 @@ const LostForm = () => {
   const [location, setLocation] = useState("");
   const locationRef = useRef(null); 
 
-  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
-  const [selectCategory, setCategory] = useState(categories[0].id); 
+  const [browser, setBrowser] = useState(null); // 웹인지 모바일인지 인식
+  const [selectCategory, setCategory] = useState(null); 
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {

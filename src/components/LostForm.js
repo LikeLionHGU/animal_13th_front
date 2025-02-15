@@ -21,6 +21,7 @@ const LostForm = () => {
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
+  const locationRef = useRef(null); 
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState(categories[0].id); 
@@ -48,7 +49,7 @@ const LostForm = () => {
       category: selectCategory,
       phoneNum: event.target.phoneNum.value,
       content: event.target.content.value,
-      location: location, // 수정
+      location: locationRef.current ? locationRef.current.value : "",
       detailLocation: event.target.detailLocation.value,
       boardType: 0,
       latitude: 3.5555,
@@ -132,7 +133,7 @@ useEffect(() => {
         </div>
 
         <div className={styles.formGroup}>
-          <input id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}` }  onChange={(e) => setLocation(e.target.value)}/>
+          <input id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}` }  ref={locationRef}/>
           <label htmlFor="location" className={styles.formLabel}>예상 분실 위치 (선택)</label>
         </div>
 

@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import styles from "../styles/GoogleLoginStyle.module.css";
 axios.defaults.withCredentials = true;
-function GoogleLoginButton() {
-    const [clientId, setClientId] = useState(""); // 백엔드에서 받아온 Client ID 저장
+
+function GoogleLoginButton({ loginTriggerRef }) {
+    const [clientId, setClientId] = useState(""); 
+    const googleLoginRef = useRef(null); 
 
     useEffect(() => {
-        // 1) 백엔드에서 Google Client ID 가져오기
         const fetchClientId = async () => {
             try {
-                const response = await axios.get("https://koyangyee.info/auth/login/clientid" );
+                const response = await axios.get("https://koyangyee.info/auth/login/clientid");
                 setClientId(response.data.clientId);
                 console.log("✅ 백엔드에서 받아온 Client ID:", response.data.clientId);
             } catch (error) {
@@ -20,6 +21,16 @@ function GoogleLoginButton() {
 
         fetchClientId();
     }, []);
+
+    useEffect(() => {
+        if (loginTriggerRef?.current) {
+            loginTriggerRef.current.onclick = () => {
+                if (googleLoginRef.current) {
+                    googleLoginRef.current.click();
+                }
+            };
+        }
+    }, [clientId]);
 
     const responseMessage = async (response) => {
         try {
@@ -32,12 +43,10 @@ function GoogleLoginButton() {
                 return;
             }
 
-            // 2) 백엔드 클라이언트 아이디로 구글에서 토큰 받아오기 
             const request = await axios.post(
                 "https://koyangyee.info/auth/login",
                 { googleIdToken },
-                { headers: { "Content-Type": "application/json" }, 
-                    withCredentials: true},
+                { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
 
             console.log("✅ 로그인 성공:", request.data);
@@ -54,11 +63,15 @@ function GoogleLoginButton() {
     };
 
     return (
-        <div>
+        <div style={{ display: "none" }}>
             {clientId ? (
                 <GoogleOAuthProvider clientId={clientId}>
                     <div className={styles.googleLoginButton}>
-                        <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+                        <GoogleLogin
+                            onSuccess={responseMessage}
+                            onError={errorMessage}
+                            ref={googleLoginRef} 
+                        />
                     </div>
                 </GoogleOAuthProvider>
             ) : (

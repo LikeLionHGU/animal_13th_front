@@ -2,10 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/Layout.module.css";
 import { ReactComponent as Logo } from "../assets/icons/zuumLogo.svg";
+import GoogleLoginButton from "./GoogleLoginButton"; // GoogleLoginButton 불러오기
 
 const Layout = ({ children }) => {
   const location = useLocation(); 
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const loginTriggerRef = useRef(null); // 로그인 버튼을 트리거할 참조
+
   const [newsList, setNewsList] = useState([
     { id: 1, title: "iPhone 13", category: "FOUND", date: "1일 전" },
   ]); // 나중에 axios로 값 받아와서 수정
@@ -54,8 +57,10 @@ const Layout = ({ children }) => {
         </div>
 
         <div className={styles.rightSection}>
-          <Link to="/google-login-page">Login</Link>
-          <button onClick={() => setIsModalOpen(true)} className={styles.news}>
+          <button button ref={loginTriggerRef} className={styles.headerButtonDesign}>
+            Login
+          </button>
+          <button onClick={() => setIsModalOpen(true)} className={styles.headerButtonDesign}>
             News
           </button>
           <Link to="/mypage">My page</Link>
@@ -77,7 +82,8 @@ const Layout = ({ children }) => {
           </ul>
         </div>
       )}
-
+      
+      <GoogleLoginButton loginTriggerRef={loginTriggerRef} />
       <main className={styles.main}>{children}</main>
     </div>
   );

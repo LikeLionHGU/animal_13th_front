@@ -18,22 +18,20 @@ const categories = [
 
 const LostForm = () => {
   const textareaRef = useRef(null);
-  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
+  const [imageFile, setImageFile] = useState(null);
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
 
   const [browser, setBrowser] = useState(null); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState(null); 
 
-  // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImageFile(file); // 선택한 파일 저장
+      setImageFile(file); 
     }
   };
 
-  // 폼 제출 시 모든 데이터를 formData에 추가
   const onSubmit = async (event) => {
     event.preventDefault();
   

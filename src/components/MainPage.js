@@ -89,7 +89,7 @@ function MainPage() {
                     { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
                         <div
                         // className={styles.cell}
-                        key={item.board.id}
+                        key={item.id}
                         onClick={() => handleClick(item)}
                         style={{ cursor: "pointer" }}
                         >

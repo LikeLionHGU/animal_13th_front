@@ -15,7 +15,7 @@ function MainPage() {
     const [foundMain, setFoundMain] = useState();
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
-     useEffect(() => {
+     /*useEffect(() => {
          const fetchData = async () => {
              try {
                  const response = await axios.get("https://koyangyee.info/board/lost/main");
@@ -26,7 +26,7 @@ function MainPage() {
              }
          };
          fetchData();
-     }, []);
+     }, []);*/
 
     useEffect(() => {
         const fetchData = async () => {
@@ -86,7 +86,7 @@ function MainPage() {
                 {lostMain ? 
                 <>
                     <div>
-                    {lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
+                    { /*lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
                         <div
                         // className={styles.cell}
                         key={item.board.id}
@@ -102,7 +102,7 @@ function MainPage() {
                                 </div>
                             </div>
                         </div>
-                        ))}
+                        ))*/}
                     </div>
                 </> :
                 <>

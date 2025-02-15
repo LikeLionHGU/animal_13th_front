@@ -49,7 +49,6 @@ const LostForm = () => {
       phoneNum: event.target.phoneNum.value,
       content: event.target.content.value,
       location: event.target.location.value ,
-      detailLocation: event.target.detailLocation.value,
       boardType: 0,
       latitude: 3.5555,
       longitude: 2.434234,

@@ -65,7 +65,6 @@ function MainPage() {
     
     return (
         <div>
-            <div><GoogleLoginButton/></div>
             <div className={styles.mainpageButtons}>
                 <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
                 <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
@@ -133,13 +132,10 @@ function MainPage() {
                     >
                         <div className={styles.card} >
                             <img src={item.image} alt={item.title} width={100} />
-                            <div className={styles.content}>
-                                <span>ID: {item.id}</span>
-                                <span>title: {item.title}</span>
-                                <span>category: {item.category}</span>
-                                <span>updateDate: {item.updateDate}분 전</span>
-                                <span>printDate: {item.printDate}</span>
-                            </div>
+                            <span>ID: {item.id}</span>
+                            <span>title: {item.title}</span>
+                            <span>category: {item.category}</span>
+                            <span>printDate: {item.printDate}</span>
                         </div>
                     </div>
                 ))}

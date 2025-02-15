@@ -132,11 +132,16 @@
     top: 50%;
     transform: translateY(-50%);
 }
-
-
-.cardContainer {
+/*전체 카드=>세로 정렬 위해서*/
+.cardList {
     display: flex;
     flex-direction: row;
+}
+
+/*개별 요소(부모 요소X)*/
+.cardContainer {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     background: white;
     border-radius: 12px;

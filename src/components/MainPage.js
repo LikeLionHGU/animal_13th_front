@@ -87,12 +87,12 @@ function MainPage() {
                     <div>
                     { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
                         <div
-                        // className={styles.cell}
+                        className={styles.cardList}
                         key={item.board.id}
                         onClick={() => handleClick(item)}
                         style={{ cursor: "pointer" }}
                         >
-                            <div className={styles.cardContainer}>
+                            <div className={styles.cardContainer}> 
                                 <img src={item.image} alt={item.title} className={styles.cardImage} />
                                 <div className={styles.cardContent}>
                                     <span className={styles.cardTitle}>{item.title}</span>

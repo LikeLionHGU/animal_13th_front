@@ -1,33 +1,84 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/Layout.module.css";
-import Sidebar from "./Sidebar"; // 네비게이션 바 추가
-import { ReactComponent as Logo } from "../assets/icons/zuumLogo.svg"; 
-import { ReactComponent as NotificationIcon } from "../assets/icons/notification.svg"; 
-import { ReactComponent as ProfileIcon } from "../assets/icons/profile.svg"; 
+import { ReactComponent as Logo } from "../assets/icons/zuumLogo.svg";
 
 const Layout = ({ children }) => {
+  const location = useLocation(); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [newsList, setNewsList] = useState([
+    { id: 1, title: "iPhone 13", category: "FOUND", date: "1일 전" },
+  ]); // 나중에 axios로 값 받아와서 수정
+
+  const newsRef = useRef(null); // 모달 위치 참조
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (newsRef.current && !newsRef.current.contains(event.target)) {
+        setIsModalOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
-      {/* 상단 네비게이션 바 */}
       <header className={styles.header}>
-        <Link to="/" className={styles.logo}>
-          <Logo />
-        </Link>
-        <div className={styles.icons}>
-          <Link to="/alert-page">
-            <NotificationIcon className={styles.icon} />
+        <div className={styles.leftSection}>
+          <Link to="/" className={styles.logo}>
+            <Logo />
           </Link>
-          <Link to="/mypage">
-            <ProfileIcon className={styles.icon} />
-          </Link>
+          <nav className={styles.nav}>
+            <Link
+              to="/"
+              className={location.pathname === "/" ? styles.active : ""}
+            >
+              HOME
+            </Link>
+            <Link
+              to="/lost-page"
+              className={location.pathname === "/lost-page" ? styles.active : ""}
+            >
+              LOST
+            </Link>
+            <Link
+              to="/found-page"
+              className={location.pathname === "/found-page" ? styles.active : ""}
+            >
+              FOUND
+            </Link>
+          </nav>
+        </div>
+
+        <div className={styles.rightSection}>
+          <Link to="/login">Login</Link>
+          <button onClick={() => setIsModalOpen(true)} className={styles.news}>
+            News
+          </button>
+          <Link to="/mypage">My page</Link>
         </div>
       </header>
 
-      <div className={styles.content}>
-        <Sidebar /> {/* 왼쪽 사이드바 */}
-        <main className={styles.main}>{children}</main> {/* 페이지 컨텐츠 */}
-      </div>
+      {/* 뉴스 모달 */}
+      {isModalOpen && (
+        <div className={styles.modal} ref={newsRef}>
+          <h2 className={styles.modalTitle}>새로운 소식</h2>
+          <ul className={styles.newsList}>
+            {newsList.map((news) => (
+              <li key={news.id} className={styles.newsItem}>
+                <span className={styles.newsCategory}>• {news.category}</span>
+                <strong>{news.title}</strong>
+                <span className={styles.newsDate}>{news.date}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <main className={styles.main}>{children}</main>
     </div>
   );
 };

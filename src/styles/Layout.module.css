@@ -1,64 +1,160 @@
 @font-face {
-    font-family: 'Pretendard';
-    src: url('../assets/fonts/PretendardVariable.woff2') format('woff2');
+    font-family: "Pretendard";
+    src: url("../assets/fonts/PretendardVariable.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
   }
-
- * {
-    font-family: 'Pretendard', sans-serif;
+  
+  * {
+    font-family: "Pretendard", sans-serif;
   }
-
-.container {
+  
+  .container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-}
-
-.header {
+  }
+  
+  .header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 21px 35px;
     background-color: white;
-    padding: 10px 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.logo {
+  }
+  
+  .leftSection {
     display: flex;
     align-items: center;
-    position: relative;
-    left: 50px;
-}
-
-.icons {
+    gap: 32px; 
+  }
+  
+  .logo svg {
+    height: 40px;
+  }
+  
+  .nav {
     display: flex;
-    gap: 15px;
-    position: absolute;
-    right: 20px; 
-}
+    gap: 32px; 
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 5px 10px;
+    transition: transform 0.2s ease-in-out; 
+  }
+  
+  .nav a:hover {
+    transform: scale(1.05); 
+    color: #7ACAD6;
+  }
 
-.icon {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-
-.icon:hover {
-    transform: scale(1.1);
-}
-
-.content {
+  .nav a.active {
+    color: #7ACAD6;
+  }
+  
+  .rightSection {
     display: flex;
-    flex: 1;
-}
-
-.main {
+    gap: 30px; 
+  }
+  
+  .rightSection a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .main {
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
-    margin-left: 292px; /* 사이드바 공간 확보 */
-    margin-right: 192px;
-}
+    margin: 0 200px;
+  }
+
+    .news {
+        background: none;
+        border: none;
+        color: black;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+  .modal {
+    position: absolute;
+    top: 70px; 
+    right: 100px; 
+    width: 250px;
+    max-height: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow-y: auto; 
+    z-index: 1000;
+  }
+  
+  .news:hover {
+    text-decoration: none;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 320px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .modalTitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .newsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .newsItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .newsCategory {
+    color: #007aff;
+    font-size: 12px;
+  }
+  
+  .newsDate {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  /* 마지막 아이템은 구분선 제거 */
+  .newsItem:last-child {
+    border-bottom: none;
+  }
+  

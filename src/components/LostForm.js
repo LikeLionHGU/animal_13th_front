@@ -48,7 +48,7 @@ const LostForm = () => {
         console.log(`${pair[0]}:`, pair[1]);
       }
 
-      const response = await axios.post("https://koyangyee.info/board/add", formData, {
+      const response = await axios.post("https://koyangyee.info/board/lost/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

@@ -131,8 +131,9 @@ function MainPage() {
                     onClick={() => handleClick(item)}
                     style={{ cursor: "pointer" }}
                     >
-                        <div className={styles.card} >
+                        <div >
                             <img src={item.image} alt={item.title} width={100} />
+                        </div>
                             <div className={styles.content}>
                                 <span>ID: {item.id}</span>
                                 <span>title: {item.title}</span>
@@ -141,7 +142,6 @@ function MainPage() {
                                 <span>printDate: {item.printDate}</span>
                             </div>
                         </div>
-                    </div>
                 ))}
                 </div>
             ) : (

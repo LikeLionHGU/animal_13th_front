@@ -133,11 +133,13 @@ function MainPage() {
                     >
                         <div className={styles.card} >
                             <img src={item.image} alt={item.title} width={100} />
-                            <span>ID: {item.id}</span>
-                            <span>title: {item.title}</span>
-                            <span>category: {item.category}</span>
-                            <span>updateDate: {item.updateDate}분 전</span>
-                            <span>printDate: {item.printDate}</span>
+                            <div className={styles.content}>
+                                <span>ID: {item.id}</span>
+                                <span>title: {item.title}</span>
+                                <span>category: {item.category}</span>
+                                <span>updateDate: {item.updateDate}분 전</span>
+                                <span>printDate: {item.printDate}</span>
+                            </div>
                         </div>
                     </div>
                 ))}

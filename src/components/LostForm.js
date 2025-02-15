@@ -42,6 +42,20 @@ const LostForm = () => {
       formData.append("image", imageFile);
     }
 
+    const boardData = {
+      title: event.target.title.value,
+      category: selectCategory,
+      phoneNum: event.target.phoneNum.value,
+      content: event.target.content.value,
+      location: displayLocation,
+      detailLocation: event.target.detailLocation.value,
+      boardType: 0,
+      latitude: location.lat,
+      longitude: location.lng,
+    };
+  
+    formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
+
     try {
       console.log("FormData 내용:");
       for (let pair of formData.entries()) {

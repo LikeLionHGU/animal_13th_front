@@ -32,7 +32,7 @@ function MainPage() {
         const fetchData = async () => {
           try {
                 const response = await axios.get("https://koyangyee.info/board/found/main");
-                console.log("Found: ", response.data.board.id);
+                console.log("Found: ", response.data.board);
                 setFoundMain(response.data.board);
           } catch (error) {
                 console.error("오류 발생:", error);

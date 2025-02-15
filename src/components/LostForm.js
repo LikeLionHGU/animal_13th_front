@@ -20,7 +20,6 @@ const LostForm = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
-  // eslint no-unused-vars
   const [location, setLocation] = useState("");
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식

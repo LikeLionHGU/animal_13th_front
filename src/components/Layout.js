@@ -54,7 +54,7 @@ const Layout = ({ children }) => {
         </div>
 
         <div className={styles.rightSection}>
-          <Link to="/login">Login</Link>
+          <Link to="/google-login-page">Login</Link>
           <button onClick={() => setIsModalOpen(true)} className={styles.news}>
             News
           </button>

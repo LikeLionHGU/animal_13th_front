@@ -20,6 +20,11 @@ const LostForm = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
+  // eslint no-unused-vars
+  const [location, setLocation] = useState(""); // MapnLocation에서 값 받아오기
+  setLocation("");
+
+  const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`)
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
@@ -53,7 +58,7 @@ const LostForm = () => {
       latitude: location.lat,
       longitude: location.lng,
     };
-  
+    //location만 필요 =>사용자 입력(예상위치치)
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
 
     try {
@@ -99,6 +104,14 @@ const LostForm = () => {
         setBrowser("mobile") 
     }
 },[])
+
+useEffect(() => {
+  if (location && typeof location.lat === "function") {
+    setDisplayLocation(`${location.lat()}, ${location.lng()}`); // 함수면 호출해서 값만 저장
+  } else {
+    setDisplayLocation(`${location.lat}, ${location.lng}`); // 아니면 그냥 사용
+  }
+}, [location]); //마커 위치 업데이트 
 
   return (
     <div className={styles.container}>

@@ -133,12 +133,6 @@
     transform: translateY(-50%);
 }
 
-/*카드 CSS*/
-/*.card{
-    display:flex;
-    justify-content: flex-start;
-    gap: 20px;
-}*/
 
 .cardContainer {
     display: flex;

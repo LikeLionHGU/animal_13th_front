@@ -20,7 +20,7 @@ function MainPage() {
              try {
                  const response = await axios.get("https://koyangyee.info/board/lost/main");
                  console.log("Lost: ", response.data.board);
-                 setLostMain(response.data);
+                 setLostMain(response.data.board);
              } catch (error) {
                  console.error("오류 발생:", error);
              }

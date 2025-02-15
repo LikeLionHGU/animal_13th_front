@@ -21,13 +21,10 @@ const LostForm = () => {
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태
   const navigate = useNavigate();
   // eslint no-unused-vars
-  const [location, setLocation] = useState(""); // MapnLocation에서 값 받아오기
-  setLocation("");
-
-  const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`)
+  const [location, setLocation] = useState("");
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
-  const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
+  const [selectCategory, setCategory] = useState(categories[0].id); 
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {
@@ -40,57 +37,45 @@ const LostForm = () => {
   // 폼 제출 시 모든 데이터를 formData에 추가
   const onSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
-
+  
+    const formData = new FormData();
+    
     if (imageFile) {
       formData.append("image", imageFile);
     }
-
+  
     const boardData = {
       title: event.target.title.value,
       category: selectCategory,
       phoneNum: event.target.phoneNum.value,
       content: event.target.content.value,
-      location: displayLocation,
+      location: location, // 수정
       detailLocation: event.target.detailLocation.value,
       boardType: 0,
-      latitude: location.lat,
-      longitude: location.lng,
+      latitude: 3.5555,
+      longitude: 2.434234,
     };
-    //location만 필요 =>사용자 입력(예상위치)
+  
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
-
+  
     try {
       console.log("FormData 내용:");
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
-
+  
       const response = await axios.post("https://koyangyee.info/board/lost/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true, // 추가
       });
-      const { isLogin, isSuccess } = response.data;
-
-      if (isLogin === 1 && isSuccess === 1) {
-        console.log("업로드 완료:", response.data);
-        alert("업로드 완료");
-        navigate("/"); 
-      } else {
-        if (isLogin === 0) {
-          alert("로그인이 필요합니다.");
-          console.error("로그인되지 않은 상태에서 요청이 수행되었습니다.");
-        } else if (isSuccess === 0) {
-          alert("업로드에 실패했습니다. 다시 시도해주세요.");
-          console.error("서버에서 업로드를 실패로 처리했습니다.");
-        }
-        
-      }
-
-
+  
+      console.log("업로드 완료:", response.data);
+      alert("업로드 완료");
+      navigate("/");
+  
     } catch (error) {
-      alert("업로드 오류");
       console.error("업로드 오류:", error);
+      alert("업로드 오류: " + (error.response?.data?.message || "서버에 문제가 있습니다."));
     }
   };
 
@@ -120,13 +105,10 @@ const LostForm = () => {
 },[])
 
 useEffect(() => {
-  if (location && typeof location.lat === "function") {
-    setDisplayLocation(`${location.lat()}, ${location.lng()}`); // 함수면 호출해서 값만 저장
-  } else {
-    setDisplayLocation(`${location.lat}, ${location.lng}`); // 아니면 그냥 사용
+  if (location) {
+    setLocation(location); // 사용자가 입력한 텍스트 그대로 저장
   }
-}, [location]); //마커 위치 업데이트 
-
+}, [location]); 
   return (
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
@@ -151,7 +133,7 @@ useEffect(() => {
         </div>
 
         <div className={styles.formGroup}>
-          <input id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}`}/>
+          <input value={location} id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}`}/>
           <label htmlFor="location" className={styles.formLabel}>예상 분실 위치 (선택)</label>
         </div>
 

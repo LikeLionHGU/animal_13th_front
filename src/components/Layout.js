@@ -2,18 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/Layout.module.css";
 import { ReactComponent as Logo } from "../assets/icons/zuumLogo.svg";
-import GoogleLoginButton from "./GoogleLoginButton"; // GoogleLoginButton 불러오기
+import GoogleLoginButton from "./GoogleLoginButton"; // GoogleLoginButton 추가
 
 const Layout = ({ children }) => {
-  const location = useLocation(); 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const loginTriggerRef = useRef(null); // 로그인 버튼을 트리거할 참조
+  const location = useLocation();
+  const triggerLogin = useRef({ current: null }); // 초기값을 객체로 설정하여 undefined 방지
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newsList, setNewsList] = useState([
     { id: 1, title: "iPhone 13", category: "FOUND", date: "1일 전" },
-  ]); // 나중에 axios로 값 받아와서 수정
+  ]);
 
-  const newsRef = useRef(null); // 모달 위치 참조
+  const newsRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,29 +35,21 @@ const Layout = ({ children }) => {
             <Logo />
           </Link>
           <nav className={styles.nav}>
-            <Link
-              to="/"
-              className={location.pathname === "/" ? styles.active : ""}
-            >
+            <Link to="/" className={location.pathname === "/" ? styles.active : ""}>
               HOME
             </Link>
-            <Link
-              to="/lost-page"
-              className={location.pathname === "/lost-page" ? styles.active : ""}
-            >
+            <Link to="/lost-page" className={location.pathname === "/lost-page" ? styles.active : ""}>
               LOST
             </Link>
-            <Link
-              to="/found-page"
-              className={location.pathname === "/found-page" ? styles.active : ""}
-            >
+            <Link to="/found-page" className={location.pathname === "/found-page" ? styles.active : ""}>
               FOUND
             </Link>
           </nav>
         </div>
 
         <div className={styles.rightSection}>
-          <button button ref={loginTriggerRef} className={styles.headerButtonDesign}>
+          {/* Login 버튼 클릭 시 Google 로그인 실행 */}
+          <button onClick={() => triggerLogin.current && triggerLogin.current()} className={styles.headerButtonDesign}>
             Login
           </button>
           <button onClick={() => setIsModalOpen(true)} className={styles.headerButtonDesign}>
@@ -82,8 +74,10 @@ const Layout = ({ children }) => {
           </ul>
         </div>
       )}
-      
-      <GoogleLoginButton loginTriggerRef={loginTriggerRef} />
+
+      {/* GoogleLoginButton을 Layout에서 숨김 처리하고 버튼 클릭 시 실행 */}
+      <GoogleLoginButton triggerLogin={triggerLogin} />
+
       <main className={styles.main}>{children}</main>
     </div>
   );

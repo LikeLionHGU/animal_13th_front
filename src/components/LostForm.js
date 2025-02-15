@@ -58,7 +58,7 @@ const LostForm = () => {
       latitude: location.lat,
       longitude: location.lng,
     };
-    //location만 필요 =>사용자 입력(예상위치치)
+    //location만 필요 =>사용자 입력(예상위치)
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
 
     try {
@@ -70,10 +70,24 @@ const LostForm = () => {
       const response = await axios.post("https://koyangyee.info/board/lost/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      const { isLogin, isSuccess } = response.data;
 
-      console.log("업로드 완료:", response.data);
-      alert("업로드 완료");
-      navigate("/");
+      if (isLogin === 1 && isSuccess === 1) {
+        console.log("업로드 완료:", response.data);
+        alert("업로드 완료");
+        navigate("/"); 
+      } else {
+        if (isLogin === 0) {
+          alert("로그인이 필요합니다.");
+          console.error("로그인되지 않은 상태에서 요청이 수행되었습니다.");
+        } else if (isSuccess === 0) {
+          alert("업로드에 실패했습니다. 다시 시도해주세요.");
+          console.error("서버에서 업로드를 실패로 처리했습니다.");
+        }
+        
+      }
+
+
     } catch (error) {
       alert("업로드 오류");
       console.error("업로드 오류:", error);

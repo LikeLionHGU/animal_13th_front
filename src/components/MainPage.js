@@ -32,7 +32,7 @@ function MainPage() {
         const fetchData = async () => {
           try {
                 const response = await axios.get("https://koyangyee.info/board/found/main");
-                console.log("Found: ", response.data.board);
+                console.log("Found: ", response.data.board.id);
                 setFoundMain(response.data.board);
           } catch (error) {
                 console.error("오류 발생:", error);
@@ -131,14 +131,14 @@ function MainPage() {
                     onClick={() => handleClick(item)}
                     style={{ cursor: "pointer" }}
                     >
-                    <div>
-                        <img src={item.image} alt={item.title} width={100} />
-                    </div>
-                    <div>
-                        <span>{item.title}</span>
-                        <span>{item.category}</span>
-                        <span>{item.updateDate}분 전</span>
-                    </div>
+                        <div>
+                            <img src={item.image} alt={item.title} width={100} />
+                            <span>ID: {item.id}</span>
+                            <span>title: {item.title}</span>
+                            <span>category: {item.category}</span>
+                            <span>updateDate: {item.updateDate}분 전</span>
+                            <span>printDate: {item.printDate}</span>
+                        </div>
                     </div>
                 ))}
                 </div>

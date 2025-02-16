@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 
 function LostPageDetail( ) {
-  const [foundDetail, setFoundDetail] = useState();
+  const [lostDetail, setLostDetail] = useState();
   const [isUser, setIsUser] = useState("");
   const { id } = useParams();
 
@@ -14,7 +14,7 @@ function LostPageDetail( ) {
             const response = await axios.get(`https://koyangyee.info/board/lost/${id}`);
             console.log("foundDetail: ", response.data.board);
             console.log("IsUser: ", response.data.isUser);
-            setFoundDetail(response.data.board);
+            setLostDetail(response.data.board);
             setIsUser(response.data.isUser);
         } catch (error) {
             console.error("오류 발생:", error);
@@ -26,7 +26,7 @@ function LostPageDetail( ) {
 
   return (
     <div>
-      {foundDetail ? 
+      {lostDetail ? 
       <>
         <h1>Loading...</h1>
       </> :

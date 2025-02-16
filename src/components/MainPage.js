@@ -101,7 +101,7 @@ function MainPage() {
                             <div className={styles.cardContent}>
                                 <span className={styles.cardTitle}>{item.title}</span>
                                 <span className={styles.cardCategory}>{item.category}</span>
-                                <span className={styles.cardDate}>{item.printDate}분 전</span>
+                                <span className={styles.cardDate}>{item.printDate}</span>
                             </div>
                         </div>
                         </Link>
@@ -142,7 +142,7 @@ function MainPage() {
                             <div className={styles.cardContent}>
                                 <span className={styles.cardTitle}>{item.title}</span>
                                 <span className={styles.cardCategory}>{item.category}</span>
-                                <span className={styles.cardDate}>{item.printDate}분 전</span>
+                                <span className={styles.cardDate}>{item.printDate}</span> 
                             </div>
                         </div>
                     </div>

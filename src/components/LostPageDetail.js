@@ -36,7 +36,7 @@ function LostPageDetail( ) {
         <div>title: {`${lostDetail.title}`}</div>
         <div>Content: {`${lostDetail.content}`}</div>
         <img src={lostDetail.image} alt={lostDetail.title}/>
-        <div>comment: {`${lostDetail.comments.content.content}`}</div>
+        <div>comment: {`${lostDetail.comments.content}`}</div>
         <div>등록날짜: {`${lostDetail.comments.regDate}`}</div>
         <div>Print Date: {`${lostDetail.comments.printDate}`}</div>
         <img src={lostDetail.comments.image} alt={lostDetail.title}/>

@@ -88,7 +88,6 @@ function MainPage() {
                     <div>
                     { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
                         <div
-                        className={styles.cardLis}
                         key={item.id}
                         onClick={() => handleClick(item)}
                         style={{ cursor: "pointer" }}

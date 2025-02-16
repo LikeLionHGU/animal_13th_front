@@ -87,7 +87,7 @@ function MainPage() {
                     <div className={styles.cardList} >
                     
                         { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                       <Link to={`/found-detail/${item.id}`}>
+                       <Link to={`/lost-detail/${item.id}`}>
                        <div
                             key={item.id}
                             className={styles.cardContainer}
@@ -127,25 +127,28 @@ function MainPage() {
             {loading ? (
         <p>로딩 중...</p> // 로딩 중 메시지 표시
             ) : foundMain ? ( // foundMain이 빈 배열이 아닐 때만 표시
-                <div>
+                
+                <div className={styles.cardList} >
                 {foundMain.map((item) => (
+                    <Link to={`/found-detail/${item.id}`}>
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
                     onClick={() => handleClick(item)}
                     style={{ cursor: "pointer" }}
                     >
-                    <div className={styles.cardContainer}>
-                        <img src={item.image} alt={item.title} className={styles.cardImage} />
-                        <div className={styles.cardContent}>
-                            <span className={styles.cardTitle}>{item.title}</span>
-                            <span className={styles.cardCategory}>{item.category}</span>
-                            <span className={styles.cardDate}>{item.updateDate}분 전</span>
+                        <div className={styles.cardContainer}>
+                            <img src={item.image} alt={item.title} className={styles.cardImage} />
+                            <div className={styles.cardContent}>
+                                <span className={styles.cardTitle}>{item.title}</span>
+                                <span className={styles.cardCategory}>{item.category}</span>
+                                <span className={styles.cardDate}>{item.updateDate}분 전</span>
+                            </div>
                         </div>
                     </div>
-
-                </div>
+                </Link>
                 ))}
                 </div>
+                
             ) : (
                 <p>불러온 정보 없음</p> // 데이터가 없을 경우
             )}

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 
-function FoundPageDetail( ) {
+function LostPageDetail( ) {
   const [foundDetail, setFoundDetail] = useState();
   const [isUser, setIsUser] = useState("");
   const { id } = useParams();
@@ -11,7 +11,7 @@ function FoundPageDetail( ) {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get(`https://koyangyee.info/board/found/${id}`);
+            const response = await axios.get(`https://koyangyee.info/board/lost/${id}`);
             console.log("foundDetail: ", response.data.board);
             console.log("IsUser: ", response.data.isUser);
             setFoundDetail(response.data.board);
@@ -32,8 +32,7 @@ function FoundPageDetail( ) {
       </> :
       <>
         <div>
-          <p>{`HOME > FOUND > ${foundDetail.title}`}</p>
-          <div>Phone: {`${foundDetail.PhoneNum}`}</div>
+          <div></div>
           <div>title: {`${foundDetail.title}`}</div>
           <div>category: {`${foundDetail.category}`}</div>
           <div>Date: {`${foundDetail.printDate}`}</div>
@@ -46,4 +45,4 @@ function FoundPageDetail( ) {
   )
 }
 
-export default FoundPageDetail
+export default LostPageDetail

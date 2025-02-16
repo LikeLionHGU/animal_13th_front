@@ -85,6 +85,8 @@ function MainPage() {
                 {lostMain ? 
                 <>
                     <div className={styles.cardList} >
+
+                   
                     
                         { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
                        <Link to={`/lost-detail/${item.id}`}>
@@ -99,7 +101,7 @@ function MainPage() {
                             <div className={styles.cardContent}>
                                 <span className={styles.cardTitle}>{item.title}</span>
                                 <span className={styles.cardCategory}>{item.category}</span>
-                                <span className={styles.cardDate}>{item.updateDate}분 전</span>
+                                <span className={styles.cardDate}>{item.printDate}분 전</span>
                             </div>
                         </div>
                         </Link>
@@ -126,9 +128,8 @@ function MainPage() {
             <div>
             {loading ? (
         <p>로딩 중...</p> // 로딩 중 메시지 표시
-            ) : foundMain ? ( // foundMain이 빈 배열이 아닐 때만 표시
-                
-                <div className={styles.cardList} >
+            ) : foundMain ?
+              <div className={styles.cardList} >
                 {foundMain.map((item) => (
                     <Link to={`/found-detail/${item.id}`}>
                     <div
@@ -141,7 +142,7 @@ function MainPage() {
                             <div className={styles.cardContent}>
                                 <span className={styles.cardTitle}>{item.title}</span>
                                 <span className={styles.cardCategory}>{item.category}</span>
-                                <span className={styles.cardDate}>{item.updateDate}분 전</span>
+                                <span className={styles.cardDate}>{item.printDate}분 전</span>
                             </div>
                         </div>
                     </div>

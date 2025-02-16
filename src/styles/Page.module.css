@@ -147,7 +147,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 200px;  /* 카드의 너비를 적절하게 조절 */
-  }
+}
   
   .cardImage {
     width: 100%;

@@ -16,7 +16,7 @@ function LostPageDetail( ) {
             console.log("IsUser: ", response.data.isUser);
             setLostDetail(response.data.board);
             setIsUser(response.data.isUser);
-            console.log("comment: ", response.data.board.comments);
+            console.log("comment: ", response.data.board.comments.content);
         } catch (error) {
             console.error("오류 발생:", error);
         }
@@ -36,7 +36,7 @@ function LostPageDetail( ) {
         <div>title: {`${lostDetail.title}`}</div>
         <div>Content: {`${lostDetail.content}`}</div>
         <img src={lostDetail.image} alt={lostDetail.title}/>
-        <div>comment: {`${lostDetail.comments.content}`}</div>
+        {/* <div>comment: {`${lostDetail.comments.content}`}</div> */}
         <div>등록날짜: {`${lostDetail.comments.regDate}`}</div>
         <div>Print Date: {`${lostDetail.comments.printDate}`}</div>
         <img src={lostDetail.comments.image} alt={lostDetail.title}/>

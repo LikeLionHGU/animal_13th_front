@@ -37,10 +37,8 @@ function LostPageDetail( ) {
         <div>Content: {`${lostDetail.content}`}</div>
         <img src={lostDetail.image} alt={lostDetail.title}/>
         {lostDetail.comments.map((item) => (
-                    <Link to={`/found-detail/${item.id}`}>
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
-                    onClick={() => handleClick(item)}
                     style={{ cursor: "pointer" }}
                     >
                         <div>comment: {`${item.content}`}</div>
@@ -49,10 +47,7 @@ function LostPageDetail( ) {
                         <img src={item.image} alt={item.id}/>
                         <div>comments userID: {`${item.userId}`}</div>
                     </div>
-                </Link>
                 ))}
-
-        
     </div>
     </> :
       <>

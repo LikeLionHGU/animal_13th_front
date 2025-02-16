@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "../styles/Layout.module.css";
 import { ReactComponent as Logo } from "../assets/icons/zuumLogo.svg";
 import GoogleLoginButton from "./GoogleLoginButton"; // GoogleLoginButton 추가
 
+import axios from "axios";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+axios.defaults.withCredentials = true;
+
 const Layout = ({ children }) => {
   const location = useLocation();
   const triggerLogin = useRef({ current: null }); // 초기값을 객체로 설정하여 undefined 방지
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newsList, setNewsList] = useState([
@@ -27,17 +32,54 @@ const Layout = ({ children }) => {
     };
   }, []);
 
-  const handleGoogleLogin = () => {
-    const nonce = Math.random().toString(36).substring(2) + Date.now().toString(36);
+  // 구글 로그인
+  const [clientId, setClientId] = useState(""); // 백엔드에서 받아온 Client ID 저장
 
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
-      client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
-      &redirect_uri=${process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI}
-      &response_type=id_token
-      &scope=email profile
-      &nonce=${nonce}
-    `;
-  };
+    useEffect(() => {
+        // 백엔드에서 Google Client ID 가져오기
+        const fetchClientId = async () => {
+            try {
+                const response = await axios.get("https://koyangyee.info/auth/login/clientid");
+                setClientId(response.data.clientId);
+                console.log("백엔드에서 받아온 Client ID:", response.data.clientId);
+            } catch (error) {
+                console.error("Client ID 가져오기 실패:", error);
+            }
+        };
+
+        fetchClientId();
+    }, []);
+
+    const responseMessage = async (response) => {
+        try {
+            console.log("구글 로그인 응답:", response);
+            const googleIdToken = response.credential;
+
+            if (!googleIdToken) {
+                console.error("토큰이 없습니다.");
+                alert("로그인 실패. 다시 시도해주세요.");
+                return;
+            }
+
+            // 백엔드에 구글 토큰 전송
+            const request = await axios.post(
+                "https://koyangyee.info/auth/login",
+                { googleIdToken },
+                { headers: { "Content-Type": "application/json" }, withCredentials: true }
+            );
+
+            console.log("✅ 로그인 성공:", request.data);
+            alert("로그인 성공");
+
+        } catch (error) {
+            console.error("❌ 로그인 요청 실패:", error);
+            alert("로그인 실패. 다시 시도해주세요.");
+        }
+    };
+
+    const errorMessage = (error) => {
+        console.error("❌ 구글 로그인 오류:", error);
+    };
 
   return (
     <div className={styles.container}>
@@ -61,13 +103,27 @@ const Layout = ({ children }) => {
 
         <div className={styles.rightSection}>
           {/* Login 버튼 클릭 시 Google 로그인 실행 */}
-          <button onClick={() => handleGoogleLogin()} className={styles.headerButtonDesign}>
+
+            {clientId ? (
+                <GoogleOAuthProvider clientId={clientId}>
+                    <div className={styles.googleLoginButton}>
+                        <button className={styles.headerButtonDesign} onSuccess={responseMessage} onError={errorMessage}>login</button>
+                    </div>
+                </GoogleOAuthProvider>
+            ) : (
+                <p>Loading...</p>
+            )}
+        
+
+          {/* <button onClick={() => triggerLogin.current && triggerLogin.current()} className={styles.headerButtonDesign}>
             Login
-          </button>
+          </button> */}
           <button onClick={() => setIsModalOpen(true)} className={styles.headerButtonDesign}>
             News
           </button>
-          <Link to="/mypage">My page</Link>
+          <button onClick={() => navigate("/mypage")} className={styles.headerButtonDesign}>
+            My page
+          </button>
         </div>
       </header>
 

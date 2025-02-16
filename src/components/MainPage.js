@@ -84,7 +84,7 @@ function MainPage() {
             <div>
                 {lostMain ? 
                 <>
-                    <div className={styles.cardList} >
+                    <div >
                     { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
                     <div
                         key={item.id}

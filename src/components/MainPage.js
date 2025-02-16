@@ -65,7 +65,6 @@ function MainPage() {
     
     return (
         <div>
-            <div><GoogleLoginButton/></div>
             <div className={styles.mainpageButtons}>
                 <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
                 <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>

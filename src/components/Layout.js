@@ -4,10 +4,6 @@ import styles from "../styles/Layout.module.css";
 import { ReactComponent as Logo } from "../assets/icons/zuumLogo.svg";
 import GoogleLoginButton from "./GoogleLoginButton"; // GoogleLoginButton 추가
 
-import axios from "axios";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-axios.defaults.withCredentials = true;
-
 const Layout = ({ children }) => {
   const location = useLocation();
   const triggerLogin = useRef({ current: null }); // 초기값을 객체로 설정하여 undefined 방지
@@ -32,55 +28,6 @@ const Layout = ({ children }) => {
     };
   }, []);
 
-  // 구글 로그인
-  const [clientId, setClientId] = useState(""); // 백엔드에서 받아온 Client ID 저장
-
-    useEffect(() => {
-        // 백엔드에서 Google Client ID 가져오기
-        const fetchClientId = async () => {
-            try {
-                const response = await axios.get("https://koyangyee.info/auth/login/clientid");
-                setClientId(response.data.clientId);
-                console.log("백엔드에서 받아온 Client ID:", response.data.clientId);
-            } catch (error) {
-                console.error("Client ID 가져오기 실패:", error);
-            }
-        };
-
-        fetchClientId();
-    }, []);
-
-    const responseMessage = async (response) => {
-        try {
-            console.log("구글 로그인 응답:", response);
-            const googleIdToken = response.credential;
-
-            if (!googleIdToken) {
-                console.error("토큰이 없습니다.");
-                alert("로그인 실패. 다시 시도해주세요.");
-                return;
-            }
-
-            // 백엔드에 구글 토큰 전송
-            const request = await axios.post(
-                "https://koyangyee.info/auth/login",
-                { googleIdToken },
-                { headers: { "Content-Type": "application/json" }, withCredentials: true }
-            );
-
-            console.log("✅ 로그인 성공:", request.data);
-            alert("로그인 성공");
-
-        } catch (error) {
-            console.error("❌ 로그인 요청 실패:", error);
-            alert("로그인 실패. 다시 시도해주세요.");
-        }
-    };
-
-    const errorMessage = (error) => {
-        console.error("❌ 구글 로그인 오류:", error);
-    };
-
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -104,16 +51,7 @@ const Layout = ({ children }) => {
         <div className={styles.rightSection}>
           {/* Login 버튼 클릭 시 Google 로그인 실행 */}
 
-            {clientId ? (
-                <GoogleOAuthProvider clientId={clientId}>
-                    <div className={styles.googleLoginButton}>
-                        <GoogleLogin className={styles.headerButtonDesign} onSuccess={responseMessage} onError={errorMessage}>login</GoogleLogin>
-                    </div>
-                </GoogleOAuthProvider>
-            ) : (
-                <p>Loading...</p>
-            )}
-        
+            <GoogleLoginButton />
 
           {/* <button onClick={() => triggerLogin.current && triggerLogin.current()} className={styles.headerButtonDesign}>
             Login

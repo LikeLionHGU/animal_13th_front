@@ -101,7 +101,7 @@ const FoundForm = () => {
 
     const { isLogin, isSuccess } = response.data;
 
-    if (isLogin === 1 && isSuccess === 1) {
+    if (isSuccess === 1) {
       console.log("업로드 완료:", response.data);
       alert("업로드 완료");
       navigate("/"); 
@@ -110,7 +110,6 @@ const FoundForm = () => {
         alert("업로드에 실패했습니다. 다시 시도해주세요.");
         console.error("서버에서 업로드를 실패로 처리했습니다.");
       }
-      
     }
   } catch (error) {
     console.error("요청 중 오류 발생:", error.message);

@@ -4,7 +4,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import styles from "../styles/GoogleLoginStyle.module.css";
 axios.defaults.withCredentials = true;
 
-function GoogleLoginButton({ triggerLogin }) {
+function GoogleLoginButton() {
     const [clientId, setClientId] = useState(""); // 백엔드에서 받아온 Client ID 저장
     const [showLogin, setShowLogin] = useState(false); // GoogleLogin 실행 여부
 
@@ -55,16 +55,12 @@ function GoogleLoginButton({ triggerLogin }) {
     };
 
     return (
-        <div style={{ display: showLogin ? "block" : "none" }}> {/* 필요할 때만 보이게 */}
-            {clientId ? (
-                <GoogleOAuthProvider clientId={clientId}>
-                    <div className={styles.googleLoginButton}>
-                        <button onSuccess={responseMessage} onError={errorMessage}>login</button>
-                    </div>
-                </GoogleOAuthProvider>
-            ) : (
-                <p>Loading...</p>
-            )}
+        <div> {/* 필요할 때만 보이게 */}
+            <GoogleOAuthProvider clientId={clientId}>
+                <div className={styles.googleLoginButton}>
+                    <GoogleLogin onSuccess={responseMessage} onError={errorMessage}>login</GoogleLogin>
+                </div>
+            </GoogleOAuthProvider>
         </div>
     );
 }

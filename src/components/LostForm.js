@@ -64,11 +64,22 @@ const LostForm = () => {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true, // 추가
       });
-  
-      console.log("업로드 완료:", response.data);
-      alert("업로드 완료");
-      navigate("/");
-  
+
+      const { isLogin, isSuccess } = response.data;
+
+      if (isLogin === 1 && isSuccess === 1) {
+        console.log("업로드 완료:", response.data);
+        alert("업로드 완료");
+        navigate("/"); 
+      } else {
+        if (isSuccess === 0) {
+          alert("업로드에 실패했습니다. 다시 시도해주세요.");
+          console.error("서버에서 업로드를 실패로 처리했습니다.");
+        } else if (isLogin === 0){
+          alert("로그인 정보 없음");
+          navigate("/"); 
+        }
+      }
     } catch (error) {
       console.error("업로드 오류:", error);
       alert("업로드 오류: " + (error.response?.data?.message || "서버에 문제가 있습니다."));

@@ -36,11 +36,11 @@ function LostPageDetail( ) {
         <div>title: {`${lostDetail.title}`}</div>
         <div>Content: {`${lostDetail.content}`}</div>
         <img src={lostDetail.image} alt={lostDetail.title}/>
-        <div>comment: {`${lostDetail.comment.content}`}</div>
-        <div>등록날짜: {`${lostDetail.comment.regDate}`}</div>
-        <div>Print Date: {`${lostDetail.comment.printDate}`}</div>
-        <img src={lostDetail.comment.image} alt={lostDetail.title}/>
-        <div>comments userID: {`${lostDetail.comment.userId}`}</div>
+        <div>comment: {`${lostDetail.comments.content.content}`}</div>
+        <div>등록날짜: {`${lostDetail.comments.regDate}`}</div>
+        <div>Print Date: {`${lostDetail.comments.printDate}`}</div>
+        <img src={lostDetail.comments.image} alt={lostDetail.title}/>
+        <div>comments userID: {`${lostDetail.comments.userId}`}</div>
     </div>
     </> :
       <>

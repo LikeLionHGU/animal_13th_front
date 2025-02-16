@@ -11,9 +11,7 @@ import {Link} from "react-router-dom";
 function MainPage() {
     const navigate = useNavigate();
     
-    const [lostMain, setLostMain] = useState([
-        { id: 1, title: "iPhone 13", category: "FOUND", date: "1일 전" },
-      ]);
+    const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
@@ -86,23 +84,25 @@ function MainPage() {
             <div>
                 {lostMain ? 
                 <>
-                    <div >
-                    { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                    <div
-                        key={item.id}
-                        className={styles.cardContainer}
-                        onClick={() => handleClick(item)}
-                        style={{ cursor: "pointer" }}
-                        >
-                             
-                        <img src={item.image} alt={item.title} className={styles.cardImage} />
-                        <div className={styles.cardContent}>
-                            <span className={styles.cardTitle}>{item.title}</span>
-                            <span className={styles.cardCategory}>{item.category}</span>
-                            <span className={styles.cardDate}>{item.updateDate}분 전</span>
+                    <div className={styles.cardList} >
+                    
+                        { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
+                       <Link to={`/found-detail/${item.id}`}>
+                       <div
+                            key={item.id}
+                            className={styles.cardContainer}
+                            onClick={() => handleClick(item)}
+                            style={{ cursor: "pointer" }}
+                            >
+                                
+                            <img src={item.image} alt={item.title} className={styles.cardImage} />
+                            <div className={styles.cardContent}>
+                                <span className={styles.cardTitle}>{item.title}</span>
+                                <span className={styles.cardCategory}>{item.category}</span>
+                                <span className={styles.cardDate}>{item.updateDate}분 전</span>
+                            </div>
                         </div>
-                    </div>
-        
+                        </Link>
                         ))}
                     </div>
                 </> :

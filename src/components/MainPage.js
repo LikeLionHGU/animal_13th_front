@@ -85,22 +85,23 @@ function MainPage() {
             <div>
                 {lostMain ? 
                 <>
-                    <div>
+                    <div className={styles.cardList} >
                     { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                        <div
+                    <div
                         key={item.id}
+                        className={styles.cardContainer}
                         onClick={() => handleClick(item)}
                         style={{ cursor: "pointer" }}
                         >
-                            <div className={styles.cardContainer}> 
-                                <img src={item.image} alt={item.title} className={styles.cardImage} />
-                                <div className={styles.cardContent}>
-                                    <span className={styles.cardTitle}>{item.title}</span>
-                                    <span className={styles.cardCategory}>{item.category}</span>
-                                    <span className={styles.cardDate}>{item.updateDate}분 전</span>
-                                </div>
-                            </div>
+                             
+                        <img src={item.image} alt={item.title} className={styles.cardImage} />
+                        <div className={styles.cardContent}>
+                            <span className={styles.cardTitle}>{item.title}</span>
+                            <span className={styles.cardCategory}>{item.category}</span>
+                            <span className={styles.cardDate}>{item.updateDate}분 전</span>
                         </div>
+                    </div>
+        
                         ))}
                     </div>
                 </> :

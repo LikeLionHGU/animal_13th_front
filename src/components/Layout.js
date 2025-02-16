@@ -82,8 +82,8 @@ const Layout = ({ children }) => {
         </div>
       )}
 
-      <main className={styles.main}>{children}
-        <footer className={styles.footer}>
+      <main className={styles.main}>{children}</main>
+      <footer className={styles.footer}>
           <div className={styles.footerLeft}>
             <h3>사업자 정보</h3>
             <p>
@@ -99,7 +99,6 @@ const Layout = ({ children }) => {
             <BigLogo/>
           </div>
         </footer>
-      </main>
     </div>
   );
 };

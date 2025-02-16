@@ -156,7 +156,6 @@
     color: gray;
   }
   
-  /* 마지막 아이템은 구분선 제거 */
   .newsItem:last-child {
     border-bottom: none;
   }

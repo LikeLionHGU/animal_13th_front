@@ -34,7 +34,7 @@ function FoundPageDetail( ) {
         <div>title: {`${foundDetail.title}`}</div>
         <div>category: {`${foundDetail.category}`}</div>
         <div>Date: {`${foundDetail.printDate}`}</div>
-        <div>title: {`${foundDetail.title}`}</div>
+        <div>Content: {`${foundDetail.content}`}</div>
         <img src={foundDetail.image} alt={foundDetail.title}/>
       </div>
     </>:

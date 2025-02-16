@@ -101,7 +101,7 @@ const FoundForm = () => {
 
     const { isLogin, isSuccess } = response.data;
 
-    if (isLogin === 1 && isSuccess === 1) {
+    if (isSuccess === 1) {
       console.log("업로드 완료:", response.data);
       alert("업로드 완료");
       navigate("/"); 

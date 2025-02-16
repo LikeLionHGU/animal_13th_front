@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 
 function FoundPageDetail( ) {
-  const [foundDetail, setFoundDetail] = useState();
+  const [foundDetail, setFoundDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
   const { id } = useParams();
 

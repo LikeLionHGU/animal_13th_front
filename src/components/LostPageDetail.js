@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 
 function LostPageDetail( ) {
-  const [lostDetail, setLostDetail] = useState();
+  const [lostDetail, setLostDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
   const { id } = useParams();
 

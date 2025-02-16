@@ -132,10 +132,10 @@
     top: 50%;
     transform: translateY(-50%);
 }
-/*전체 카드=>세로 정렬 위해서*/
+/*전체 카드=>가로로 정렬 위해서*/
 .cardList {
     display: flex;
-    flex-wrap: wrap; /* 너비가 부족하면 다음 줄로 넘김 */
+    flex-direction: row;
     gap: 16px; /* 카드 사이 간격 */
     justify-content: center; /* 중앙 정렬 */
 }

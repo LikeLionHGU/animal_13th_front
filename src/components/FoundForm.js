@@ -99,7 +99,7 @@ const FoundForm = () => {
         withCredentials: true, 
       });
 
-    const {isSuccess } = response.data;
+    const { isLogin, isSuccess } = response.data;
 
     if (isSuccess === 1) {
       console.log("업로드 완료:", response.data);

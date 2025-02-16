@@ -107,7 +107,7 @@ const Layout = ({ children }) => {
             {clientId ? (
                 <GoogleOAuthProvider clientId={clientId}>
                     <div className={styles.googleLoginButton}>
-                        <button className={styles.headerButtonDesign} onSuccess={responseMessage} onError={errorMessage}>login</button>
+                        <GoogleLogin className={styles.headerButtonDesign} onSuccess={responseMessage} onError={errorMessage}>login</GoogleLogin>
                     </div>
                 </GoogleOAuthProvider>
             ) : (
@@ -142,9 +142,6 @@ const Layout = ({ children }) => {
           </ul>
         </div>
       )}
-
-      {/* GoogleLoginButton을 Layout에서 숨김 처리하고 버튼 클릭 시 실행 */}
-      <GoogleLoginButton triggerLogin={triggerLogin} />
 
       <main className={styles.main}>{children}</main>
     </div>

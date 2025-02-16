@@ -36,11 +36,23 @@ function LostPageDetail( ) {
         <div>title: {`${lostDetail.title}`}</div>
         <div>Content: {`${lostDetail.content}`}</div>
         <img src={lostDetail.image} alt={lostDetail.title}/>
-        {/* <div>comment: {`${lostDetail.comments.content}`}</div> */}
-        <div>등록날짜: {`${lostDetail.comments.regDate}`}</div>
-        <div>Print Date: {`${lostDetail.comments.printDate}`}</div>
-        <img src={lostDetail.comments.image} alt={lostDetail.title}/>
-        <div>comments userID: {`${lostDetail.comments.userId}`}</div>
+        {lostDetail.comments.map((item) => (
+                    <Link to={`/found-detail/${item.id}`}>
+                    <div
+                    key={item.id} // key는 item.board.id가 아닌 item.id 사용
+                    onClick={() => handleClick(item)}
+                    style={{ cursor: "pointer" }}
+                    >
+                        <div>comment: {`${item.content}`}</div>
+                        <div>등록날짜: {`${item.regDate}`}</div>
+                        <div>Print Date: {`${item.printDate}`}</div>
+                        <img src={item.image} alt={item.id}/>
+                        <div>comments userID: {`${item.userId}`}</div>
+                    </div>
+                </Link>
+                ))}
+
+        
     </div>
     </> :
       <>

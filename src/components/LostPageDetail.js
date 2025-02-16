@@ -29,12 +29,14 @@ function LostPageDetail( ) {
       {lostDetail ? 
       <>
       <div>
-        <div></div>
         <div>title: {`${lostDetail.title}`}</div>
         <div>category: {`${lostDetail.category}`}</div>
         <div>Date: {`${lostDetail.printDate}`}</div>
         <div>title: {`${lostDetail.title}`}</div>
         <img src={lostDetail.image} alt={lostDetail.title}/>
+        <div>comment: {`${lostDetail.comments.content}`}</div>
+        <img src={lostDetail.comments.image} alt={lostDetail.title}/>
+        <div>comments userID: {`${lostDetail.comments.userId}`}</div>
     </div>
     </> :
       <>

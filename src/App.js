@@ -11,6 +11,7 @@ import FoundForm from "./components/FoundForm";
 import MyPageFound from "./components/MyPageFound";
 import MyPageLost from "./components/MyPageLost";
 import FoundDetail from "./components/FoundPageDetail";
+import LostDetail from "./components/LostPageDetail";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/alert-page" element={<AlertPage />} />
           {/* <Route path="/google-login-page" element={<GoogleLoginPage />} /> */}
           <Route path="/found-detail/:id" element={<FoundDetail/>}/>
+          <Route path="/lost-detail/:id" element={<LostDetail/>}/>
         </Routes>
       </Layout>
     </BrowserRouter>

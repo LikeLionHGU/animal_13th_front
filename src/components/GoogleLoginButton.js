@@ -55,17 +55,13 @@ function GoogleLoginButton({ triggerLogin }) {
     };
 
     return (
-        <div style={{ display: showLogin ? "block" : "none" }}> {/* 필요할 때만 보이게 */}
-            {clientId ? (
-                <GoogleOAuthProvider clientId={clientId}>
-                    <div className={styles.googleLoginButton}>
-                        <button onSuccess={responseMessage} onError={errorMessage}>login</button>
-                    </div>
-                </GoogleOAuthProvider>
-            ) : (
-                <p>Loading...</p>
-            )}
-        </div>
+        <span> {/* 필요할 때만 보이게 */}
+            <GoogleOAuthProvider clientId={clientId}>
+                <div className={styles.googleLoginButton}>
+                    <GoogleLogin onSuccess={responseMessage} onError={errorMessage}>login</GoogleLogin>
+                </div>
+            </GoogleOAuthProvider>
+        </span>
     );
 }
 

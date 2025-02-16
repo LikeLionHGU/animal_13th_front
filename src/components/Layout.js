@@ -104,16 +104,7 @@ const Layout = ({ children }) => {
         <div className={styles.rightSection}>
           {/* Login 버튼 클릭 시 Google 로그인 실행 */}
 
-            {clientId ? (
-                <GoogleOAuthProvider clientId={clientId}>
-                    <div className={styles.googleLoginButton}>
-                        <GoogleLogin className={styles.headerButtonDesign} onSuccess={responseMessage} onError={errorMessage}>login</GoogleLogin>
-                    </div>
-                </GoogleOAuthProvider>
-            ) : (
-                <p>Loading...</p>
-            )}
-        
+            <GoogleLoginButton className={styles.headerButtonDesign}/>
 
           {/* <button onClick={() => triggerLogin.current && triggerLogin.current()} className={styles.headerButtonDesign}>
             Login

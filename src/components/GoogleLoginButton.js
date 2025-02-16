@@ -54,15 +54,6 @@ function GoogleLoginButton({ triggerLogin }) {
         console.error("❌ 구글 로그인 오류:", error);
     };
 
-    // Layout에서 "Login" 버튼 클릭 시 실행할 함수
-    useEffect(() => {
-        if (triggerLogin && typeof triggerLogin === "object") {
-            triggerLogin.current = () => {
-                setShowLogin(true); // GoogleLogin 실행
-            };
-        }
-    }, [triggerLogin]); // triggerLogin이 변경될 때마다 실행
-
     return (
         <div style={{ display: showLogin ? "block" : "none" }}> {/* 필요할 때만 보이게 */}
             {clientId ? (

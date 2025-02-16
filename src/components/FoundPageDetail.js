@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 
 function FoundPageDetail( ) {
-  const [foundDetail, setFoundDetail] = useState("");
+  const [foundDetail, setFoundDetail] = useState();
   const [isUser, setIsUser] = useState("");
   const { id } = useParams();
 
@@ -26,11 +26,20 @@ function FoundPageDetail( ) {
 
   return (
     <div>
+      {foundDetail ? 
+      <>
+        <h1>Loading...</h1>
+      </> :
+      <>
+        <div>
         <div>title: {`${foundDetail.title}`}</div>
         <div>category: {`${foundDetail.category}`}</div>
         <div>Date: {`${foundDetail.printDate}`}</div>
         <div>title: {`${foundDetail.title}`}</div>
         <img src={foundDetail.image} alt={foundDetail.title}/>
+      </div>
+      </>}
+      
     </div>
   )
 }

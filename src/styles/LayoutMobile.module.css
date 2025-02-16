@@ -1,0 +1,168 @@
+@font-face {
+    font-family: "Pretendard";
+    src: url("../assets/fonts/PretendardVariable.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  * {
+    font-family: "Pretendard", sans-serif;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 17px;
+    background-color: white;
+  }
+  
+  .leftSection {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+  }
+  
+  .logo svg {
+    height: 40px;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 12px; 
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 5px 10px;
+    transition: transform 0.2s ease-in-out; 
+  }
+  
+  .nav a:hover {
+    transform: scale(1.05); 
+    color: #7ACAD6;
+  }
+
+  .nav a.active {
+    color: #7ACAD6;
+  }
+  
+  .rightSection {
+    display: flex;
+    gap: 12px; 
+  }
+  
+  .rightSection a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  
+  .main {
+    flex-grow: 1;
+    padding: 33px;
+  }
+
+  .headerButtonDesign {
+      background: none;
+      border: none;
+      color: black;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+  }
+
+  .modal {
+    position: absolute;
+    top: 70px; 
+    right: 1px; 
+    width: 125px;
+    max-height: 150px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow-y: auto; 
+    z-index: 1000;
+  }
+  
+  .news:hover {
+    text-decoration: none;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 320px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .modalTitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .newsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .newsItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .newsCategory {
+    color: #007aff;
+    font-size: 12px;
+  }
+  
+  .newsDate {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .newsItem:last-child {
+    border-bottom: none;
+  }
+
+  .footer {
+    background-color: #F5FBFF;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }

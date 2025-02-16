@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import styles from "../styles/GoogleLoginStyle.module.css";
+import styles from "../../styles/GoogleLoginStyle.module.css";
 axios.defaults.withCredentials = true;
 
 function GoogleLoginButton() {

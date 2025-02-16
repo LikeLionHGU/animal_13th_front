@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import styles from "../styles/Layout.module.css";
-import { ReactComponent as Logo } from "../assets/icons/zuumLogo.svg";
-import { ReactComponent as BigLogo } from "../assets/icons/zuumLogoBig.svg";
-import GoogleLoginButton from "./GoogleLoginButton"; // GoogleLoginButton 추가
+import styles from "../../styles/LayoutMobile.module.css";
+import { ReactComponent as Logo } from "../../assets/icons/zuumLogo.svg";
+import { ReactComponent as SmallLogo } from "../../assets/icons/zuumLogoSmall.svg";
+import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton 추가
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -33,9 +33,6 @@ const Layout = ({ children }) => {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.leftSection}>
-          <Link to="/" className={styles.logo}>
-            <Logo />
-          </Link>
           <nav className={styles.nav}>
             <Link to="/" className={location.pathname === "/" ? styles.active : ""}>
               HOME
@@ -47,16 +44,19 @@ const Layout = ({ children }) => {
               FOUND
             </Link>
           </nav>
+          <Link to="/" className={styles.logo}>
+            <SmallLogo />
+          </Link>
         </div>
 
         <div className={styles.rightSection}>
           {/* Login 버튼 클릭 시 Google 로그인 실행 */}
 
-            <GoogleLoginButton />
+            {/* <GoogleLoginButton /> */}
 
-          {/* <button onClick={() => triggerLogin.current && triggerLogin.current()} className={styles.headerButtonDesign}>
+          <button className={styles.headerButtonDesign}>
             Login
-          </button> */}
+          </button>
           <button onClick={() => setIsModalOpen(true)} className={styles.headerButtonDesign}>
             News
           </button>
@@ -64,6 +64,7 @@ const Layout = ({ children }) => {
             My page
           </button>
         </div>
+        
       </header>
 
       {/* 뉴스 모달 */}
@@ -96,7 +97,7 @@ const Layout = ({ children }) => {
             </p>
           </div>
           <div className={styles.footerRight}>
-            <BigLogo/>
+            <Logo/>
           </div>
         </footer>
     </div>

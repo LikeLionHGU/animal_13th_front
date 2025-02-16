@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import styles from "../styles/Form.module.css";
+import styles from "../../styles/Form.module.css";
 
-import { ReactComponent as ImageUploadField } from "../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
+import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
 const categories = [
   { id: "1", name: "전자기기" },

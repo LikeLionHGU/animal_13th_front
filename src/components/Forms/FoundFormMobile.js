@@ -1,22 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavermapsProvider } from "react-naver-maps";
-import MapnLocation from "./MapnLocation";
+import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
-import styles from "../styles/Form.module.css?v=2";
+import styles from "../../styles/FormMobile.module.css";
 
-import { ReactComponent as ImageUploadField } from "../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
+import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
-const categories = [
-  { id: "1", name: "전자기기" },
-  { id: "2", name: "카드/학생증" },
-  { id: "3", name: "지갑/현금" },
-  { id: "4", name: "택배" },
-  { id: "5", name: "도서 및 서류" },
-  { id: "6", name: "의류/액세서리" },
-  { id: "7", name: "가방" },
-  { id: "8", name: "기타" },
-];
 
 const FoundForm = () => {
   const navigate = useNavigate();
@@ -142,19 +132,19 @@ const FoundForm = () => {
           <label htmlFor="title" className={styles.formLabel}>습득물명 (필수)</label>
         </div>
 
-      <h3>카테고리</h3>     
-      <div className={styles.filterContainer}>
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            type="button"
-            className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
-            onClick={() => onCategorySelect(category.id)}
-          >
-            {category.name}
-          </button>
-        ))}
-      </div>
+        <div className={styles.formGroup}>
+          <select name="category" id="category" onChange={onCategorySelect} className={styles.formField} style={{cursor: "pointer"}} required>
+            <option value="" readOnly>카테고리 (필수)</option>
+            <option value="1" readOnly>전자기기</option>
+            <option value="2" readOnly>카드/학생증</option>
+            <option value="3" readOnly>지갑/현금</option>
+            <option value="4" readOnly>택배</option>
+            <option value="5" readOnly>도서 및 서류</option>
+            <option value="6" readOnly>의류/액세서리</option>
+            <option value="7" readOnly>가방</option>
+            <option value="8" readOnly>기타</option>
+          </select>
+        </div>
 
         <h2>물건을 찾은 위치를 입력해 주세요!</h2>
 

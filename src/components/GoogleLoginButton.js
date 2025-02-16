@@ -14,9 +14,9 @@ function GoogleLoginButton({ triggerLogin }) {
             try {
                 const response = await axios.get("https://koyangyee.info/auth/login/clientid");
                 setClientId(response.data.clientId);
-                console.log("✅ 백엔드에서 받아온 Client ID:", response.data.clientId);
+                console.log("백엔드에서 받아온 Client ID:", response.data.clientId);
             } catch (error) {
-                console.error("❌ Client ID 가져오기 실패:", error);
+                console.error("Client ID 가져오기 실패:", error);
             }
         };
 
@@ -25,11 +25,11 @@ function GoogleLoginButton({ triggerLogin }) {
 
     const responseMessage = async (response) => {
         try {
-            console.log("✅ 구글 로그인 응답:", response);
+            console.log("구글 로그인 응답:", response);
             const googleIdToken = response.credential;
 
             if (!googleIdToken) {
-                console.error("❌ 토큰이 없습니다.");
+                console.error("토큰이 없습니다.");
                 alert("로그인 실패. 다시 시도해주세요.");
                 return;
             }
@@ -54,21 +54,12 @@ function GoogleLoginButton({ triggerLogin }) {
         console.error("❌ 구글 로그인 오류:", error);
     };
 
-    // Layout에서 "Login" 버튼 클릭 시 실행할 함수
-    useEffect(() => {
-        if (triggerLogin && typeof triggerLogin === "object") {
-            triggerLogin.current = () => {
-                setShowLogin(true); // GoogleLogin 실행
-            };
-        }
-    }, [triggerLogin]); // triggerLogin이 변경될 때마다 실행
-
     return (
         <div style={{ display: showLogin ? "block" : "none" }}> {/* 필요할 때만 보이게 */}
             {clientId ? (
                 <GoogleOAuthProvider clientId={clientId}>
                     <div className={styles.googleLoginButton}>
-                        <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+                        <button onSuccess={responseMessage} onError={errorMessage}>login</button>
                     </div>
                 </GoogleOAuthProvider>
             ) : (

@@ -136,12 +136,14 @@
 .cardList {
     display: flex;
     flex-direction: row;
+    gap: 16px; /* 카드 사이 간격 */
+    justify-content: center; /* 중앙 정렬 */
 }
 
 /*개별 요소(부모 요소X)*/
 .cardContainer {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     align-items: center;
     background: white;
     border-radius: 12px;

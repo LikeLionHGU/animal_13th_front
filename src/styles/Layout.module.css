@@ -79,14 +79,14 @@
     margin: 0 200px;
   }
 
-    .news {
-        background: none;
-        border: none;
-        color: black;
-        font-weight: 600;
-        font-size: 16px;
-        cursor: pointer;
-    }
+  .headerButtonDesign {
+      background: none;
+      border: none;
+      color: black;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+  }
 
   .modal {
     position: absolute;

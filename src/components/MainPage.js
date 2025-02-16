@@ -11,7 +11,9 @@ import {Link} from "react-router-dom";
 function MainPage() {
     const navigate = useNavigate();
     
-    const [lostMain, setLostMain] = useState();
+    const [lostMain, setLostMain] = useState([
+        { id: 1, title: "iPhone 13", category: "FOUND", date: "1일 전" },
+      ]);
     const [foundMain, setFoundMain] = useState();
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
 

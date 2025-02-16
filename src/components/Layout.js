@@ -82,24 +82,24 @@ const Layout = ({ children }) => {
         </div>
       )}
 
-      <main className={styles.main}>{children}</main>
-
-      <footer className={styles.footer}>
-        <div className={styles.footerLeft}>
-          <h3>사업자 정보</h3>
-          <p>
-            (주)주움 | 경상북도 포항시 북구 흥해읍 한동로 558 <br/>
-            dongmulnongjangteam | 동물농장<br/>
-            Planner: 이선유<br/>
-            Designer: 김채원<br/>
-            Frontend: 한규호, 박서연 (깃허브)<br/>
-            Backend: 권혁민, 여지현 (깃허브)
-          </p>
-        </div>
-        <div className={styles.footerRight}>
-          <BigLogo/>
-        </div>
-      </footer>
+      <main className={styles.main}>{children}
+        <footer className={styles.footer}>
+          <div className={styles.footerLeft}>
+            <h3>사업자 정보</h3>
+            <p>
+              (주)주움 | 경상북도 포항시 북구 흥해읍 한동로 558 <br/>
+              dongmulnongjangteam | 동물농장<br/>
+              Planner: 이선유<br/>
+              Designer: 김채원<br/>
+              Frontend: 한규호, 박서연 (깃허브)<br/>
+              Backend: 권혁민, 여지현 (깃허브)
+            </p>
+          </div>
+          <div className={styles.footerRight}>
+            <BigLogo/>
+          </div>
+        </footer>
+      </main>
     </div>
   );
 };

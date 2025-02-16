@@ -36,7 +36,7 @@ function FoundPageDetail( ) {
         <div>Date: {`${foundDetail.printDate}`}</div>
         <div>title: {`${foundDetail.title}`}</div>
         <img src={foundDetail.image} alt={foundDetail.title}/>
-    </div>
+      </div>
     </>:
       <>
         <h1>Loading...</h1>

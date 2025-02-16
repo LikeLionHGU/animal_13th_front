@@ -161,4 +161,11 @@
   .newsItem:last-child {
     border-bottom: none;
   }
-  
+
+  .footer {
+    background-color: #F5FBFF;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    margin: 10px 25px;
+  }

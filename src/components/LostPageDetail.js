@@ -21,26 +21,26 @@ function LostPageDetail( ) {
         }
     };
     fetchData();
-}, []);
+}, [id]);
 
 
   return (
     <div>
       {lostDetail ? 
       <>
-        <h1>Loading...</h1>
-      </> :
+      <div>
+        <div></div>
+        <div>title: {`${lostDetail.title}`}</div>
+        <div>category: {`${lostDetail.category}`}</div>
+        <div>Date: {`${lostDetail.printDate}`}</div>
+        <div>title: {`${lostDetail.title}`}</div>
+        <img src={lostDetail.image} alt={lostDetail.title}/>
+    </div>
+    </> :
       <>
-        <div>
-          <div></div>
-          <div>title: {`${lostDetail.title}`}</div>
-          <div>category: {`${lostDetail.category}`}</div>
-          <div>Date: {`${lostDetail.printDate}`}</div>
-          <div>title: {`${lostDetail.title}`}</div>
-          <img src={lostDetail.image} alt={lostDetail.title}/>
-      </div>
-      </>}
-      
+        <h1>Loading...</h1>
+      </>
+    }
     </div>
   )
 }

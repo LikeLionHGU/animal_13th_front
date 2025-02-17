@@ -255,6 +255,12 @@
   }
 }
 
+.page{
+  display:flex;
+  flex-direction: column;
+  width: 300vw;
+}
+
 /*전체 카드=>가로로 정렬 위해서*/
 .cardList {
   display: flex;

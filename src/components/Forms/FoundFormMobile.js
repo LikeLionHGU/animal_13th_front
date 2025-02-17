@@ -8,7 +8,7 @@ import styles from "../../styles/FormMobile.module.css";
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
 
-const FoundForm = () => {
+const FoundFormMobile = () => {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태s
@@ -124,17 +124,22 @@ const FoundForm = () => {
   };
 
   return (
+    <div>
+      <h1 className={styles.title}>FOUND 글쓰기</h1>
+    
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
-      <h1>FOUND 글 작성</h1>
         <div className={styles.formGroup}>
-          <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
-          <label htmlFor="title" className={styles.formLabel}>습득물명 (필수)</label>
+           <label htmlFor="title" className={styles.formLabel}>습득물 명 <span style={{ color: "red" }}>*</span></label>
+            <input id="title" name="title" type="text" placeholder="어떤 물건인지 간단하게 알려주세요 (ex. 검정색 지갑)" className={styles.formField} required />
         </div>
 
         <div className={styles.formGroup}>
+          <label className={styles.formLabel} htmlFor="category">
+            카테고리 <span style={{ color: "red" }}>*</span>
+          </label>
           <select name="category" id="category" onChange={onCategorySelect} className={styles.formField} style={{cursor: "pointer"}} required>
-            <option value="" readOnly>카테고리 (필수)</option>
+            <option value="" readOnly></option>
             <option value="1" readOnly>전자기기</option>
             <option value="2" readOnly>카드/학생증</option>
             <option value="3" readOnly>지갑/현금</option>
@@ -145,42 +150,42 @@ const FoundForm = () => {
             <option value="8" readOnly>기타</option>
           </select>
         </div>
-
-        <h2>물건을 찾은 위치를 입력해 주세요!</h2>
-
-        <NavermapsProvider ncpClientId={MapAPIid}>
-          <div className={styles.mapSize}>
-            <MapnLocation setLocation={setLocation} setAddress={setAddress}/>
+        
+        <div className={styles.mapContainer}>
+          <h2 className={styles.detailLabel}>위치<span style={{ color: "red" }}>*</span></h2>
+          <div>
+            <NavermapsProvider ncpClientId={MapAPIid}>
+              <div className={styles.mapSize}>
+                <MapnLocation setLocation={setLocation} setAddress={setAddress}/>
+              </div>
+            </NavermapsProvider>
+            <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
           </div>
-        </NavermapsProvider>
-        <div>
-          <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
         </div>
 
         <div className={styles.formGroup}>
-          <input id="detailLocation" name="detailLocation" type="text" placeholder="상세위치" className={`${styles.textboxSize} ${styles.formField}`} />
+          <input id="detailLocation" name="detailLocation" type="text" placeholder="(ex. 뉴턴 102호)" className={`${styles.textboxSize} ${styles.formField}`} />
           <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
         </div>
 
         <div className={styles.formGroup}>
-          <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
-          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택)</label> {/* (예시: 010-1234-1234) */}
+          <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="(ex. 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
+          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택)</label>
         </div>
 
-        <div>
-          <h3>상세정보</h3>
+        <div className={styles.formGroup}>
+          <label className={styles.detailLabel} htmlFor="content">상세정보</label>
           <textarea 
             name="content" 
             placeholder="추가적인 정보가 있으면 알려주세요." 
             ref={textareaRef} 
             onInput={autoResize} 
             className={styles.contentTextBox}
-            // required 
             />
         </div>
 
         <div>
-         <h3>사진</h3>
+         <h3 className={styles.detailLabel}>사진</h3>
           <input
             id="galleryInput"
             type="file"
@@ -198,37 +203,14 @@ const FoundForm = () => {
             <ImageUploadField className={styles.imgUploadField} style={{cursor: "pointer"}} onClick={() => document.getElementById("galleryInput").click()}/>
           </>}
         </div>
-        
-        {/* boardType 전송 (보여주지는 않음) */}
-        <div> 
-          <input id="boardType" name="boardType" type="number" value="0" style={{display: "none"}} readOnly/> 
-        </div>
 
         <div className={styles.buttonContainer}>
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>
-      {browser === "web" ?
-        <>
-          <div className={styles.sidebar}>
-            <h2>Lost 게시글</h2>
-            <ul className={styles.postList}>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-            </ul>
-          </div>
-        </> :
-        <>
-          <div></div>
-        </>}
+    </div>
     </div>
   );
 };
 
-export default FoundForm;
+export default FoundFormMobile;

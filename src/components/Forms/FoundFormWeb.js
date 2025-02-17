@@ -54,31 +54,26 @@ const FoundForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("request: ", { category: selectCategory });
-  
-        const response = await axios.post(
-          "https://koyangyee.info/board/found/all/category/new",
-          { category: selectCategory },  // JSON 형태로 요청 본문에 포함
+        // category를 쿼리 파라미터로 전달
+        const response = await axios.get(
+          `https://koyangyee.info/board/found/all/category/new?category=${selectCategory}`,
           {
+            withCredentials: true, // 세션 쿠키 전송
             headers: {
-              "Content-Type": "application/json",  // JSON 요청임을 명시
+              "Content-Type": "application/json",
             },
           }
         );
   
-        // 📌 Response 확인
-        console.log("Response: ", response.data); 
-        
-        // 📌 Lost 데이터 저장
-        setLost(response.data);  
-        
+        console.log("Response: ", response.data);
+        setLost(response.data.board);
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }
     };
   
     fetchData();
-  }, [selectCategory]);
+  }, [selectCategory]);  // selectCategory 값이 바뀔 때마다 요청
   
 
 

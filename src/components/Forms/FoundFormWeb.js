@@ -54,11 +54,11 @@ const FoundForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+          consloe.log("request: ", selectCategory);
             const response = await axios.get("https://koyangyee.info/board/found/all/category/new", 
               {
-               category: 0  
-              }
-            );
+                params: { category: 0 }, 
+              });
             console.log("Lost: ", response.data.board);
             setLost(response.data.board);
       } catch (error) {

@@ -70,7 +70,7 @@ const FoundFormWeb = () => {
           }
         }, { withCredentials : true })
           .then((Response)=>{
-            console.log(Response.data);
+            console.log("Response: ", Response.data);
         })
   
         console.log("Response: ", response.data);

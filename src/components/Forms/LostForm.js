@@ -184,7 +184,7 @@ useEffect(() => {
         </div>
      
 
-        <div>
+        <div className={styles.buttonContainer}>
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>

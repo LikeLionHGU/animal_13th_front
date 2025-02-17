@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "../../styles/LayoutMobile.module.css";
-import { ReactComponent as Logo } from "../../assets/icons/zuumLogo.svg";
 import { ReactComponent as SmallLogo } from "../../assets/icons/zuumLogoSmall.svg";
-import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton 추가
+
+import { ReactComponent as LoginIcon } from "../../assets/icons/mobileLoginIcon.svg";
+import { ReactComponent as NotificationIcon } from "../../assets/icons/mobileNotificationIcon.svg";
+import { ReactComponent as ProfileIcon } from "../../assets/icons/mobileProfileIcon.svg";
+// import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton 추가
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -33,6 +36,9 @@ const Layout = ({ children }) => {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.leftSection}>
+          <Link to="/" className={styles.logo}>
+            <SmallLogo />
+          </Link>
           <nav className={styles.nav}>
             <Link to="/" className={location.pathname === "/" ? styles.active : ""}>
               HOME
@@ -44,27 +50,20 @@ const Layout = ({ children }) => {
               FOUND
             </Link>
           </nav>
-          <Link to="/" className={styles.logo}>
-            <SmallLogo />
-          </Link>
         </div>
 
         <div className={styles.rightSection}>
-          {/* Login 버튼 클릭 시 Google 로그인 실행 */}
-
             {/* <GoogleLoginButton /> */}
-
           <button className={styles.headerButtonDesign}>
-            Login
+            <LoginIcon/>
           </button>
           <button onClick={() => setIsModalOpen(true)} className={styles.headerButtonDesign}>
-            News
+            <NotificationIcon/>
           </button>
           <button onClick={() => navigate("/mypage")} className={styles.headerButtonDesign}>
-            My page
+            <ProfileIcon/>
           </button>
         </div>
-        
       </header>
 
       {/* 뉴스 모달 */}
@@ -86,18 +85,13 @@ const Layout = ({ children }) => {
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
           <div className={styles.footerLeft}>
-            <h3>사업자 정보</h3>
-            <p>
+            <p className={styles.footerText}>
               (주)주움 | 경상북도 포항시 북구 흥해읍 한동로 558 <br/>
               dongmulnongjangteam | 동물농장<br/>
-              Planner: 이선유<br/>
-              Designer: 김채원<br/>
-              Frontend: 한규호, 박서연 (깃허브)<br/>
-              Backend: 권혁민, 여지현 (깃허브)
             </p>
           </div>
           <div className={styles.footerRight}>
-            <Logo/>
+            <SmallLogo/>
           </div>
         </footer>
     </div>

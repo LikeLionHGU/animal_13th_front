@@ -1,219 +1,198 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
-    display: flex;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: center;
+  background-color: #7ACAD6;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 .imgContainer {
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
 }
 
 .imgInput {
-    display: none;
+  display: none;
 }
 
 .imgDisplay {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    padding-top: 7px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  padding-top: 7px;
 }
 
 .button {
-    border-radius: 5px;
-    border: 2px solid #CFECF0;
-    margin-top: 10px;
-    height: 50px;
-    width: 130px;
-    font-size: 15px;
-    cursor: pointer;
+  border-radius: 17.271px;
+  border: 0.909px solid #7ACAD6;
+  margin-top: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  width: 88.139px;
+  height: 28.88px;
+  flex-shrink: 0;
+  background-color: transparent;
+  color: black;
 }
 
 .buttonContainer {
   display: flex;
+  justify-content: flex-end;
+  position: relative;
+  width: 100%;
 }
 
 .mapSize {
-    display: flex;
-    width: 100%;
-    height: 40dvh;
+  display: flex;
+  width: 320px;
+  height: 200px;
 }
 
 .addressDisplay{
-    width: 100%;
-    border-radius: 16px;
-    border: 2px solid #CFECF0;
-    margin-top: 10px;
-    height: 50px;
-    font-size: 20px;
+  width: 310px;
+  border-radius: 16px;
+  border: 2px solid #CFECF0;
+  margin-top: 10px;
+  height: 50px;
+  font-size: 15px;
+  background: #F6F7F7;
 }
 
 .contentTextBox {
-    width: 100%;
-    resize: none;
-    min-height: 180px; /* 최소 높이 */
-    max-height: 300px; /* 최대 높이 (선택 사항) */
-    overflow-y: hidden; /* 스크롤바 숨기기 */
-    font-size: 16px;
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 16px;
-    border: 2px solid #CFECF0;
-    margin-top: 10px;
+  width: 100%;
+  resize: none;
+  min-height: 180px; /* 최소 높이 */
+  max-height: 300px; /* 최대 높이 (선택 사항) */
+  overflow-y: hidden; /* 스크롤바 숨기기 */
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 2px solid #CFECF0;
+  margin-top: 10px;
+  background: #F6F7F7;
+}
+
+.contentTextBox:focus {
+  border-color: #7ACAD6; 
+  outline: none; 
 }
 
 .textboxSize{
-    width: 250px
+  width: 100%;
+  background: #F6F7F7;
 }
 
 .postList {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar {
-    flex: 1;
-    height: 700px;
-    overflow-y: auto;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
+  list-style: none;
+  padding: 0;
 }
 
 .formContainer {
-    flex: 3;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-}
-
-.postItem {
-    padding: 40px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-}
-
-.imgUploadField {
-  width: 100%;
+  background: #F6F7F7;
+  border-radius: 19px 19px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px 32px;
+  width: auto;
   height: auto;
 }
 
-.sidebar h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  position: sticky;
-  top: 0;
-  background: #ffffff;
-  padding: 15px 0;
-  z-index: 100;
-  text-align: center;
-  border-bottom: 2px solid #ddd;
+.postItem {
+  padding: 40px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
 }
 
-.postItem:hover {
-    background: #f1f1f1;
+.imgUploadField {
+width: 95%;
+height: auto;
 }
 
 .formGroup {
   position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
+  padding: 0 32px;
+  margin: 30px 32px 25px 10px;
   width: 100%;
 }
 
+.mapContainer {
+  position: relative;
+  right: 10px;
+  margin-bottom: 10px;
+}
+
 .formField {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid #CFECF0;
-  outline: 0;
-  font-size: 1.3rem;
-  color: black;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
-  margin-top: 5px;
-  margin-bottom: 5px;
-
-  &::placeholder {
-    color: transparent;
-  }
-
-  &:placeholder-shown ~ .formLabel {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-  }
+font-family: "Pretendard";
+width: 100%;
+border: 0;
+border-bottom: 2px solid #CFECF0;
+outline: 0;
+font-size: 16px;
+color: black;
+padding: 7px 0;
+background: #F6F7F7;
+&::placeholder {
+  font-size: 14px;
+  color: #a2a0a0;
+  font-weight: 300;
+}
 }
 
 .formLabel {
   position: absolute;
-  top: 0;
+  bottom: 32px;
   display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #A2A0A0;
+  font-size: 16px;
+  color: black;
+  width: 100%; /* 라벨도 입력 필드 크기에 맞춤 */
+  text-align: left; /* 왼쪽 정렬 */
+}
+
+.detailLabel{
+  bottom: 32px;
+  display: block;
+  font-size: 16px;
+  color: black;
   width: 100%; /* 라벨도 입력 필드 크기에 맞춤 */
   text-align: left; /* 왼쪽 정렬 */
 }
 
 .formField:focus {
-  ~ .formLabel {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #A2A0A0;
-    font-weight:700;    
-  }
-  padding-bottom: 6px;  
-  font-weight: 700;
+  font-weight: 500;
   border-width: 3px;
   border-image-slice: 1;
 }
 /* reset input */
 .formField{
-  &:required,&:invalid { box-shadow:none; }
-}
+&:required,&:invalid { box-shadow:none; }
+}      
 
-.filterContainer {
-  display: flex;
-  gap: 19px; 
-  overflow-x: auto; 
-  white-space: nowrap;
-  padding: 10px 0;
-}        
-
-.filterButton {
-  border: 2px solid #CFECF0;
-  background-color: white; 
-  color: black;
-  font-size: 15px;
-  font-weight: 400;
-  padding: 7px 13px;
-  border-radius: 19px; 
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s;
-}
-
-.filterButton.active {
-  background-color: #CFECF0; 
-  color: black;
-}
-
-.filterButton:hover {
-  transform: scale(1.05); 
-  background-color: #CFECF0;
-}
-
-.formField option:first-child {
-    color: #A2A0A0;
+.title {
+  background-color: #7ACAD6;
+  box-shadow: 0 0 0 10px #7ACAD6;
+  font-size: 19px;
+  padding-left: 30px;
+  padding-top: 31px;
+  padding-bottom: 13.5px;
+  margin-bottom: 0;
+  
+  color: #000;
+  font-family: "Gmarket Sans";
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 

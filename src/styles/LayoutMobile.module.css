@@ -30,11 +30,11 @@
   .leftSection {
     display: flex;
     align-items: center;
-    gap: 12px; 
+    gap: 11.43px; 
   }
   
   .logo svg {
-    height: 40px;
+    height: autp;
   }
   
   .nav {
@@ -47,13 +47,7 @@
     color: black;
     font-weight: 600;
     font-size: 12px;
-    padding: 5px 10px;
-    transition: transform 0.2s ease-in-out; 
-  }
-  
-  .nav a:hover {
-    transform: scale(1.05); 
-    color: #7ACAD6;
+    padding: 0px 0px;
   }
 
   .nav a.active {
@@ -62,27 +56,20 @@
   
   .rightSection {
     display: flex;
-    gap: 12px; 
   }
   
   .rightSection a {
     text-decoration: none;
-    color: black;
-    font-weight: 600;
-    font-size: 12px;
   }
   
   .main {
     flex-grow: 1;
-    padding: 13px;
+    margin: 0;
   }
 
   .headerButtonDesign {
       background: none;
       border: none;
-      color: black;
-      font-weight: 600;
-      font-size: 12px;
       cursor: pointer;
   }
 
@@ -165,4 +152,8 @@
     display: flex;
     align-items: center;
     padding: 0 20px;
+  }
+
+  .footerText {
+    font-size: 10px;
   }

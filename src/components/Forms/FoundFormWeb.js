@@ -4,6 +4,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
+import FoundSearch from "../Small/FoundSearch"; 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
@@ -24,14 +25,36 @@ const FoundFormWeb = () => {
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태s
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
   const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
+  const [getApi, setGetApi] = useState(0);
 
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState(0) // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
-  const [lost, setLost] = useState("");
-
+  const [lost, setLost] = useState([]);
+  /*useEffect(() => {
+    setLost([
+      {
+        "id":1,
+        "title":"first",
+        "category":2,
+        "timeType":2,
+        "printDate":"30",
+        "image":"logo192.png"
+      },
+      {
+        "id":4,
+        "title":"second",
+        "category":3,
+        "timeType":4,
+        "printDate":"12/4/25",
+        "image":"logo512.png"
+      }
+    ]);
+  }, []);  */
+  
+  
   useEffect(()=>{
     const user = navigator.userAgent;
     // 기본 환경 웹으로 설정
@@ -55,13 +78,6 @@ const FoundFormWeb = () => {
     const fetchData = async () => {
       try {
         console.log("request: ", selectCategory);
-        // category를 쿼리 파라미터로 전달
-        /*const response = await axios.get(
-          "https://koyangyee.info/board/found/all/category/new",
-          {
-             category: selectCategory
-          }
-        );*/
         const response = await axios({
           method: 'get',
           url: 'https://koyangyee.info/board/found/all/category/new',
@@ -74,16 +90,13 @@ const FoundFormWeb = () => {
             setLost(Response.data.board);
         })
   
-        //console.log("Response: ", response.data);
-        //setLost(response.data.board);
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }
     };
   
     fetchData();
-  }, [selectCategory]);  // selectCategory 값이 바뀔 때마다 요청
-  
+  }, [selectCategory]); 
 
 
   // 파일 선택 시 상태에 저장
@@ -155,6 +168,7 @@ const FoundFormWeb = () => {
   const onCategorySelect = (categoryId) => {
     console.log(categoryId);
     setCategory(categoryId);
+    setGetApi(1);
   }
 
   useEffect(() => {
@@ -254,15 +268,15 @@ const FoundFormWeb = () => {
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>
-      {lost ?
-        <>
-      <div className={styles.sidebar} /*사이드바*/> 
+      {lost && getApi === 1 ?
+        <div className={styles.page}> 
+      <FoundSearch selectCategory={selectCategory} />
+      <div className={styles.sidebar} > 
           <div className={styles.cardList} >
-          { lost.map((item) => ( // 띄우는 콘텐츠들 배치하기
+          { lost.map((item) => ( 
         <div
           key={item.id}
           className={styles.cardContainer}
-          /*onClick={() => handleClick(item)}*/
           style={{ cursor: "pointer" }}
         >
         <img src={item.image} alt={item.title} className={styles.cardImage} />
@@ -275,7 +289,7 @@ const FoundFormWeb = () => {
       ))}
       </div>
       </div>
-        </> :
+        </div> :
         <>
           <div></div>
         </>}

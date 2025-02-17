@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import styles from "../styles/GoogleLoginStyle.module.css";
+import styles from "../../styles/GoogleLoginStyle.module.css";
 axios.defaults.withCredentials = true;
 
 function GoogleLoginButton() {
@@ -41,17 +41,17 @@ function GoogleLoginButton() {
                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
 
-            console.log("✅ 로그인 성공:", request.data);
+            console.log("로그인 성공:", request.data);
             alert("로그인 성공");
 
         } catch (error) {
-            console.error("❌ 로그인 요청 실패:", error);
+            console.error("로그인 요청 실패:", error);
             alert("로그인 실패. 다시 시도해주세요.");
         }
     };
 
     const errorMessage = (error) => {
-        console.error("❌ 구글 로그인 오류:", error);
+        console.error("구글 로그인 오류:", error);
     };
 
     return (

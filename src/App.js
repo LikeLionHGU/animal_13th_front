@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout"; // 공통 레이아웃 적용
-import LostForm from "./components/LostForm";
+import Layout from "./components/Layouts/Layout"; // 공통 레이아웃 적용
+import LostForm from "./components/Forms/LostForm";
 import MainPage from "./components/MainPage";
 import MyPage from "./components/MyPage";
 import LostPage from "./components/LostPage";
 import FoundPage from "./components/FoundPage";
 import AlertPage from "./components/AlertPage";
-import FoundForm from "./components/FoundForm";
+import FoundForm from "./components/Forms/FoundForm";
 import MyPageFound from "./components/MyPageFound";
 import MyPageLost from "./components/MyPageLost";
 import FoundDetail from "./components/FoundPageDetail";
@@ -27,7 +27,6 @@ function App() {
           <Route path="/found-page" element={<FoundPage />} />
           <Route path="/lost-page" element={<LostPage />} />
           <Route path="/alert-page" element={<AlertPage />} />
-          {/* <Route path="/google-login-page" element={<GoogleLoginPage />} /> */}
           <Route path="/found-detail/:id" element={<FoundDetail/>}/>
           <Route path="/lost-detail/:id" element={<LostDetail/>}/>
         </Routes>

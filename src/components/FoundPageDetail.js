@@ -21,26 +21,27 @@ function FoundPageDetail( ) {
         }
     };
     fetchData();
-}, []);
+}, [id]);
 
 
   return (
     <div>
       {foundDetail ? 
       <>
-        <h1>Loading...</h1>
-      </> :
-      <>
-        <div>
-          <p>{`HOME > FOUND > ${foundDetail.title}`}</p>
-          <div>Phone: {`${foundDetail.PhoneNum}`}</div>
-          <div>title: {`${foundDetail.title}`}</div>
-          <div>category: {`${foundDetail.category}`}</div>
-          <div>Date: {`${foundDetail.printDate}`}</div>
-          <div>title: {`${foundDetail.title}`}</div>
-          <img src={foundDetail.image} alt={foundDetail.title}/>
+      <div>
+        <p>{`HOME > FOUND > ${foundDetail.title}`}</p>
+        <div>Phone: {`${foundDetail.PhoneNum}`}</div>
+        <div>title: {`${foundDetail.title}`}</div>
+        <div>category: {`${foundDetail.category}`}</div>
+        <div>Date: {`${foundDetail.printDate}`}</div>
+        <div>Content: {`${foundDetail.content}`}</div>
+        <img src={foundDetail.image} alt={foundDetail.title}/>
       </div>
-      </>}
+    </>:
+      <>
+        <h1>Loading...</h1>
+      </> 
+    } 
       
     </div>
   )

@@ -23,14 +23,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 21px 35px;
+    padding: 10px 17px;
     background-color: white;
   }
   
   .leftSection {
     display: flex;
     align-items: center;
-    gap: 32px; 
+    gap: 12px; 
   }
   
   .logo svg {
@@ -39,14 +39,14 @@
   
   .nav {
     display: flex;
-    gap: 32px; 
+    gap: 12px; 
   }
   
   .nav a {
     text-decoration: none;
     color: black;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 12px;
     padding: 5px 10px;
     transition: transform 0.2s ease-in-out; 
   }
@@ -62,20 +62,19 @@
   
   .rightSection {
     display: flex;
-    gap: 30px; 
+    gap: 12px; 
   }
   
   .rightSection a {
     text-decoration: none;
     color: black;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 12px;
   }
   
   .main {
     flex-grow: 1;
-    padding: 20px;
-    margin: 0 200px;
+    padding: 13px;
   }
 
   .headerButtonDesign {
@@ -83,16 +82,16 @@
       border: none;
       color: black;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 12px;
       cursor: pointer;
   }
 
   .modal {
     position: absolute;
     top: 70px; 
-    right: 100px; 
-    width: 250px;
-    max-height: 300px;
+    right: 1px; 
+    width: 125px;
+    max-height: 150px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

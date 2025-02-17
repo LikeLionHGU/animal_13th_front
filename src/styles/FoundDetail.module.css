@@ -1,4 +1,9 @@
 .img{
-    width: 100px; 
-    height: 100px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 500px;  /* 카드의 너비를 적절하게 조절 */
+    height: 400px;
+    object-fit: contain; 
 }

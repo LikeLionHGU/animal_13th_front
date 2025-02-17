@@ -4,6 +4,7 @@ import GoogleLoginButton from '../components/API/GoogleLoginButton';
 import styles from '../styles/Page.module.css'
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
 import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
+import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -61,88 +62,93 @@ function MainPage() {
 
     return (
         <div>
-            <div className={styles.mainpageButtons}>
-                <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
-                <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
+            <div className={styles.bannerWrapper}>
+                <Banner className={styles.banner}/>
             </div>
-            <div className={styles.title} style={{justifyContent: "space-between"}}>
-                <div className={styles.titleText}>
-                    <span className={styles.Lost}>LOST</span> 
-                    <span className={styles.comma}>, </span>
-                    <span  className={styles.restTitle}>물건을 잃어버렸어요
-                    </span>
-                    <span className={styles.lineLost}></span>
-                    <div className={styles.stroke}></div>
+            <div className={styles.contents}>
+                <div className={styles.mainpageButtons}>
+                    <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
+                    <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
                 </div>
-                <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
-            </div>
-            <div>
-                {lostMain ? 
-                <>
-                    <div className={styles.cardList} >
+                <div className={styles.title} style={{justifyContent: "space-between"}}>
+                    <div className={styles.titleText}>
+                        <span className={styles.Lost}>LOST</span> 
+                        <span className={styles.comma}>, </span>
+                        <span  className={styles.restTitle}>물건을 잃어버렸어요
+                        </span>
+                        <span className={styles.lineLost}></span>
+                        <div className={styles.stroke}></div>
+                    </div>
+                    <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
+                </div>
+                <div>
+                    {lostMain ? 
+                    <>
+                        <div className={styles.cardList} >
 
-                        { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                       <Link to={`/lost-detail/${item.id}`}>
-                       <div
-                            key={item.id}
-                            className={styles.cardContainer}
-                            style={{ cursor: "pointer" }}
-                            >
-                                
-                            <img src={item.image} alt={item.title} className={styles.cardImage} />
-                            <div className={styles.cardContent}>
-                                <span className={styles.cardTitle}>{item.title}</span>
-                                <span className={styles.cardCategory}>{item.category}</span>
-                                <span className={styles.cardDate}>{item.printDate}</span>
+                            { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
+                        <Link to={`/lost-detail/${item.id}`}>
+                        <div
+                                key={item.id}
+                                className={styles.cardContainer}
+                                style={{ cursor: "pointer" }}
+                                >
+                                    
+                                <img src={item.image} alt={item.title} className={styles.cardImage} />
+                                <div className={styles.cardContent}>
+                                    <span className={styles.cardTitle}>{item.title}</span>
+                                    <span className={styles.cardCategory}>{item.category}</span>
+                                    <span className={styles.cardDate}>{item.printDate}</span>
+                                </div>
+                            </div>
+                            </Link>
+                            ))}
+                        </div>
+                    </> :
+                    <>
+                        불러온 정보 없음
+                    </>} 
+                </div>
+
+                <div className={styles.title} style={{justifyContent: "space-between"}}>
+                    <div className={styles.titleText}>
+                        <span className={styles.Lost}>FOUND</span> 
+                        <span className={styles.comma}>,</span>
+                        <span className={styles.restTitle}>물건을 찾았어요</span>
+                        <span className={styles.lineFound}></span>
+                        <div className={styles.stroke}></div>
+                    </div>
+                    <span className={styles.showMore} onClick={foundPageClick}>더보기</span>
+                </div>
+
+                <div>
+                {loading ? (
+            <p>로딩 중...</p> // 로딩 중 메시지 표시
+                ) : foundMain ?
+                <div className={styles.cardList} >
+                    {foundMain.map((item) => (
+                        <Link to={`/found-detail/${item.id}`}>
+                        <div
+                        key={item.id} // key는 item.board.id가 아닌 item.id 사용
+                        style={{ cursor: "pointer" }}
+                        >
+                            <div className={styles.cardContainer}>
+                                <img src={item.image} alt={item.title} className={styles.cardImage} />
+                                <div className={styles.cardContent}>
+                                    <span className={styles.cardTitle}>{item.title}</span>
+                                    <span className={styles.cardCategory}>{item.category}</span>
+                                    <span className={styles.cardDate}>{item.printDate}</span> 
+                                </div>
                             </div>
                         </div>
-                        </Link>
-                        ))}
+                    </Link>
+                    ))}
                     </div>
-                </> :
-                <>
-                    불러온 정보 없음
-                </>} 
-            </div>
-
-            <div className={styles.title} style={{justifyContent: "space-between"}}>
-                <div className={styles.titleText}>
-                    <span className={styles.Lost}>FOUND</span> 
-                    <span className={styles.comma}>,</span>
-                    <span className={styles.restTitle}>물건을 찾았어요</span>
-                    <span className={styles.lineFound}></span>
-                    <div className={styles.stroke}></div>
+                    
+                : (
+                    <p>불러온 정보 없음</p> // 데이터가 없을 경우
+                )}
                 </div>
-                <span className={styles.showMore} onClick={foundPageClick}>더보기</span>
-            </div>
-
-            <div>
-            {loading ? (
-        <p>로딩 중...</p> // 로딩 중 메시지 표시
-            ) : foundMain ?
-              <div className={styles.cardList} >
-                {foundMain.map((item) => (
-                    <Link to={`/found-detail/${item.id}`}>
-                    <div
-                    key={item.id} // key는 item.board.id가 아닌 item.id 사용
-                    style={{ cursor: "pointer" }}
-                    >
-                        <div className={styles.cardContainer}>
-                            <img src={item.image} alt={item.title} className={styles.cardImage} />
-                            <div className={styles.cardContent}>
-                                <span className={styles.cardTitle}>{item.title}</span>
-                                <span className={styles.cardCategory}>{item.category}</span>
-                                <span className={styles.cardDate}>{item.printDate}</span> 
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-                ))}
-                </div>
-                
-             : (
-                <p>불러온 정보 없음</p> // 데이터가 없을 경우
-            )}
             </div>
         </div>
     )

@@ -5,10 +5,35 @@
   font-style: normal;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .writeIcon {
     position: absolute;
     right: 37px;
     bottom: 37px;
+}
+
+.contents{
+    margin: 0 200px 140px 200px;
+}
+
+.bannerWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.banner {
+    width: 100%;
+    height: auto; /* 비율 유지 */
+    max-width: 100vw;
+    object-fit: cover; /* 이미지가 찌그러지지 않도록 */
+    display: block;
+    margin: 0 auto;
 }
 
 .h2 {
@@ -71,16 +96,18 @@
 }
 
 .stroke {
-    flex-grow: 1; /* 🟢 남은 공간을 모두 사용하여 선을 늘림 */
+    flex-grow: 1;
     height: 2px;
-    background-color: rgba(0, 0, 0, 2); /* 🟢 연한 회색 선 */
+    background-color: rgba(0, 0, 0, 2); 
 }
 
 .mainpageButtons {
     display: flex;
     justify-content: center; 
-    gap: 22px; 
-    margin-bottom: 75px;
+    gap: 20px; 
+    margin-bottom: 47px;
+    position: relative;
+    bottom: 48px;
 }
 /* 글씨 옆 선 */
 .lineLost {

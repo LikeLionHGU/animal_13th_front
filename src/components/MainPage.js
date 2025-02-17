@@ -59,10 +59,6 @@ function MainPage() {
         navigate("/lost-page");
     }
 
-    const handleClick = () => {
-
-    }
-    
     return (
         <div>
             <div className={styles.mainpageButtons}>
@@ -90,7 +86,6 @@ function MainPage() {
                        <div
                             key={item.id}
                             className={styles.cardContainer}
-                            onClick={() => handleClick(item)}
                             style={{ cursor: "pointer" }}
                             >
                                 
@@ -130,7 +125,6 @@ function MainPage() {
                     <Link to={`/found-detail/${item.id}`}>
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
-                    onClick={() => handleClick(item)}
                     style={{ cursor: "pointer" }}
                     >
                         <div className={styles.cardContainer}>

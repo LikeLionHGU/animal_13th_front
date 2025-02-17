@@ -18,7 +18,7 @@ const categories = [
   { id: "8", name: "기타" },
 ];
 
-const FoundForm = () => {
+const FoundFormWeb = () => {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태s
@@ -136,7 +136,7 @@ const FoundForm = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
-      <h1>FOUND 글 작성</h1>
+      <h1>FOUND 글쓰기</h1>
         <div className={styles.formGroup}>
           <input id="title" name="title" type="text" placeholder="  " className={styles.formField} required />
           <label htmlFor="title" className={styles.formLabel}>습득물명 (필수)</label>
@@ -241,4 +241,4 @@ const FoundForm = () => {
   );
 };
 
-export default FoundForm;
+export default FoundFormWeb;

@@ -42,6 +42,7 @@ html, body {
   height: 28.88px;
   flex-shrink: 0;
   background-color: transparent;
+  color: black;
 }
 
 .buttonContainer {

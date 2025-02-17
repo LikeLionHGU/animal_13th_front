@@ -66,7 +66,7 @@ const onLatestChange = (event) => {
 };
   
   return (
-    <div>
+    <div className={styles.contents}>
       <div className={styles.zummLogoContainer}>
       </div>
       <div className={styles.title}>

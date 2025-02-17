@@ -40,9 +40,9 @@ function LostPage() {
             "category": category
           }
         }, { withCredentials : true })
-          .then((Response)=>{
-            console.log("Response: ", Response.data);
-            setLostData(Response.data.board);
+          .then((response)=>{
+            console.log("Response: ", response.data);
+            setLostData(response.data.board);
             setLoading(false);
         })
       } catch (error) {
@@ -65,7 +65,7 @@ function LostPage() {
   };
   
   return (
-    <div>
+    <div className={styles.contents}>
       <div className={styles.zummLogoContainer}>
       </div>
       <div className={styles.title}>

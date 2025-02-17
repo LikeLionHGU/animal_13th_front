@@ -71,10 +71,11 @@ const FoundFormWeb = () => {
         }, { withCredentials : true })
           .then((Response)=>{
             console.log("Response: ", Response.data);
+            setLost(Response.data.board);
         })
   
-        console.log("Response: ", response.data);
-        setLost(response.data.board);
+        //console.log("Response: ", response.data);
+        //setLost(response.data.board);
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }

@@ -8,14 +8,14 @@ import styles from "../styles/Form.module.css?v=2";
 import { ReactComponent as ImageUploadField } from "../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
 const categories = [
-  { id: "1", name: "전자기기" },
-  { id: "2", name: "카드/학생증" },
-  { id: "3", name: "지갑/현금" },
-  { id: "4", name: "택배" },
-  { id: "5", name: "도서 및 서류" },
-  { id: "6", name: "의류/액세서리" },
-  { id: "7", name: "가방" },
-  { id: "8", name: "기타" },
+  { id: 1 , name: "전자기기" },
+  { id: 2, name: "카드/학생증" },
+  { id: 3, name: "지갑/현금" },
+  { id: 4, name: "택배" },
+  { id: 5, name: "도서 및 서류" },
+  { id: 6, name: "의류/액세서리" },
+  { id: 7, name: "가방" },
+  { id: 8, name: "기타" },
 ];
 
 const FoundForm = () => {
@@ -28,7 +28,7 @@ const FoundForm = () => {
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
-  const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
+  const [selectCategory, setCategory] = useState(0) // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
   const [lost, setLost] = useState("");
 
@@ -54,7 +54,11 @@ const FoundForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-            const response = await axios.get("https://koyangyee.info/board/found/all/category/new");
+            const response = await axios.get("https://koyangyee.info/board/found/all/category/new", 
+              {
+                params: { category: selectCategory } 
+              }
+            );
             console.log("Lost: ", response.data.board);
             setLost(response.data.board);
       } catch (error) {

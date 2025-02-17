@@ -55,7 +55,7 @@ const FoundForm = () => {
     const fetchData = async () => {
       try {
           console.log("request: ", selectCategory);
-            const response = await axios.get("https://koyangyee.info/board/found/all/category/new?category=${selectCategory}", 
+            const response = await axios.get("https://koyangyee.info/board/found/all/category/new?category=0", 
               {
                category: selectCategory 
               }

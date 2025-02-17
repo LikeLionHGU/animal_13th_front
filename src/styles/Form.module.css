@@ -24,17 +24,23 @@
 }
 
 .button {
-    border-radius: 5px;
-    border: 2px solid #CFECF0;
-    margin-top: 10px;
-    height: 50px;
-    width: 130px;
-    font-size: 15px;
-    cursor: pointer;
+  border-radius: 17.271px;
+  border: 0.909px solid #7ACAD6;
+  margin-top: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  width: 96.96px;
+  height: 31.77px;
+  flex-shrink: 0;
+  background-color: transparent;
+  color: black;
 }
 
 .buttonContainer {
   display: flex;
+  justify-content: flex-end;
+  position: relative;
+  width: 100%;
 }
 
 .mapSize {

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+import styles from '../styles/FoundDetail.css'
 
 function FoundPageDetail( ) {
   const [foundDetail, setFoundDetail] = useState(null);
@@ -35,7 +36,7 @@ function FoundPageDetail( ) {
         <div>category: {`${foundDetail.category}`}</div>
         <div>Date: {`${foundDetail.printDate}`}</div>
         <div>Content: {`${foundDetail.content}`}</div>
-        <img src={foundDetail.image} alt={foundDetail.title}/>
+        <img className={styles.img} src={foundDetail.image} alt={foundDetail.title}/>
       </div>
     </>:
       <>

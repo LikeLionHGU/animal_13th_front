@@ -54,13 +54,24 @@ const FoundForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("request: ", selectCategory);
         // category를 쿼리 파라미터로 전달
-        const response = await axios.get(
+        /*const response = await axios.get(
           "https://koyangyee.info/board/found/all/category/new",
           {
              category: selectCategory
           }
-        );
+        );*/
+        const response = await axios({
+          method: 'get',
+          url: 'https://koyangyee.info/board/found/all/category/new',
+          params: {
+            "category": selectCategory
+          }
+        }, { withCredentials : true })
+          .then((Response)=>{
+            console.log(Response.data);
+        })
   
         console.log("Response: ", response.data);
         setLost(response.data.board);

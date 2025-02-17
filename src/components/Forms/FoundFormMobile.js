@@ -127,7 +127,7 @@ const FoundFormMobile = () => {
     <div>
       <h1 className={styles.title}>FOUND 글쓰기</h1>
     
-    <div className={styles.container}>
+    <div className={styles.formMobileContainer}>
       <form onSubmit={onSubmit} className={styles.formContainer}>
         <div className={styles.formGroup}>
            <label htmlFor="title" className={styles.formLabel}>습득물 명 <span style={{ color: "red" }}>*</span></label>

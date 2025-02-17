@@ -13,18 +13,21 @@
     display: none;
   }
   
-  .container {
+  .layoutMobileContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: auto;
+    width: 100%;
+    max-width: 100vb;
   }
   
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 17px;
+    padding: 15px 16px 10px 17px;
     background-color: white;
+    width: auto;
   }
   
   .leftSection {

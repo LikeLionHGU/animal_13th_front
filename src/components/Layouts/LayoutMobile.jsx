@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.layoutMobileContainer}>
       <header className={styles.header}>
         <div className={styles.leftSection}>
           <Link to="/" className={styles.logo}>

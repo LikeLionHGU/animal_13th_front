@@ -58,7 +58,7 @@ const FoundForm = () => {
         const response = await axios.get(
           `https://koyangyee.info/board/found/all/category/new`,
           {
-            params: { category: setCategory}
+            params: { category: selectCategory}
           }
         );
   

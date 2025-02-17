@@ -54,7 +54,7 @@ const FoundForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          consloe.log("request: ", selectCategory);
+          console.log("request: ", selectCategory);
             const response = await axios.get("https://koyangyee.info/board/found/all/category/new", 
               {
                 params: { category: 0 }, 

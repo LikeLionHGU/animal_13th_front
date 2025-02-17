@@ -80,7 +80,6 @@ function MainPage() {
                 </div>
                 <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
             </div>
-
             <div>
                 {lostMain ? 
                 <>

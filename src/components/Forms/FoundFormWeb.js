@@ -8,14 +8,14 @@ import styles from "../../styles/Form.module.css?v=2";
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
 const categories = [
-  { id: "1", name: "전자기기" },
-  { id: "2", name: "카드/학생증" },
-  { id: "3", name: "지갑/현금" },
-  { id: "4", name: "택배" },
-  { id: "5", name: "도서 및 서류" },
-  { id: "6", name: "의류/액세서리" },
-  { id: "7", name: "가방" },
-  { id: "8", name: "기타" },
+  { id: 1 , name: "전자기기" },
+  { id: 2, name: "카드/학생증" },
+  { id: 3, name: "지갑/현금" },
+  { id: 4, name: "택배" },
+  { id: 5, name: "도서 및 서류" },
+  { id: 6, name: "의류/액세서리" },
+  { id: 7, name: "가방" },
+  { id: 8, name: "기타" },
 ];
 
 const FoundForm = () => {
@@ -28,8 +28,9 @@ const FoundForm = () => {
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
 
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
-  const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
+  const [selectCategory, setCategory] = useState(0) // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
+  const [lost, setLost] = useState("");
 
   useEffect(()=>{
     const user = navigator.userAgent;
@@ -49,6 +50,26 @@ const FoundForm = () => {
       setDisplayLocation(`${location.lat}, ${location.lng}`); // 아니면 그냥 사용
     }
   }, [location]); //마커 위치 업데이트 
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+            const response = await axios.get("https://koyangyee.info/board/found/all/category/new", 
+              {
+                params: { category: selectCategory } 
+              }
+            );
+            console.log("Lost: ", response.data.board);
+            setLost(response.data.board);
+      } catch (error) {
+            console.error("오류 발생:", error);
+      } finally {
+        setLoading(false); // 로딩 완료
+      }
+    };
+    fetchData();
+}, [selectCategory]);
+
 
   // 파일 선택 시 상태에 저장
   const handleFileChange = (event) => {
@@ -218,21 +239,27 @@ const FoundForm = () => {
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>
-      {browser === "web" ?
+      {lost ?
         <>
-          <div className={styles.sidebar}>
-            <h2>Lost 게시글</h2>
-            <ul className={styles.postList}>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-              <div className={styles.postItem}>Lost 게시글</div>
-            </ul>
-          </div>
+      <div className={styles.sidebar} /*사이드바*/> 
+          <div className={styles.cardList} >
+          { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
+        <div
+          key={item.id}
+          className={styles.cardContainer}
+          /*onClick={() => handleClick(item)}*/
+          style={{ cursor: "pointer" }}
+        >
+        <img src={item.image} alt={item.title} className={styles.cardImage} />
+        <div className={styles.cardContent}>
+          <span className={styles.cardTitle}>{item.title}</span>
+          <span className={styles.cardCategory}>{item.category}</span>
+          <span className={styles.cardDate}>{item.printDate}</span>
+        </div>
+      </div>
+      ))}
+      </div>
+      </div>
         </> :
         <>
           <div></div>

@@ -63,9 +63,7 @@ const FoundForm = () => {
             setLost(response.data.board);
       } catch (error) {
             console.error("오류 발생:", error);
-      } finally {
-        setLoading(false); // 로딩 완료
-      }
+      } 
     };
     fetchData();
 }, [selectCategory]);
@@ -243,7 +241,7 @@ const FoundForm = () => {
         <>
       <div className={styles.sidebar} /*사이드바*/> 
           <div className={styles.cardList} >
-          { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
+          { lost.map((item) => ( // 띄우는 콘텐츠들 배치하기
         <div
           key={item.id}
           className={styles.cardContainer}

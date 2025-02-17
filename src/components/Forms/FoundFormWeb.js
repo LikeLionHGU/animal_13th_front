@@ -56,12 +56,9 @@ const FoundForm = () => {
       try {
         // category를 쿼리 파라미터로 전달
         const response = await axios.get(
-          `https://koyangyee.info/board/found/all/category/new?category=${selectCategory}`,
+          `https://koyangyee.info/board/found/all/category/new`,
           {
-            withCredentials: true, // 세션 쿠키 전송
-            headers: {
-              "Content-Type": "application/json",
-            },
+            params: { category: setCategory}
           }
         );
   

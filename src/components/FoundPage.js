@@ -23,14 +23,20 @@ function FoundPage() {
   const [foundData, setFoundData] = useState();
   const [category, setCategory] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [latest, setLatest] = useState(true);
 
 useEffect(() => {
   const fetchData = async () => {
     try {
       console.log("request: ", category);
+
+      const url = latest 
+        ? 'https://koyangyee.info/board/found/all/category/new'
+        : 'https://koyangyee.info/board/found/all/category/old';
+
       const response = await axios({
         method: 'get',
-        url: 'https://koyangyee.info/board/found/all/category/new',
+        url: url,
         params: {
           "category": category
         }
@@ -46,12 +52,18 @@ useEffect(() => {
   };
 
   fetchData();
-}, [category]);  // selectCategory 값이 바뀔 때마다 요청
+}, [category, latest]); 
 
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
   setCategory(categoryId);
 }
+
+const onLatestChange = (event) => {
+  const value = event.target.value === "true";
+  setLatest(value);
+  console.log("latest:", value);
+};
   
   return (
     <div>
@@ -76,6 +88,14 @@ const onCategorySelect = (categoryId) => {
           </button>
         ))}
       </div>
+     
+     <div>
+      <select name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
+        <option value="true" >최신순</option>
+        <option value="false" >오래된순</option>
+      </select>
+     </div>
+
 
       {loading ? (
         <p>로딩 중...</p> // 로딩 중 메시지 표시

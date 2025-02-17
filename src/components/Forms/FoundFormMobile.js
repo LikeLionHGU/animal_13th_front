@@ -106,9 +106,9 @@ const FoundFormMobile = () => {
     alert("알 수 없는 오류가 발생했습니다.");
   }
 };
-  const onCategorySelect = (categoryId) => {
-    console.log(categoryId);
-    setCategory(categoryId);
+  const onCategorySelect = (event) => {
+    console.log(event.target.value);
+    setCategory(event.target.value);
   }
 
   useEffect(() => {

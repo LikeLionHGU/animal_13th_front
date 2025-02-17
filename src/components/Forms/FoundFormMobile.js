@@ -152,7 +152,7 @@ const FoundFormMobile = () => {
         </div>
         
         <div className={styles.mapContainer}>
-          <h2 className={styles.detailLabel}>위치<span style={{ color: "red" }}>*</span></h2>
+          <h2 className={styles.detailLabel}>위치 <span style={{ color: "red" }}>*</span></h2>
           <div>
             <NavermapsProvider ncpClientId={MapAPIid}>
               <div className={styles.mapSize}>
@@ -170,7 +170,7 @@ const FoundFormMobile = () => {
 
         <div className={styles.formGroup}>
           <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="(ex. 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
-          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택)</label>
+          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호</label>
         </div>
 
         <div className={styles.formGroup}>

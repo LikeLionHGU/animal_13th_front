@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from "axios";
-import styles from '../styles/FoundDetail.css'
+import styles from '../styles/FoundDetail.module.css';
 
 function FoundPageDetail( ) {
   const [foundDetail, setFoundDetail] = useState(null);

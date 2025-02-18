@@ -91,7 +91,7 @@ function MyPage() {
             <span className={styles.userInfo}>
                 <div className={styles.greeting}>{'안녕하세요, 한주먹님'}</div>
                 {/* <div className={styles.greeting}>{`안녕하세요, ${userInfo.name}님`}</div> */}
-                <div className={styles.emailDisplay}>{`${userInfo.email}`}</div>
+                {/* <div className={styles.emailDisplay}>{`${userInfo.email}`}</div> */}
             </span>  
         </div>
         <div className={styles.title} style={{justifyContent: "space-between"}}>

@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
+import FoundSearch from "../Small/FoundSearch"; 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg";
 import UploadConfirmModal from "../UploadConfirmModal";
@@ -24,7 +25,10 @@ const FoundFormWeb = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null);
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
-  const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 });
+
+  const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
+  const [getApi, setGetApi] = useState(0);
+
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
   const [selectCategory, setCategory] = useState(0);
   const [address, setAddress] = useState("");
@@ -34,14 +38,11 @@ const FoundFormWeb = () => {
   const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
-    if (showModal || showLoading) {
-      document.body.style.overflow = "hidden"; 
-    } else {
-      document.body.style.overflow = "auto"; 
-    }
-
+    const originalStyle = document.body.style.overflow;
+    document.body.style.overflow = (showModal || showLoading) ? "hidden" : originalStyle;
+  
     return () => {
-      document.body.style.overflow = "auto"; 
+      document.body.style.overflow = originalStyle;
     };
   }, [showModal, showLoading]);
 
@@ -61,14 +62,22 @@ const FoundFormWeb = () => {
           params: { category: selectCategory },
           withCredentials: true,
         });
-        console.log("Response: ", response.data);
-        setLost(response.data.board || []);
+        
+        // 1) 기존 데이터(lost)와 비교 후 변경된 경우에만 setLost 실행
+        if (JSON.stringify(response.data.board) !== JSON.stringify(lost)) {
+          setLost(response.data.board || []);
+        }
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }
     };
-    fetchData();
-  }, [selectCategory]);
+  
+    // 2) selectCategory가 기본값(0)이 아닐 때만 API 호출
+    if (selectCategory !== 0) {
+      fetchData();
+    }
+  }, [selectCategory, lost]);
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -83,6 +92,8 @@ const FoundFormWeb = () => {
   };
 
   const handleConfirm = async () => {
+    if (showLoading) return;
+
     setShowModal(false);
     setShowLoading(true);
 
@@ -132,6 +143,14 @@ const FoundFormWeb = () => {
     }
   };
 
+  const onCategorySelect = (categoryId) => {
+    // 이미 같은 카테고리라면 변경하지 않음
+    if (categoryId !== selectCategory) {
+      setCategory(categoryId);
+      setGetApi(1); // getApi로 추가 로직이 있다면 여기서만 활성화
+    }
+  };
+
   return (
     <div className={`${styles.container} ${showLoading ? styles.blur : ""}`}>
       {showLoading && (
@@ -154,7 +173,7 @@ const FoundFormWeb = () => {
               key={category.id}
               type="button"
               className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
-              onClick={() => setCategory(category.id)}
+              onClick={onCategorySelect(category.id)}
             >
               {category.name}
             </button>
@@ -201,6 +220,32 @@ const FoundFormWeb = () => {
       </form>
 
       {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
+
+      {lost && getApi === 1 ?
+        <div className={styles.page}> 
+          <FoundSearch selectCategory={selectCategory} />
+          <div className={styles.sidebar} > 
+              <div className={styles.cardList} >
+              { lost.map((item) => ( 
+            <div
+              key={item.id}
+              className={styles.cardContainer}
+              style={{ cursor: "pointer" }}
+            >
+            <img src={item.image} alt={item.title} className={styles.cardImage} />
+            <div className={styles.cardContent}>
+              <span className={styles.cardTitle}>{item.title}</span>
+              <span className={styles.cardCategory}>{item.category}</span>
+              <span className={styles.cardDate}>{item.printDate}</span>
+            </div>
+          </div>
+          ))}
+          </div>
+          </div>
+        </div> :
+        <>
+          <div></div>
+        </>}
     </div>
   );
 };

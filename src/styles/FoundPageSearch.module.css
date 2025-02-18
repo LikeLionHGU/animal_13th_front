@@ -1,0 +1,32 @@
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .searchBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 400px; /* 원하는 크기로 조절 */
+    border: 2px solid #bce0e7;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: white;
+  }
+  
+  .searchIcon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+  }

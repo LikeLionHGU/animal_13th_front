@@ -4,7 +4,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
-import FoundSearch from "../Small/FoundSearch"; 
+import LostSearch from "../Small/LostSearch"; 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg";
 import UploadConfirmModal from "../UploadConfirmModal";
@@ -225,25 +225,25 @@ const FoundFormWeb = () => {
 
       {lost && getApi === 1 ?
         <div className={styles.page}> 
-          <FoundSearch selectCategory={selectCategory} />
-          <div className={styles.sidebar} > 
-              <div className={styles.cardList} >
-              { lost.map((item) => ( 
-            <div
-              key={item.id}
-              className={styles.cardContainer}
-              style={{ cursor: "pointer" }}
-            >
-            <img src={item.image} alt={item.title} className={styles.cardImage} />
-            <div className={styles.cardContent}>
-              <span className={styles.cardTitle}>{item.title}</span>
-              <span className={styles.cardCategory}>{item.category}</span>
-              <span className={styles.cardDate}>{item.printDate}</span>
-            </div>
-          </div>
-          ))}
-          </div>
-          </div>
+      <LostSearch selectCategory={selectCategory} setLost={setLost} />
+      <div className={styles.sidebar} > 
+          <div className={styles.cardList} >
+          { lost.map((item) => ( 
+        <div
+          key={item.id}
+          className={styles.cardContainer}
+          style={{ cursor: "pointer" }}
+        >
+        <img src={item.image} alt={item.title} className={styles.cardImage} />
+        <div className={styles.cardContent}>
+          <span className={styles.cardTitle}>{item.title}</span>
+          <span className={styles.cardCategory}>{item.category}</span>
+          <span className={styles.cardDate}>{item.printDate}</span>
+        </div>
+      </div>
+      ))}
+      </div>
+      </div>
         </div> :
         <>
           <div></div>

@@ -6,6 +6,7 @@ import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 �
 import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg"; 
 import axios from "axios";
 import {Link} from "react-router-dom";
+import FoundPageSearch from "./Small/FoundPageSearch"; 
 
 const categories = [
   { id: 0 , name: "전체" },
@@ -26,29 +27,23 @@ function FoundPage() {
   const [category, setCategory] = useState(0);
   const [loading, setLoading] = useState(true);
   const [latest, setLatest] = useState(true);
+  const [keyword, setKeyword] = useState("");
 
 useEffect(() => {
   const fetchData = async () => {
     try {
       console.log("request: ", category);
+      console.log("keyword: ", keyword);
 
       const url = latest 
-        ? 'https://koyangyee.info/board/found/all/category/new'
-        : 'https://koyangyee.info/board/found/all/category/old';
-
-      const response = await axios({
-        method: 'get',
-        url: url,
-        params: {
-          "category": category
-        }
-      }, { withCredentials : true })
-        .then((response)=>{
-          console.log("Response: ", response.data);
-          setFoundData(response.data.board);
-          setLoading(false);
-      })
-    } catch (error) {
+        ? `https://koyangyee.info/board/found/all/category/new?category=${category}&search=${keyword}`
+        : `https://koyangyee.info/board/found/all/category/old?category=${category}&search=${keyword}`;
+        const response = await axios.get(encodeURI(url));
+        console.log("GET URL: ", url )
+        console.log("Response: ", response.data);
+        setFoundData(response.data.board);
+        setLoading(false);
+      } catch (error) {
       console.error("오류 발생:", error.response?.data || error.message);
     }
   };
@@ -59,6 +54,7 @@ useEffect(() => {
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
   setCategory(categoryId);
+
 }
 
 const onLatestChange = (event) => {
@@ -73,7 +69,13 @@ const onLatestChange = (event) => {
       <div className={styles.contents}>
       <div className={styles.zummLogoContainer}>
       </div>
-
+      <div className={styles.title}>
+        <span className={styles.Lost}>FOUND</span> 
+        <span className={styles.comma}>, </span>
+        <span className={styles.restTitle}>물건을 찾았어요</span>
+      </div>
+      <div className={styles.intro}>혹시 잃어버린 물건이 있나요? 여기에서 확인해보세요!</div>
+      <FoundPageSearch selectCategory={category} setFoundData={setFoundData} setKeyword={setKeyword} />
       <div className={styles.filterContainer}>
         {categories.map((category) => (
           <button
@@ -93,7 +95,6 @@ const onLatestChange = (event) => {
         <option value="false" >오래된순</option>
       </select>
      </div>
-
       {loading ? (
         <p>로딩 중...</p> // 로딩 중 메시지 표시
             ) : foundData ?

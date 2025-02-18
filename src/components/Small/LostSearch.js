@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "../../styles/FoundSearch.module.css";
 import axios from "axios";
 
-function FoundSearch({ selectCategory, setLost }) {
+function LostSearch({ selectCategory, setLost }) {
   const [keyword, setKeyword] = useState(""); // 검색어 상태
 
   // 검색 버튼을 눌렀을 때 실행
@@ -20,7 +20,7 @@ function FoundSearch({ selectCategory, setLost }) {
       const response = await axios.get(encodeURI(url));
 
       console.log("ResponseLost:", response.data);
-      setLost(response.data.board);
+      setLost(response.data.board); 
     } catch (error) {
       console.error("검색 요청 실패:", error);
     }
@@ -38,5 +38,5 @@ function FoundSearch({ selectCategory, setLost }) {
   );
 }
 
-export default FoundSearch;
+export default LostSearch;
 

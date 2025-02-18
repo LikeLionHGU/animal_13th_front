@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
+import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg"; 
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -67,15 +68,11 @@ const onLatestChange = (event) => {
 };
   
   return (
-    <div className={styles.contents}>
+    <div>
+      <FoundBanner/>
+      <div className={styles.contents}>
       <div className={styles.zummLogoContainer}>
       </div>
-      <div className={styles.title}>
-        <span className={styles.Lost}>FOUND</span> 
-        <span className={styles.comma}>, </span>
-        <span className={styles.restTitle}>물건을 찾았어요</span>
-      </div>
-      <div className={styles.intro}>혹시 잃어버린 물건이 있나요? 여기에서 확인해보세요!</div>
 
       <div className={styles.filterContainer}>
         {categories.map((category) => (
@@ -129,6 +126,7 @@ const onLatestChange = (event) => {
                 onLostClick={() => navigate("/lost-form")}
                 onFoundClick={() => navigate("/found-form")}
             />
+        </div>
     </div>
   )
 }

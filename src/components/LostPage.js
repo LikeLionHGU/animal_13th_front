@@ -6,6 +6,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 
 const categories = [
+  { id: 0 , name: "전체" },
   { id: 1 , name: "전자기기" },
   { id: 2, name: "카드/학생증" },
   { id: 3, name: "지갑/현금" },

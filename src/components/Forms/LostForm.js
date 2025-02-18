@@ -4,16 +4,17 @@ import axios from "axios";
 import styles from "../../styles/Form.module.css";
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
+import UploadConfirmModal from "../UploadConfirmModal";
 
 const categories = [
-  { id: "1", name: "전자기기" },
-  { id: "2", name: "카드/학생증" },
-  { id: "3", name: "지갑/현금" },
-  { id: "4", name: "택배" },
-  { id: "5", name: "도서 및 서류" },
-  { id: "6", name: "의류/액세서리" },
-  { id: "7", name: "가방" },
-  { id: "8", name: "기타" },
+  { id: 1, name: "전자기기" },
+  { id: 2, name: "카드/학생증" },
+  { id: 3, name: "지갑/현금" },
+  { id: 4, name: "택배" },
+  { id: 5, name: "도서 및 서류" },
+  { id: 6, name: "의류/액세서리" },
+  { id: 7, name: "가방" },
+  { id: 8, name: "기타" },
 ];
 
 const LostForm = () => {
@@ -25,6 +26,21 @@ const LostForm = () => {
   const [browser, setBrowser] = useState(null); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState(null); 
 
+  const [showModal, setShowModal] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    if (showModal || showLoading) {
+      document.body.style.overflow = "hidden"; 
+    } else {
+      document.body.style.overflow = "auto"; 
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; 
+    };
+  }, [showModal, showLoading]);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -32,24 +48,30 @@ const LostForm = () => {
     }
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
+    setShowModal(true);
+  };
+
+  const handleConfirm = async (event) => {
+    setShowModal(false);
+    setShowLoading(true);
   
     const formData = new FormData();
     
     if (imageFile) {
       formData.append("image", imageFile);
     }
-  
+
     const boardData = {
-      title: event.target.title.value,
+      title: document.getElementById("title").value,
       category: selectCategory,
-      phoneNum: event.target.phoneNum.value,
-      content: event.target.content.value,
-      location: event.target.location.value , //오류 원인: event. 연결 안 해줘서&detail대신에 location쓰므로 detail 삭제!
-      boardType: 0,
-      latitude: 3.5555,
-      longitude: 2.434234,
+      phoneNum: document.getElementById("phoneNum").value,
+      content: document.getElementById("content").value,
+      location: document.getElementById("location").value,
+      boardType: 1,
+      latitude: location.lat,
+      longitude: location.lng,
     };
   
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
@@ -83,6 +105,8 @@ const LostForm = () => {
     } catch (error) {
       console.error("업로드 오류:", error);
       alert("업로드 오류: " + (error.response?.data?.message || "서버에 문제가 있습니다."));
+    }finally {
+      setShowLoading(false);
     }
   };
 
@@ -119,7 +143,13 @@ useEffect(() => {
 
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${showLoading ? styles.blur : ""}`}>
+      {showLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingText}>Loading...</div>
+        </div>
+      )}
+
       <form onSubmit={onSubmit} className={styles.formContainer}>
       <h1>LOST 글 작성 페이지</h1>
       <div className={styles.formGroup}>
@@ -161,7 +191,6 @@ useEffect(() => {
             required
           />
         </div>
-
         
         <div>
           <h3>사진</h3>
@@ -188,6 +217,8 @@ useEffect(() => {
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>
+      {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
+   
       {browser === "web" ?
         <>
           <div className={styles.sidebar}>

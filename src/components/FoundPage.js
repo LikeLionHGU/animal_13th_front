@@ -7,6 +7,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 
 const categories = [
+  { id: 0 , name: "전체" },
   { id: 1 , name: "전자기기" },
   { id: 2, name: "카드/학생증" },
   { id: 3, name: "지갑/현금" },
@@ -41,9 +42,9 @@ useEffect(() => {
           "category": category
         }
       }, { withCredentials : true })
-        .then((Response)=>{
-          console.log("Response: ", Response.data);
-          setFoundData(Response.data.board);
+        .then((response)=>{
+          console.log("Response: ", response.data);
+          setFoundData(response.data.board);
           setLoading(false);
       })
     } catch (error) {

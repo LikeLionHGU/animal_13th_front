@@ -10,13 +10,14 @@ function FoundSearch({ selectCategory, setLost }) {
     if (!keyword) return; // 빈 검색어는 요청하지 않음
     console.log("검색 버튼 클릭 시 keyword 값:", keyword);
 
+    //const url = `https://koyangyee.info/board/lost/all/category/search?category=${selectCategory}&search=${keyword}`;
+
+    const url = `https://koyangyee.info/board/lost/all/category/search/new?category=${selectCategory}&search=${keyword}`;
+    console.log(decodeURI(url));
+    console.log(encodeURI(url));
+
     try {
-      const response = await axios.get("https://koyangyee.info/board/lost/all/category/search", {
-        params: {
-          category: selectCategory,
-          search: decodeURI(keyword), // keyword를 직접 인코딩
-        },
-      });
+      const response = await axios.get(encodeURI(url));
 
       console.log("ResponseLost:", response.data);
       setLost(response.data.board);

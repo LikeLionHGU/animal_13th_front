@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
@@ -38,49 +38,11 @@ const FoundFormWeb = () => {
   const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
-    if (showModal || showLoading) {
-      document.body.style.overflow = "hidden"; 
-    } else {
-      document.body.style.overflow = "auto"; 
-    }
-
-  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
-  const [selectCategory, setCategory] = useState(0) // 카테고리 선택 감지
-  const [address, setAddress] = useState(""); //좌표 주소로 변환 
-  const [lost, setLost] = useState([]);
-  /*useEffect(() => {
-    setLost([
-      {
-        "id":1,
-        "title":"first",
-        "category":2,
-        "timeType":2,
-        "printDate":"30",
-        "image":"logo192.png"
-      },
-      {
-        "id":4,
-        "title":"second",
-        "category":3,
-        "timeType":4,
-        "printDate":"12/4/25",
-        "image":"logo512.png"
-      }
-    ]);
-  }, []);  */
+    const originalStyle = document.body.style.overflow;
+    document.body.style.overflow = (showModal || showLoading) ? "hidden" : originalStyle;
   
-  
-  useEffect(()=>{
-    const user = navigator.userAgent;
-    // 기본 환경 웹으로 설정
-    setBrowser("web")
-  
-    // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
-    if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
-        setBrowser("mobile")
-
     return () => {
-      document.body.style.overflow = "auto"; 
+      document.body.style.overflow = originalStyle;
     };
   }, [showModal, showLoading]);
 
@@ -92,7 +54,7 @@ const FoundFormWeb = () => {
     }
   }, [location]);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("request: ", selectCategory);
@@ -100,14 +62,21 @@ useEffect(() => {
           params: { category: selectCategory },
           withCredentials: true,
         });
-        console.log("Response: ", response.data);
-        setLost(response.data.board || []);
+        
+        // 1) 기존 데이터(lost)와 비교 후 변경된 경우에만 setLost 실행
+        if (JSON.stringify(response.data.board) !== JSON.stringify(lost)) {
+          setLost(response.data.board || []);
+        }
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }
     };
-    fetchData();
-  }, [selectCategory]);
+  
+    // 2) selectCategory가 기본값(0)이 아닐 때만 API 호출
+    if (selectCategory !== 0) {
+      fetchData();
+    }
+  }, [selectCategory, lost]);
 
 
   const handleFileChange = (event) => {
@@ -123,6 +92,8 @@ useEffect(() => {
   };
 
   const handleConfirm = async () => {
+    if (showLoading) return;
+
     setShowModal(false);
     setShowLoading(true);
 
@@ -171,22 +142,12 @@ useEffect(() => {
       setShowLoading(false);
     }
   };
-    
+
   const onCategorySelect = (categoryId) => {
-    console.log(categoryId);
-    setCategory(categoryId);
-    setGetApi(1);
-  }
-
-  useEffect(() => {
-    console.log(selectCategory); // 카테고리 변경시 마다 카테고리 Int 값 selectCategory에 업데이트
-  }, [selectCategory]);
-
-   const autoResize = () => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = "auto";
-      textarea.style.height = `${textarea.scrollHeight}px`;
+    // 이미 같은 카테고리라면 변경하지 않음
+    if (categoryId !== selectCategory) {
+      setCategory(categoryId);
+      setGetApi(1); // getApi로 추가 로직이 있다면 여기서만 활성화
     }
   };
 
@@ -212,7 +173,7 @@ useEffect(() => {
               key={category.id}
               type="button"
               className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
-              onClick={() => setCategory(category.id)}
+              onClick={onCategorySelect(category.id)}
             >
               {category.name}
             </button>
@@ -262,25 +223,25 @@ useEffect(() => {
 
       {lost && getApi === 1 ?
         <div className={styles.page}> 
-      <FoundSearch selectCategory={selectCategory} setLost={setLost} />
-      <div className={styles.sidebar} > 
-          <div className={styles.cardList} >
-          { lost.map((item) => ( 
-        <div
-          key={item.id}
-          className={styles.cardContainer}
-          style={{ cursor: "pointer" }}
-        >
-        <img src={item.image} alt={item.title} className={styles.cardImage} />
-        <div className={styles.cardContent}>
-          <span className={styles.cardTitle}>{item.title}</span>
-          <span className={styles.cardCategory}>{item.category}</span>
-          <span className={styles.cardDate}>{item.printDate}</span>
-        </div>
-      </div>
-      ))}
-      </div>
-      </div>
+          <FoundSearch selectCategory={selectCategory} />
+          <div className={styles.sidebar} > 
+              <div className={styles.cardList} >
+              { lost.map((item) => ( 
+            <div
+              key={item.id}
+              className={styles.cardContainer}
+              style={{ cursor: "pointer" }}
+            >
+            <img src={item.image} alt={item.title} className={styles.cardImage} />
+            <div className={styles.cardContent}>
+              <span className={styles.cardTitle}>{item.title}</span>
+              <span className={styles.cardCategory}>{item.category}</span>
+              <span className={styles.cardDate}>{item.printDate}</span>
+            </div>
+          </div>
+          ))}
+          </div>
+          </div>
         </div> :
         <>
           <div></div>

@@ -89,9 +89,15 @@ function MyPage() {
         <div className={styles.mypageTopElements}>
             <Profile className={styles.profileImage} />
             <span className={styles.userInfo}>
-                {/* <div className={styles.greeting}>{`안녕하세요, ${userInfo.username}님`}</div> */}
-                {/* <div className={styles.emailDisplay}>{`${userInfo.email}`}</div> */}
-            </span>  
+            {userInfo ? (
+            <>
+                <div className={styles.greeting}>{`안녕하세요, ${userInfo.username}님`}</div>
+                <div className={styles.emailDisplay}>{`${userInfo.email}`}</div>
+            </>
+            ) : (
+            <p>정보를 불러오는 중...</p>
+        )}
+        </span> 
         </div>
         <div className={styles.title} style={{justifyContent: "space-between"}}>
             <div className={styles.titleText}>

@@ -17,7 +17,6 @@ const FoundFormMobile = () => {
 
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
 
-  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
@@ -38,11 +38,14 @@ const FoundFormWeb = () => {
   const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
-    const originalStyle = document.body.style.overflow;
-    document.body.style.overflow = (showModal || showLoading) ? "hidden" : originalStyle;
+    if (showModal || showLoading) {
+      document.body.style.overflow = "hidden"; 
+    } else {
+      document.body.style.overflow = "auto"; 
+    }
   
     return () => {
-      document.body.style.overflow = originalStyle;
+      document.body.style.overflow = "auto"; 
     };
   }, [showModal, showLoading]);
 

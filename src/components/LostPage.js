@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
+import { ReactComponent as LostBanner } from "../assets/icons/LostPageBanner.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
 const categories = [
+  { id: 0 , name: "전체" },
   { id: 1 , name: "전자기기" },
   { id: 2, name: "카드/학생증" },
   { id: 3, name: "지갑/현금" },
@@ -65,67 +67,64 @@ function LostPage() {
   };
   
   return (
-    <div className={styles.contents}>
-      <div className={styles.zummLogoContainer}>
+    <div>
+      <LostBanner/>
+      <div className={styles.contents}>
+        <div className={styles.zummLogoContainer}>
+        </div>
+
+        <div className={styles.filterContainer}>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              type="button"
+              className={`${styles.filterButton} ${category === category.id ? styles.active : ""}`}
+              onClick={() => onCategorySelect(category.id)}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+
+        <div>
+        <select name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
+          <option value="true" >최신순</option>
+          <option value="false" >오래된순</option>
+        </select>
       </div>
-      <div className={styles.title}>
-        <span className={styles.Lost}>LOST</span> 
-        <span className={styles.comma}>, </span>
-        <span className={styles.restTitle}>물건을 잃어버렸어요</span>
+
+        {loading ? (
+          <p>로딩 중...</p> // 로딩 중 메시지 표시
+              ) : lostData ?
+                <div className={styles.cardList} >
+                  {lostData.map((item) => (
+                      <Link to={`/lost-detail/${item.id}`}>
+                      <div
+                      key={item.id} // key는 item.board.id가 아닌 item.id 사용
+                      style={{ cursor: "pointer" }}
+                      >
+                          <div className={styles.cardContainer}>
+                              <img src={item.image} alt={item.title} className={styles.cardImage} />
+                              <div className={styles.cardContent}>
+                                  <span className={styles.cardTitle}>{item.title}</span>
+                                  <span className={styles.cardCategory}>{item.category}</span>
+                                  <span className={styles.cardDate}>{item.printDate}</span> 
+                              </div>
+                          </div>
+                      </div>
+                  </Link>
+                  ))}
+                  </div>
+                  
+              : (
+                  <p>불러온 정보 없음</p> // 데이터가 없을 경우
+              )}
+
+        <FloatingButton
+                  onLostClick={() => navigate("/lost-form")}
+                  onFoundClick={() => navigate("/found-form")}
+              />
       </div>
-      <div className={styles.intro}>분실물에 대한 정보를 올려주세요</div>
-
-      <div className={styles.filterContainer}>
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            type="button"
-            className={`${styles.filterButton} ${category === category.id ? styles.active : ""}`}
-            onClick={() => onCategorySelect(category.id)}
-          >
-            {category.name}
-          </button>
-        ))}
-      </div>
-
-      <div>
-      <select name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
-        <option value="true" >최신순</option>
-        <option value="false" >오래된순</option>
-      </select>
-     </div>
-
-      {loading ? (
-        <p>로딩 중...</p> // 로딩 중 메시지 표시
-            ) : lostData ?
-              <div className={styles.cardList} >
-                {lostData.map((item) => (
-                    <Link to={`/lost-detail/${item.id}`}>
-                    <div
-                    key={item.id} // key는 item.board.id가 아닌 item.id 사용
-                    style={{ cursor: "pointer" }}
-                    >
-                        <div className={styles.cardContainer}>
-                            <img src={item.image} alt={item.title} className={styles.cardImage} />
-                            <div className={styles.cardContent}>
-                                <span className={styles.cardTitle}>{item.title}</span>
-                                <span className={styles.cardCategory}>{item.category}</span>
-                                <span className={styles.cardDate}>{item.printDate}</span> 
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-                ))}
-                </div>
-                
-             : (
-                <p>불러온 정보 없음</p> // 데이터가 없을 경우
-            )}
-
-      <FloatingButton
-                onLostClick={() => navigate("/lost-form")}
-                onFoundClick={() => navigate("/found-form")}
-            />
     </div>
   )
 }

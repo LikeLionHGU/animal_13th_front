@@ -17,20 +17,9 @@ const FoundFormMobile = () => {
 
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
 
-  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
 
-  useEffect(()=>{
-    const user = navigator.userAgent;
-    // 기본 환경 웹으로 설정
-    setBrowser("web")
-  
-    // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
-    if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
-        setBrowser("mobile")
-    }
-},[])
 
   useEffect(() => {
     if (location && typeof location.lat === "function") {

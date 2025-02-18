@@ -4,7 +4,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
-import FoundSearch from "../Small/FoundSearch"; 
+import LostSearch from "../Small/LostSearch"; 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 
@@ -270,7 +270,7 @@ const FoundFormWeb = () => {
       </form>
       {lost && getApi === 1 ?
         <div className={styles.page}> 
-      <FoundSearch selectCategory={selectCategory} setLost={setLost} />
+      <LostSearch selectCategory={selectCategory} setLost={setLost} />
       <div className={styles.sidebar} > 
           <div className={styles.cardList} >
           { lost.map((item) => ( 

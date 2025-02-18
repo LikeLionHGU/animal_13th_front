@@ -5,6 +5,7 @@ import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
 import axios from "axios";
 import {Link} from "react-router-dom";
+import FoundPageSearch from "./Small/FoundPageSearch"; 
 
 const categories = [
   { id: 1 , name: "전자기기" },
@@ -24,6 +25,7 @@ function FoundPage() {
   const [category, setCategory] = useState(0);
   const [loading, setLoading] = useState(true);
   const [latest, setLatest] = useState(true);
+  const [keyword, setKeyword] = useState("");
 
 useEffect(() => {
   const fetchData = async () => {
@@ -38,7 +40,8 @@ useEffect(() => {
         method: 'get',
         url: url,
         params: {
-          "category": category
+          "category": category, 
+          "search" : keyword
         }
       }, { withCredentials : true })
         .then((Response)=>{
@@ -57,6 +60,7 @@ useEffect(() => {
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
   setCategory(categoryId);
+
 }
 
 const onLatestChange = (event) => {
@@ -75,7 +79,7 @@ const onLatestChange = (event) => {
         <span className={styles.restTitle}>물건을 찾았어요</span>
       </div>
       <div className={styles.intro}>혹시 잃어버린 물건이 있나요? 여기에서 확인해보세요!</div>
-
+      <FoundPageSearch selectCategory={category} setFoundData={setFoundData} setKeyword={setKeyword} />
       <div className={styles.filterContainer}>
         {categories.map((category) => (
           <button
@@ -95,6 +99,7 @@ const onLatestChange = (event) => {
         <option value="false" >오래된순</option>
       </select>
      </div>
+
 
 
       {loading ? (

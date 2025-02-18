@@ -11,7 +11,7 @@ function MyPage() {
 
     const [myLost, setMyLost] = useState();
     const [myFound, setMyFound] = useState();
-    const [userInfo, setUserInfo] = useState();
+    const [userInfo, setUserInfo] = useState("");
     const [loading, setLoading] = useState(true);
     const [isLoggedin, setIsLoggedin] = useState(0);
 
@@ -37,7 +37,7 @@ function MyPage() {
        } catch (error) {
              console.error("오류 발생:", error);
        } finally {
-         setLoading(false); // 로딩 완료
+         setLoading(false);
        }
      };
      fetchData();

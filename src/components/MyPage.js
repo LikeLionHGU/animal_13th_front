@@ -43,7 +43,19 @@ function MyPage() {
  }, []);
 
  useEffect(() => {
-  const fetchData = async () => { // 수정필요
+  const fetchData = async () => {
+      try {
+          const response = await axios.get("https://koyangyee.info/auth/islogin");
+          console.log("isLogin: ", response.data.isLogin);
+      } catch (error) {
+          console.error("오류 발생:", error);
+      }
+  };
+  fetchData();
+}, []);
+
+ useEffect(() => {
+  const fetchData = async () => {
       try {
           const response = await axios.get("https://koyangyee.info/user");
           console.log("board: ", response.data.user);

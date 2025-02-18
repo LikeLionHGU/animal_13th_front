@@ -270,7 +270,7 @@ const FoundFormWeb = () => {
       </form>
       {lost && getApi === 1 ?
         <div className={styles.page}> 
-      <FoundSearch selectCategory={selectCategory} />
+      <FoundSearch selectCategory={selectCategory} setLost={setLost} />
       <div className={styles.sidebar} > 
           <div className={styles.cardList} >
           { lost.map((item) => ( 

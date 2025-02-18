@@ -13,6 +13,7 @@ function MyPage() {
     const [myFound, setMyFound] = useState();
     const [userInfo, setUserInfo] = useState();
     const [loading, setLoading] = useState(true);
+    const [isLoggedin, setIsLoggedin] = useState(0);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -61,12 +62,19 @@ function MyPage() {
           console.log("board: ", response.data.user);
           console.log("user: ", response.data.user);
           setUserInfo(response.data.user);
+          setIsLoggedin(response.data.isLogin);
+          if(response.data.isLogin === 0){
+            alert("로그인이 필요한 페이지입니다.");
+            // navigate("/");
+        }
       } catch (error) {
           console.error("오류 발생:", error);
       }
   };
   fetchData();
 }, []);
+
+
 
     const myFoundPageClick = () => {
         navigate("/mypage-found");
@@ -81,7 +89,15 @@ function MyPage() {
       <MypageBackgroundImg className={styles.background} />
 
       <div className={styles.contents}>
-      <Profile/> 
+        <div className={styles.mypageTopElements}>
+            <Profile className={styles.profileImage} />
+            <span className={styles.userInfo}>
+                <div className={styles.greeting}>{'안녕하세요, 학부생 한주먹님'}</div>
+                <div className={styles.emailDisplay}>{'hanzuumuck@handong.ac.kr'}</div>
+                {/* <div>{`안녕하세요, ${userInfo.name}님`}</div>
+                <div>{`${userInfo.email}`}</div> */}
+            </span>  
+        </div>
         <div className={styles.title} style={{justifyContent: "space-between"}}>
             <div className={styles.titleText}>
                 <span className={styles.mypageSmallTitle}>내가 작성한 LOST</span> 

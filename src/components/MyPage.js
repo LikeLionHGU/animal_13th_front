@@ -59,9 +59,8 @@ function MyPage() {
   const fetchData = async () => {
       try {
           const response = await axios.get("https://koyangyee.info/user");
-          console.log("board: ", response.data.user);
-          console.log("user: ", response.data.user);
-          setUserInfo(response.data.user);
+          console.log("user: ", response.data);
+          setUserInfo(response.data);
           setIsLoggedin(response.data.isLogin);
           if(response.data.isLogin === 0){
             alert("로그인이 필요한 페이지입니다.");
@@ -73,8 +72,6 @@ function MyPage() {
   };
   fetchData();
 }, []);
-
-
 
     const myFoundPageClick = () => {
         navigate("/mypage-found");
@@ -92,10 +89,8 @@ function MyPage() {
         <div className={styles.mypageTopElements}>
             <Profile className={styles.profileImage} />
             <span className={styles.userInfo}>
-                <div className={styles.greeting}>{'안녕하세요, 학부생 한주먹님'}</div>
-                <div className={styles.emailDisplay}>{'hanzuumuck@handong.ac.kr'}</div>
-                {/* <div>{`안녕하세요, ${userInfo.name}님`}</div>
-                <div>{`${userInfo.email}`}</div> */}
+                <div className={styles.greeting}>{`안녕하세요, ${userInfo.username}님`}</div>
+                <div className={styles.emailDisplay}>{`${userInfo.email}`}</div>
             </span>  
         </div>
         <div className={styles.title} style={{justifyContent: "space-between"}}>

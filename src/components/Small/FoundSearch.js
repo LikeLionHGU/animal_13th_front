@@ -12,7 +12,7 @@ function FoundSearch({ selectCategory, setLost }) {
 
     //const url = `https://koyangyee.info/board/lost/all/category/search?category=${selectCategory}&search=${keyword}`;
 
-    const url = `https://koyangyee.info/board/found/all/category/search/new?category=0&search=${keyword}`;
+    const url = `https://koyangyee.info/board/lost/all/category/search/new?category=${selectCategory}&search=${keyword}`;
     console.log(decodeURI(url));
     console.log(encodeURI(url));
 

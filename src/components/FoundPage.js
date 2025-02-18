@@ -94,7 +94,6 @@ const onLatestChange = (event) => {
       </select>
      </div>
 
-
       {loading ? (
         <p>로딩 중...</p> // 로딩 중 메시지 표시
             ) : foundData ?

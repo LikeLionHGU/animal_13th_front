@@ -79,7 +79,6 @@ function MyPageLost() {
                 </Link>
                 ))}
                 </div>
-                
              : (
                 <p>불러온 정보 없음</p> // 데이터가 없을 경우
             )}

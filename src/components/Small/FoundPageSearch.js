@@ -1,32 +1,35 @@
-import {useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../styles/FoundSearch.module.css";
 import axios from "axios";
 
 function FoundPageSearch({ selectCategory, setFoundData, setKeyword }) {
   const [search, setSearch] = useState(""); // 검색어 상태
 
-  // 검색 버튼을 눌렀을 때 실행
-  const handleSearch = async () => {
-    
+  const handleSearch = () => {
     if (!search) return; // 빈 검색어는 요청하지 않음
     console.log("검색 버튼 클릭 시 keyword 값:", search);
     setKeyword(search);
-
-    //const url = `https://koyangyee.info/board/lost/all/category/search?category=${selectCategory}&search=${keyword}`;
-
-    const url = `https://koyangyee.info/board/found/all/category/search/new?category=${selectCategory}&search=${search}`;
-    console.log(decodeURI(url));
-    console.log(encodeURI(url));
-
-    try {
-      const response = await axios.get(encodeURI(url));
-
-      console.log("ResponseLost:", response.data);
-      setFoundData(response.data.board); 
-    } catch (error) {
-      console.error("검색 요청 실패:", error);
-    }
   };
+
+  useEffect(() => {
+    if (!search) return;
+
+    const fetchData = async () => {
+      const url = `https://koyangyee.info/board/found/all/category/search/new?category=${selectCategory}&search=${search}`;
+      console.log(decodeURI(url));
+      console.log(encodeURI(url));
+
+      try {
+        const response = await axios.get(encodeURI(url));
+        console.log("ResponseLost:", response.data);
+        setFoundData(response.data.board);
+      } catch (error) {
+        console.error("검색 요청 실패:", error);
+      }
+    };
+
+    fetchData(); // 비동기 함수 실행
+  }, [selectCategory, search]); // `search`를 의존성 배열에 추가하여 검색어 변경 시에도 요청 수행
 
   return (
     <div className={styles.search}>
@@ -41,4 +44,5 @@ function FoundPageSearch({ selectCategory, setFoundData, setKeyword }) {
 }
 
 export default FoundPageSearch;
+
 

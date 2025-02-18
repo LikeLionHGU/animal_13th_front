@@ -31,25 +31,18 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       console.log("request: ", category);
+      console.log("keyword: ", keyword);
 
       const url = latest 
-        ? 'https://koyangyee.info/board/found/all/category/new'
-        : 'https://koyangyee.info/board/found/all/category/old';
+        ? `https://koyangyee.info/board/found/all/category/new?category=${category}&search=${keyword}`
+        : `https://koyangyee.info/board/found/all/category/old?category=${category}&search=${keyword}`;
 
-      const response = await axios({
-        method: 'get',
-        url: url,
-        params: {
-          "category": category, 
-          "search" : keyword
-        }
-      }, { withCredentials : true })
-        .then((Response)=>{
-          console.log("Response: ", Response.data);
-          setFoundData(Response.data.board);
-          setLoading(false);
-      })
-    } catch (error) {
+        const response = await axios.get(encodeURI(url));
+        console.log("GET URL: ", url )
+        console.log("Response: ", response.data);
+        setFoundData(response.data.board);
+        setLoading(false);
+      } catch (error) {
       console.error("오류 발생:", error.response?.data || error.message);
     }
   };

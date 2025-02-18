@@ -4,6 +4,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
+import FoundSearch from "../Small/FoundSearch"; 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg";
 import UploadConfirmModal from "../UploadConfirmModal";
@@ -24,7 +25,10 @@ const FoundFormWeb = () => {
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null);
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
-  const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 });
+
+  const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
+  const [getApi, setGetApi] = useState(0);
+
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
   const [selectCategory, setCategory] = useState(0);
   const [address, setAddress] = useState("");
@@ -40,6 +44,41 @@ const FoundFormWeb = () => {
       document.body.style.overflow = "auto"; 
     }
 
+  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
+  const [selectCategory, setCategory] = useState(0) // 카테고리 선택 감지
+  const [address, setAddress] = useState(""); //좌표 주소로 변환 
+  const [lost, setLost] = useState([]);
+  /*useEffect(() => {
+    setLost([
+      {
+        "id":1,
+        "title":"first",
+        "category":2,
+        "timeType":2,
+        "printDate":"30",
+        "image":"logo192.png"
+      },
+      {
+        "id":4,
+        "title":"second",
+        "category":3,
+        "timeType":4,
+        "printDate":"12/4/25",
+        "image":"logo512.png"
+      }
+    ]);
+  }, []);  */
+  
+  
+  useEffect(()=>{
+    const user = navigator.userAgent;
+    // 기본 환경 웹으로 설정
+    setBrowser("web")
+  
+    // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
+    if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
+        setBrowser("mobile")
+
     return () => {
       document.body.style.overflow = "auto"; 
     };
@@ -53,7 +92,7 @@ const FoundFormWeb = () => {
     }
   }, [location]);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("request: ", selectCategory);
@@ -69,6 +108,7 @@ const FoundFormWeb = () => {
     };
     fetchData();
   }, [selectCategory]);
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -129,6 +169,24 @@ const FoundFormWeb = () => {
       alert("알 수 없는 오류가 발생했습니다.");
     } finally {
       setShowLoading(false);
+    }
+  };
+    
+  const onCategorySelect = (categoryId) => {
+    console.log(categoryId);
+    setCategory(categoryId);
+    setGetApi(1);
+  }
+
+  useEffect(() => {
+    console.log(selectCategory); // 카테고리 변경시 마다 카테고리 Int 값 selectCategory에 업데이트
+  }, [selectCategory]);
+
+   const autoResize = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
 
@@ -201,6 +259,32 @@ const FoundFormWeb = () => {
       </form>
 
       {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
+
+      {lost && getApi === 1 ?
+        <div className={styles.page}> 
+      <FoundSearch selectCategory={selectCategory} />
+      <div className={styles.sidebar} > 
+          <div className={styles.cardList} >
+          { lost.map((item) => ( 
+        <div
+          key={item.id}
+          className={styles.cardContainer}
+          style={{ cursor: "pointer" }}
+        >
+        <img src={item.image} alt={item.title} className={styles.cardImage} />
+        <div className={styles.cardContent}>
+          <span className={styles.cardTitle}>{item.title}</span>
+          <span className={styles.cardCategory}>{item.category}</span>
+          <span className={styles.cardDate}>{item.printDate}</span>
+        </div>
+      </div>
+      ))}
+      </div>
+      </div>
+        </div> :
+        <>
+          <div></div>
+        </>}
     </div>
   );
 };

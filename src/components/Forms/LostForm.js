@@ -70,8 +70,8 @@ const LostForm = () => {
       content: document.getElementById("content").value,
       location: document.getElementById("location").value,
       boardType: 1,
-      latitude: location.lat,
-      longitude: location.lng,
+      latitude: 2.234,
+      longitude: 3.234234,
     };
   
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
@@ -185,10 +185,10 @@ useEffect(() => {
           <textarea
             className={styles.contentTextBox}
             name="content"
+            id="content"
             placeholder="추가적인 정보가 있으면 알려주세요."
             onInput={autoResize}
             ref={textareaRef}
-            required
           />
         </div>
         

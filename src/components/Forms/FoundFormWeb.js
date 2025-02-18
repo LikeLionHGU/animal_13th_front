@@ -78,7 +78,6 @@ const FoundFormWeb = () => {
     }
   }, [selectCategory, lost]);
 
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -173,7 +172,7 @@ const FoundFormWeb = () => {
               key={category.id}
               type="button"
               className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
-              onClick={onCategorySelect(category.id)}
+              onClick={() => onCategorySelect(category.id)}
             >
               {category.name}
             </button>

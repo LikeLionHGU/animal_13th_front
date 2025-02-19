@@ -85,7 +85,7 @@ function MainPage() {
                     <div className={styles.titleText}>
                         <span className={styles.Lost}>LOST</span> 
                         <span className={styles.comma}>, </span>
-                        <span  className={styles.restTitle}>물건을 잃어버렸어요
+                        <span  className={styles.restTitle}>분실물
                         </span>
                         <span className={styles.lineLost}></span>
                         <div className={styles.stroke}></div>
@@ -128,7 +128,7 @@ function MainPage() {
                     <div className={styles.titleText}>
                         <span className={styles.Lost}>FOUND</span> 
                         <span className={styles.comma}>,</span>
-                        <span className={styles.restTitle}>물건을 찾았어요</span>
+                        <span className={styles.restTitle}>습득물</span>
                         <span className={styles.lineFound}></span>
                         <div className={styles.stroke}></div>
                     </div>
@@ -141,7 +141,8 @@ function MainPage() {
                 ) : foundMain ?
                 <div className={styles.cardList} >
                     {foundMain.map((item) => (
-                        <Link to={`/found-detail/${item.id}`}>
+                        <Link to={`/found-detail/${item.id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}>
                         <div
                         key={item.id} // key는 item.board.id가 아닌 item.id 사용
                         style={{ cursor: "pointer" }}

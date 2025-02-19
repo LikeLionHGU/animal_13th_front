@@ -170,8 +170,7 @@
       flex-wrap: wrap;
       gap: 26px; /* 카드 사이 간격 */
       text-decoration: none;
-      margin-bottom: 127px;
-      
+      margin: 0 auto 127px auto;
   }
   
   /*개별 요소(부모 요소X)*/

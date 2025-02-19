@@ -81,7 +81,8 @@ function MainPage() {
                     <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
                     <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
                 </div>
-                <div className={styles.title} style={{justifyContent: "space-between"}}>
+            <div className={styles.Center}>
+            <div className={styles.title} style={{justifyContent: "space-between"}}>
                     <div className={styles.titleText}>
                         <span className={styles.Lost}>LOST</span> 
                         <span className={styles.comma}>, </span>
@@ -167,6 +168,8 @@ function MainPage() {
                 )}
                 </div>
             </div>
+            </div>
+                
         </div>
     )
 }

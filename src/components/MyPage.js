@@ -83,97 +83,100 @@ function MyPage() {
 
   return (
     <div>
-      <MypageBackgroundImg className={styles.background} />
-
-      <div className={styles.contents}>
-        <div className={styles.mypageTopElements}>
-            <Profile className={styles.profileImage} />
-            <span className={styles.userInfo}>
-            {userInfo ? (
-            <>
-                <div className={styles.greeting}>{`안녕하세요, ${userInfo.username}님`}</div>
-                <div className={styles.emailDisplay}>{`${userInfo.email}`}</div>
-            </>
-            ) : (
-            <p>정보를 불러오는 중...</p>
-        )}
-        </span> 
+        <div className={styles.backgroundWrapper}>
+            <MypageBackgroundImg className={styles.background} preserveAspectRatio="none" />
         </div>
-        <div className={styles.title} style={{justifyContent: "space-between"}}>
-            <div className={styles.titleText}>
-                <span className={styles.mypageSmallTitle}>내가 작성한 LOST</span> 
-                <span className={styles.lineLost}></span>
-                <div className={styles.stroke}></div>
+        <div className={styles.contentsContainer}>
+            <div className={styles.contents}>
+                <div className={styles.mypageTopElements}>
+                    <Profile className={styles.profileImage} />
+                    <span className={styles.userInfo}>
+                    {userInfo ? (
+                    <>
+                        <div className={styles.greeting}>{`안녕하세요, ${userInfo.username}님`}</div>
+                        <div className={styles.emailDisplay}>{`${userInfo.email}`}</div>
+                    </>
+                    ) : (
+                    <p>정보를 불러오는 중...</p>
+                )}
+                </span> 
             </div>
-            <span className={styles.showMore} onClick={myLostPageClick}>더보기</span>
-        </div>
-        <div>
-            {myLost ? 
-            <>
-                <div className={styles.cardList} >
-
-                    { myLost.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                // <Link to={`/lost-detail/${item.id}`}>
-                <div
-                        key={item.id}
-                        className={styles.cardContainer}
-                        style={{ cursor: "pointer" }}
-                        >
-                            
-                        <img src={item.image} alt={item.title} className={styles.cardImage} />
-                        <div className={styles.cardContent}>
-                            <span className={styles.cardTitle}>{item.title}</span>
-                            <span className={styles.cardCategory}>{item.category}</span>
-                            <span className={styles.cardDate}>{item.printDate}</span>
-                        </div>
-                    </div>
-                    // </Link>
-                    ))}
+            <div className={styles.title} style={{justifyContent: "space-between"}}>
+                <div className={styles.titleText}>
+                    <span className={styles.mypageSmallTitle}>내가 작성한 LOST</span> 
+                    <span className={styles.lineLost}></span>
+                    <div className={styles.stroke}></div>
                 </div>
-            </> :
-            <>
-                불러온 정보 없음
-            </>} 
-        </div>
+                <span className={styles.showMore} onClick={myLostPageClick}>더보기</span>
+            </div>
+            <div>
+                {myLost ? 
+                <>
+                    <div className={styles.cardList} >
 
-        <div className={styles.title} style={{justifyContent: "space-between"}}>
-                    <div className={styles.titleText}>
-                        <span className={styles.mypageSmallTitle}>내가 작성한 FOUND</span>
-                        <span className={styles.lineFound}></span>
-                        <div className={styles.stroke}></div>
-                    </div>
-                    <span className={styles.showMore} onClick={myFoundPageClick}>더보기</span>
-                </div>
-
-                <div>
-                {loading ? (
-            <p>로딩 중...</p> // 로딩 중 메시지 표시
-                ) : myFound ?
-                <div className={styles.cardList} >
-                    {myFound.map((item) => (
-                        // <Link to={`/found-detail/${item.id}`}>
-                        <div
-                        key={item.id} // key는 item.board.id가 아닌 item.id 사용
-                        style={{ cursor: "pointer" }}
-                        >
-                            <div className={styles.cardContainer}>
-                                <img src={item.image} alt={item.title} className={styles.cardImage} />
-                                <div className={styles.cardContent}>
-                                    <span className={styles.cardTitle}>{item.title}</span>
-                                    <span className={styles.cardCategory}>{item.category}</span>
-                                    <span className={styles.cardDate}>{item.printDate}</span> 
-                                </div>
+                        { myLost.map((item) => ( // 띄우는 콘텐츠들 배치하기
+                    // <Link to={`/lost-detail/${item.id}`}>
+                    <div
+                            key={item.id}
+                            className={styles.cardContainer}
+                            style={{ cursor: "pointer" }}
+                            >
+                                
+                            <img src={item.image} alt={item.title} className={styles.cardImage} />
+                            <div className={styles.cardContent}>
+                                <span className={styles.cardTitle}>{item.title}</span>
+                                <span className={styles.cardCategory}>{item.category}</span>
+                                <span className={styles.cardDate}>{item.printDate}</span>
                             </div>
                         </div>
-                    // </Link>
-                    ))}
+                        // </Link>
+                        ))}
                     </div>
-                    
-                : (
-                    <p>불러온 정보 없음</p> // 데이터가 없을 경우
-                )}
-                </div>
-       </div>               
+                </> :
+                <>
+                    불러온 정보 없음
+                </>} 
+            </div>
+
+            <div className={styles.title} style={{justifyContent: "space-between"}}>
+                        <div className={styles.titleText}>
+                            <span className={styles.mypageSmallTitle}>내가 작성한 FOUND</span>
+                            <span className={styles.lineFound}></span>
+                            <div className={styles.stroke}></div>
+                        </div>
+                        <span className={styles.showMore} onClick={myFoundPageClick}>더보기</span>
+                    </div>
+
+                    <div>
+                    {loading ? (
+                <p>로딩 중...</p> // 로딩 중 메시지 표시
+                    ) : myFound ?
+                    <div className={styles.cardList} >
+                        {myFound.map((item) => (
+                            // <Link to={`/found-detail/${item.id}`}>
+                            <div
+                            key={item.id} // key는 item.board.id가 아닌 item.id 사용
+                            style={{ cursor: "pointer" }}
+                            >
+                                <div className={styles.cardContainer}>
+                                    <img src={item.image} alt={item.title} className={styles.cardImage} />
+                                    <div className={styles.cardContent}>
+                                        <span className={styles.cardTitle}>{item.title}</span>
+                                        <span className={styles.cardCategory}>{item.category}</span>
+                                        <span className={styles.cardDate}>{item.printDate}</span> 
+                                    </div>
+                                </div>
+                            </div>
+                        // </Link>
+                        ))}
+                        </div>
+                        
+                    : (
+                        <p>불러온 정보 없음</p> // 데이터가 없을 경우
+                    )}
+                    </div>
+        </div>                 
+       </div>            
     </div>
   )
 }

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
 import { ReactComponent as LostBanner } from "../assets/icons/LostPageBanner.svg";
-import { ReactComponent as DropdownBtn } from "../assets/icons/DropdownButton.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -23,14 +22,14 @@ function LostPage() {
   const navigate = useNavigate();
 
   const [lostData, setLostData] = useState();
-  const [category, setCategory] = useState(0);
+  const [selectCategory, setSelectCategory] = useState(0);
   const [loading, setLoading] = useState(true);
   const [latest, setLatest] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("request: ", category);
+        console.log("request: ", selectCategory);
   
         const url = latest 
           ? 'https://koyangyee.info/board/lost/all/category/new'
@@ -40,7 +39,7 @@ function LostPage() {
           method: 'get',
           url: url,
           params: {
-            "category": category
+            "category": selectCategory
           }
         }, { withCredentials : true })
           .then((response)=>{
@@ -54,11 +53,11 @@ function LostPage() {
     };
   
     fetchData();
-  }, [category, latest]); 
+  }, [selectCategory, latest]); 
 
   const onCategorySelect = (categoryId) => {
     console.log(categoryId);
-    setCategory(categoryId);
+    setSelectCategory(categoryId);
   }
 
   const onLatestChange = (event) => {
@@ -68,8 +67,10 @@ function LostPage() {
   };
   
   return (
-    <div className={styles.wrapper}>
-      <LostBanner/>
+    <div className={styles.backcolor}>
+      <div className={styles.bannerWrapper}>
+        <LostBanner className={styles.banner}/>
+      </div>
       <div className={styles.contentsContainer}>
       <div className={styles.contents}>
         <div className={styles.zummLogoContainer}>
@@ -80,7 +81,7 @@ function LostPage() {
             <button
               key={category.id}
               type="button"
-              className={`${styles.filterButton} ${category === category.id ? styles.active : ""}`}
+              className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
               onClick={() => onCategorySelect(category.id)}
             >
               {category.name}

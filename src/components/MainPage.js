@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import GoogleLoginButton from '../components/API/GoogleLoginButton';
-import styles from '../styles/Page.module.css'
+import styles from '../styles/Mainpage.module.css'
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
 import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
 import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 

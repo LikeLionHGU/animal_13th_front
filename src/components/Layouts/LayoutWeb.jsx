@@ -58,7 +58,7 @@ const Layout = ({ children }) => {
             Login
           </button> */}
           <button onClick={() => setIsModalOpen(true)} className={styles.headerButtonDesign}>
-            News
+            Alert
           </button>
           <button onClick={() => navigate("/mypage")} className={styles.headerButtonDesign}>
             My page

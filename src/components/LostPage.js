@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
 import { ReactComponent as LostBanner } from "../assets/icons/LostPageBanner.svg";
+import { ReactComponent as DropdownBtn } from "../assets/icons/DropdownButton.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -67,8 +68,9 @@ function LostPage() {
   };
   
   return (
-    <div>
+    <div className={styles.wrapper}>
       <LostBanner/>
+      <div className={styles.contentsContainer}>
       <div className={styles.contents}>
         <div className={styles.zummLogoContainer}>
         </div>
@@ -86,8 +88,8 @@ function LostPage() {
           ))}
         </div>
 
-        <div>
-        <select name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
+        <div className={styles.dropdownWrapper}>
+        <select className={styles.dropdown} name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
           <option value="true" >최신순</option>
           <option value="false" >오래된순</option>
         </select>
@@ -119,6 +121,7 @@ function LostPage() {
               : (
                   <p>불러온 정보 없음</p> // 데이터가 없을 경우
               )}
+            </div>
 
         <FloatingButton
                   onLostClick={() => navigate("/lost-form")}

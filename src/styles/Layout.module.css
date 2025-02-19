@@ -24,7 +24,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 21px 35px;
-    background-color: white;
+    background-color: #F6F7F7;
   }
   
   .leftSection {
@@ -75,6 +75,7 @@
   .main {
     flex-grow: 1;
     /* padding: 20px; */
+    background-color: #F6F7F7;
   }
 
   .headerButtonDesign {

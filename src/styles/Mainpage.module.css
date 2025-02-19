@@ -57,11 +57,13 @@
       line-height: normal;
       flex-wrap: nowrap;
       margin-bottom: 20px;
+      width: 100vw;
   }
   
   .titleText {
       display: flex;
       align-items: center; 
+      margin-left: 40px;
   }
   
   .Lost {
@@ -111,7 +113,7 @@
       display: flex;
       justify-content: center; 
       gap: 20px; 
-      margin-bottom: 37px;
+      margin-bottom: 10px;
       position: relative;
       bottom: 48px;
   }
@@ -166,11 +168,13 @@
   /*전체 카드=>가로로 정렬 위해서*/
   .cardList {
       display: flex;
-      justify-content: center ;
-      flex-wrap: wrap;
+      justify-content: flex-start ;
+      flex-wrap: nowrap;
       gap: 26px; /* 카드 사이 간격 */
       text-decoration: none;
-      margin: 0 auto 127px auto;
+      margin-bottom: 127px;
+      margin-left:50px;
+
   }
   
   /*개별 요소(부모 요소X)*/

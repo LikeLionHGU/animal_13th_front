@@ -57,11 +57,13 @@
       line-height: normal;
       flex-wrap: nowrap;
       margin-bottom: 20px;
+      width: 100vw;
   }
   
   .titleText {
       display: flex;
       align-items: center; 
+      margin-left: 40px;
   }
   
   .Lost {
@@ -167,10 +169,11 @@
   .cardList {
       display: flex;
       justify-content: flex-start ;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 26px; /* 카드 사이 간격 */
       text-decoration: none;
       margin-bottom: 127px;
+      margin-left:50px;
       
   }
   

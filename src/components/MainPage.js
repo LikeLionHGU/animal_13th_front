@@ -7,6 +7,7 @@ import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg";
 import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 
 import axios from "axios";
 import {Link} from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const categoryMap = {
     1: "전자기기",
@@ -22,7 +23,6 @@ const categoryMap = {
 
 function MainPage() {
     const navigate = useNavigate();
-    
     const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
@@ -58,10 +58,32 @@ function MainPage() {
     const foundFormClick = () => {
         navigate("/found-form");
     }
-
-    const lostFormClick = () => {
-        navigate("/lost-form");
-    }
+    const lostFormClick = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/user");
+            console.log("user: ", response.data);
+    
+            if (response.data.isLogin === 0) {
+                const result = await Swal.fire({
+                    title: '로그인이 필요합니다.',
+                    text: '분실물 등록을 위해 로그인해 주세요.',
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '확인',
+                });
+    
+                if (result.isConfirmed) {
+                    navigate("/"); // 로그인 페이지로 이동 (원하는 경로로 변경 가능)
+                }
+                return; // 여기서 함수 실행 중단
+            }
+    
+            navigate("/lost-form"); // 로그인된 경우만 분실물 작성 페이지로 이동
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    
 
     const foundPageClick = () => {
         navigate("/found-page");

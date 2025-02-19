@@ -1,9 +1,9 @@
 @font-face {
-    font-family: 'yg-jalnan';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: 'RiaSans-ExtraBold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
   
   html, body {
     margin: 0;
@@ -53,6 +53,7 @@
       font-weight: 600;
       line-height: normal;
       flex-wrap: nowrap;
+      margin-bottom: 20px;
   }
   
   .titleText {
@@ -61,17 +62,17 @@
   }
   
   .Lost {
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       font-size: 35px;
   }
   
   .comma {
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       font-size: 25px;
   }
   
   .restTitle{
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       font-size: 28px;
   }
   
@@ -86,7 +87,7 @@
   
   .showMore {
       flex-grow: 1;
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       color: #858282;
       font-size: 15px;
       font-style: normal;
@@ -112,13 +113,13 @@
   /* 글씨 옆 선 */
   .lineLost {
       flex-grow: 1;
-      width: 700px; /* 선의 길이 */
+      width:  100vw;
       height: 4px; /* 선의 두께 */
       background-color: #8ac4d0; /* 선 색상 */
       border-radius: 2px; /* 둥근 끝 */
       position: relative;
-      margin-left: 20px;
-      margin-right: 10px;
+      margin-left: 90px;
+      margin-right: 30px;
       min-width: 150px; /* 최소 너비 설정 */
       max-width: 30vw;
   }
@@ -137,13 +138,13 @@
   
   .lineFound {
       flex-grow: 1;
-      width: 700px; /* 선의 길이 */
+      width: 100vw; /* 선의 길이 */
       height: 4px; /* 선의 두께 */
       background-color: #8ac4d0; /* 선 색상 */
       border-radius: 2px; /* 둥근 끝 */
       position: relative;
-      margin-left: 35px;
-      margin-right: 11px;
+      margin-left: 70px;
+      margin-right: 30px;
       min-width: 150px; /* 최소 너비 설정 */
       max-width: 30vw;
   }
@@ -166,6 +167,7 @@
       flex-wrap: wrap;
       gap: 16px; /* 카드 사이 간격 */
       text-decoration: none;
+      margin-bottom: 127px;
       
   }
   

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ReactComponent as Profile } from "../assets/icons/profileZuumuck.svg"; 
 import { ReactComponent as MypageBackgroundImg } from "../assets/icons/mypageBackgroundImg.svg"; 
 import axios from "axios";
@@ -125,7 +125,8 @@ function MyPage() {
                     <div className={styles.cardList} >
 
                         { myLost.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                    // <Link to={`/lost-detail/${item.id}`}>
+                    <Link to={`/lost-detail/${item.id}`}
+                            style={{ textDecoration: "none", color: "inherit" }} >
                     <div
                             key={item.id}
                             className={styles.cardContainer}
@@ -141,7 +142,7 @@ function MyPage() {
                                 <span className={styles.cardDate}>{item.printDate}</span>
                             </div>
                         </div>
-                        // </Link>
+                        </Link>
                         ))}
                     </div>
                 </> :
@@ -164,8 +165,10 @@ function MyPage() {
                 <p>로딩 중...</p> // 로딩 중 메시지 표시
                     ) : myFound ?
                     <div className={styles.cardList} >
+                        
                         {myFound.map((item) => (
-                            // <Link to={`/found-detail/${item.id}`}>
+                             <Link to={`/lost-detail/${item.id}`}
+                             style={{ textDecoration: "none", color: "inherit" }} >
                             <div
                             key={item.id} // key는 item.board.id가 아닌 item.id 사용
                             style={{ cursor: "pointer" }}
@@ -181,7 +184,7 @@ function MyPage() {
                                     </div>
                                 </div>
                             </div>
-                        // </Link>
+                        </Link>
                         ))}
                         </div>
                         

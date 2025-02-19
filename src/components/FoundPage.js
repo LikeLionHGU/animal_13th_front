@@ -6,8 +6,8 @@ import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.s
 import axios from "axios";
 import {Link} from "react-router-dom";
 import FoundPageSearch from "./Small/FoundPageSearch"; 
-import  Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import FoundWriteModal from "../components/FoundWriteModal";
 
 const categories = [
   { id: 0 , name: "전체" },
@@ -40,28 +40,37 @@ function FoundPage() {
   const [loading, setLoading] = useState(true);
   const [latest, setLatest] = useState(true);
   const [keyword, setKeyword] = useState("");
+  const [ showModal, setShowModal] = useState(false);
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      console.log("request: ", selectCategory);
-      console.log("keyword: ", keyword);
-
-      const url = latest 
-        ? `https://koyangyee.info/board/found/all/category/new?category=${selectCategory}&search=${keyword}`
-        : `https://koyangyee.info/board/found/all/category/old?category=${selectCategory}&search=${keyword}`;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let url = "";
+        if (keyword) {
+          // 검색어가 있을 경우, 검색 API 사용
+          url = latest 
+            ? `https://koyangyee.info/board/found/all/category/search/new?category=${selectCategory}&search=${keyword}`
+            : `https://koyangyee.info/board/found/all/category/search/old?category=${selectCategory}&search=${keyword}`;
+        } else {
+          // 검색어가 없을 경우, 일반 카테고리 API 사용
+          url = latest 
+            ? `https://koyangyee.info/board/found/all/category/new?category=${selectCategory}`
+            : `https://koyangyee.info/board/found/all/category/old?category=${selectCategory}`;
+        }
+  
         const response = await axios.get(encodeURI(url));
-        console.log("GET URL: ", url )
+        console.log("GET URL: ", url);
         console.log("Response: ", response.data);
         setFoundData(response.data.board);
         setLoading(false);
       } catch (error) {
-      console.error("오류 발생:", error.response?.data || error.message);
-    }
-  };
-
-  fetchData();
-}, [selectCategory, latest]); 
+        console.error("오류 발생:", error.response?.data || error.message);
+      }
+    };
+  
+    fetchData();
+  }, [selectCategory, latest, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
+  
 
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
@@ -75,34 +84,23 @@ const onLatestChange = (event) => {
   console.log("latest:", value);
 };
 
-const onWrite = () => {
-  //Alert창 실행
-  Swal.fire({
-    title: '정말로 그렇게 하시겠습니까?',
-    text: '다시 되돌릴 수 없습니다. 신중하세요.',
-    icon: 'warning',
-    
-    showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
-    confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
-    cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
-    confirmButtonText: '승인', // confirm 버튼 텍스트 지정
-    cancelButtonText: '취소', // cancel 버튼 텍스트 지정
-    
-    reverseButtons: true, // 버튼 순서 거꾸로
-    
- }).then(result => {
-    // 만약 Promise리턴을 받으면,
-    if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
-     navigate("/found-form");
-    }
- });
+const onWrite = (id) => {
+  id.preventDefault(); // 폼 기본 제출 방지
+  setShowModal(true); // 모달을 띄움
+  navigate(`/found-detail/${id}`);
+}
+
+const foundNavigate = () =>{
+  navigate("/found-form");
 }
   
   return (
     <div className={styles.backcolor}>
        <div className={styles.bannerWrapper}>
-        <FoundBanner className={styles.banner}/>
-        <Link to={'/found-form'} className={styles.bannerBtn}>FOUND 게시물 작성하기</Link>
+        <div className={styles.bannerWrapper}>
+          <FoundBanner className={styles.banner}/>
+          <Link to={'/found-form'} className={styles.bannerBtn}>FOUND 게시물 작성하기</Link>
+        </div>
       </div>
       <div className={styles.contentsContainer}>
         <div className={styles.contents}>
@@ -131,10 +129,10 @@ const onWrite = () => {
             ) : foundData ?
               <div className={styles.cardList} >
                 {foundData.map((item) => (
-                    <Link to={`/found-detail/${item.id}`}>
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
                     style={{ cursor: "pointer" }}
+                    onClick={() => onWrite(item.id)}
                     >
                         <div className={styles.cardContainer}>
                             <img src={item.image} alt={item.title} className={styles.cardImage} />
@@ -147,7 +145,6 @@ const onWrite = () => {
                             </div>
                         </div>
                     </div>
-                </Link>
                 ))}
                 </div>
                 
@@ -161,7 +158,9 @@ const onWrite = () => {
                 onFoundClick={() => navigate("/found-form")}
             />
         </div>
+        {showModal && <FoundWriteModal onClose={() => setShowModal(false)} onConfirm={foundNavigate} />}
     </div>
+    
   )
 }
 

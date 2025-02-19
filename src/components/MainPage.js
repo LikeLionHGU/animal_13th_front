@@ -162,6 +162,7 @@ function MainPage() {
                 {loading ? (
             <p>로딩 중...</p> // 로딩 중 메시지 표시
                 ) : foundMain ?
+                
                 <div className={styles.cardList} >
                     {foundMain.map((item) => (
                         <Link to={`/found-detail/${item.id}`}
@@ -191,6 +192,8 @@ function MainPage() {
                 </div>
             </div>
             </div>
+
+            
             
                 
     )

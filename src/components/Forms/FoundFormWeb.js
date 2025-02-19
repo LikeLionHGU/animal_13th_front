@@ -320,42 +320,40 @@ const FoundFormWeb = () => {
 
         {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
 
-        {lost?
-          <div className={styles.page}> 
-        <div className={styles.sidebar} > 
-        <div className={styles.sidebarTitle}>여기에 있나요?</div>
-        <LostSearch setKeyword={setKeyword}/>
-            <div className={styles.cardList} >
-            { lost.map((item) => ( 
-          <div
-            key={item.id}
-            className={styles.cardContainer}
-            style={{ cursor: "pointer" }}
-          >
-          <img src={item.image} alt={item.title} className={styles.cardImage} />
-          <div className={styles.cardContent}>
-            <span className={styles.cardTitle}>{item.title}</span>
-            <span className={styles.cardCategory}>
-              {categoryMap[item.category] || "기타"}
-            </span>
-            <span className={styles.cardDate}>{item.printDate}</span>
+        <div className={styles.page}> 
+          <div className={styles.positionSticky}>
+            <div className={styles.sidebar}> 
+              <div className={styles.sidebarTitle}>여기에 있나요?</div>
+              <LostSearch setKeyword={setKeyword}/>
+                {lost ?
+                <div className={styles.cardList} >
+                { lost.map((item) => ( 
+              <div
+                key={item.id}
+                className={styles.cardContainer}
+                style={{ cursor: "pointer" }}
+              >
+              <img src={item.image} alt={item.title} className={styles.cardImage} />
+              <div className={styles.cardContent}>
+                <span className={styles.cardTitle}>{item.title}</span>
+                <span className={styles.cardCategory}>
+                  {categoryMap[item.category] || "기타"}
+                </span>
+                <span className={styles.cardDate}>{item.printDate}</span>
+                <span className={styles.cardLocation}>{item.location}</span>
+                <span className={styles.sidebarCommentBtn}>제보하기</span>
+                <span className={styles.cardContent}>{item.content}</span>
+              </div>
+          </div>
+          ))}
+          </div>:
+          <div>
+            불러오는 중...
+          </div>}
+          
+          </div>
           </div>
         </div>
-        ))}
-        </div>
-        </div>
-          </div> :
-          <>
-            <div>
-            <div className={styles.page}> 
-            <div className={styles.sidebar} > 
-            <div className={styles.sidebarTitle}>여기에 있나요?</div>
-            <LostSearch setKeyword={setKeyword}/>
-              <span className={styles.loadingMessage}>불러오는 중...</span>
-            </div>
-            </div>
-            </div>
-          </>}
       </div>
     </div>
   );

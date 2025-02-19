@@ -46,7 +46,7 @@ const LostForm = () => {
   
   const [userInfo, setUserInfo] = useState("");
 
-  const [lost, setLost] = useState();
+  const [found, setFound] = useState();
   const [keyword, setKeyword] = useState();
 
   useEffect(() => {
@@ -231,7 +231,7 @@ useEffect(() => {
       const response = await axios.get(encodeURI(url));
       console.log("GET URL: ", url);
       console.log("Response: ", response.data);
-      setLost(response.data.board);
+      setFound(response.data.board);
     } catch (error) {
       console.error("오류 발생:", error.response?.data || error.message);
     }
@@ -359,9 +359,9 @@ useEffect(() => {
             <div className={styles.sidebar}> 
               <div className={styles.sidebarTitle}>여기에 있나요?</div>
               <FoundSearch setKeyword={setKeyword}/>
-                {lost ?
+                {found ?
                 <div className={styles.cardList} >
-                { lost.map((item) => ( 
+                { found.map((item) => ( 
               <div
                 key={item.id}
                 className={styles.cardContainer}
@@ -384,6 +384,7 @@ useEffect(() => {
           <div>
             불러오는 중...
           </div>}
+          
           </div>
           </div>
         </div>

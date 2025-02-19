@@ -81,7 +81,7 @@ function MainPage() {
                     <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
                     <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
                 </div>
-                <div className={styles.title} style={{justifyContent: "space-between"}}>
+            <div className={styles.title} style={{justifyContent: "space-between"}}>
                     <div className={styles.titleText}>
                         <span className={styles.Lost}>LOST</span> 
                         <span className={styles.comma}>, </span>
@@ -94,7 +94,7 @@ function MainPage() {
                 </div>
                 <div>
                     {lostMain ? 
-                    <>
+                    
                         <div className={styles.cardList} >
 
                             { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
@@ -118,7 +118,7 @@ function MainPage() {
                             </Link>
                             ))}
                         </div>
-                    </> :
+                    :
                     <>
                         불러온 정보 없음
                     </>} 
@@ -151,9 +151,9 @@ function MainPage() {
                                 <img src={item.image} alt={item.title} className={styles.cardImage} />
                                 <div className={styles.cardContent}>
                                     <span className={styles.cardTitle}>{item.title}</span>
-                                    <span className={styles.cardCategory}>
+                                        <span className={styles.cardCategory}>
                                         {categoryMap[item.category] || "기타"}
-                                    </span>
+                                        </span>
                                     <span className={styles.cardDate}>{item.printDate}</span> 
                                 </div>
                             </div>
@@ -167,7 +167,9 @@ function MainPage() {
                 )}
                 </div>
             </div>
-        </div>
+            </div>
+            
+                
     )
 }
 

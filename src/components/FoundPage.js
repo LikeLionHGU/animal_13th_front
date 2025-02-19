@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
-import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg"; 
+import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg";  
 import axios from "axios";
 import {Link} from "react-router-dom";
 import FoundPageSearch from "./Small/FoundPageSearch"; 
+import  Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   { id: 0 , name: "전체" },
@@ -62,6 +63,29 @@ const onLatestChange = (event) => {
   setLatest(value);
   console.log("latest:", value);
 };
+
+const onWrite = () => {
+  //Alert창 실행
+  Swal.fire({
+    title: '정말로 그렇게 하시겠습니까?',
+    text: '다시 되돌릴 수 없습니다. 신중하세요.',
+    icon: 'warning',
+    
+    showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+    confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+    cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+    confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+    cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+    
+    reverseButtons: true, // 버튼 순서 거꾸로
+    
+ }).then(result => {
+    // 만약 Promise리턴을 받으면,
+    if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+     navigate("/found-form");
+    }
+ });
+}
   
   return (
     <div className={styles.backcolor}>

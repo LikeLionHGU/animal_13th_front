@@ -325,4 +325,33 @@ html, body {
     transform: scale(1.05); 
     background: white;
   }
+
+/*Found게시판 작성 버튼&배너 묶음*/
+ .buttonContainer{
+    position: relative;
+ }
+
+
+ .foundWrite{
+  position:absolute;
+  display: flex;
+  top: 200px;
+  left: 260px;
+  width: 202px;
+  height: 34px;
+  padding: 5px 11px;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #F6F7F7;
+  /*font*/
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+ }
   

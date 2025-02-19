@@ -88,6 +88,10 @@ const LostForm = () => {
         withCredentials: true, // 추가
       });
 
+      console.log("업로드 완료:", response.data);
+      console.log("isLogin:", response.isLogin);
+      console.log("isSuccess:", response.isSuccess);
+
       const { isLogin, isSuccess } = response.data;
 
       if (response.isLogin === 1 && response.isSuccess === 1) {

@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import styles from "../../styles/Form.module.css";
+import styles from "../../styles/Form.module.css?v=2";
+import FoundSearch from "../Small/FoundLostSearch"; 
 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
@@ -31,6 +32,9 @@ const LostForm = () => {
   const [showLoading, setShowLoading] = useState(false);
   
   const [userInfo, setUserInfo] = useState("");
+
+  const [lost, setLost] = useState();
+  const [keyword, setKeyword] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -155,6 +159,8 @@ const LostForm = () => {
     const user = navigator.userAgent;
     // 기본 환경 웹으로 설정
     setBrowser("web")
+    setCategory(0);
+    
   
     // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
     if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
@@ -167,6 +173,27 @@ useEffect(() => {
     setLocation(location); // 사용자가 입력한 텍스트 그대로 저장
   }
 }, [location]); 
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      console.log("카테고리: ", selectCategory);
+      let url = "";
+      url=`https://koyangyee.info/board/found/all/category/new?category=${selectCategory}`;
+      if (keyword !== undefined) {
+        url=`https://koyangyee.info/board/found/all/category/search/new?category=${selectCategory}&search=${keyword}`;
+      }
+      const response = await axios.get(encodeURI(url));
+      console.log("GET URL: ", url);
+      console.log("Response: ", response.data);
+      setLost(response.data.board);
+    } catch (error) {
+      console.error("오류 발생:", error.response?.data || error.message);
+    }
+  };
+
+  fetchData();
+}, [selectCategory, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
 
 
   return (
@@ -246,22 +273,28 @@ useEffect(() => {
       </form>
       {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
    
-      {browser === "web" ?
-        <>
-          <div className={styles.sidebar}>
-            <h2>Found 게시글</h2>
-            <ul className={styles.postList}>
-              <div className={styles.postItem}>Found 게시글</div>
-              <div className={styles.postItem}>Found 게시글</div>
-              <div className={styles.postItem}>Found 게시글</div>
-              <div className={styles.postItem}>Found 게시글</div>
-              <div className={styles.postItem}>Found 게시글</div>
-              <div className={styles.postItem}>Found 게시글</div>
-              <div className={styles.postItem}>Found 게시글</div>
-              <div className={styles.postItem}>Found 게시글</div>
-            </ul>
-          </div>
-        </> :
+      {lost && (browser === "web")?
+        <div className={styles.page}> 
+      <FoundSearch setKeyword={setKeyword}/>
+      <div className={styles.sidebar} > 
+          <div className={styles.cardList} >
+          { lost.map((item) => ( 
+        <div
+          key={item.id}
+          className={styles.cardContainer}
+          style={{ cursor: "pointer" }}
+        >
+        <img src={item.image} alt={item.title} className={styles.cardImage} />
+        <div className={styles.cardContent}>
+          <span className={styles.cardTitle}>{item.title}</span>
+          <span className={styles.cardCategory}>{item.category}</span>
+          <span className={styles.cardDate}>{item.printDate}</span>
+        </div>
+      </div>
+      ))}
+      </div>
+      </div>
+        </div> :
         <>
           <div></div>
         </>}

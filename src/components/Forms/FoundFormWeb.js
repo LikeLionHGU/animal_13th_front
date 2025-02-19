@@ -4,7 +4,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
-import LostSearch from "../Small/LostSearch"; 
+import LostSearch from "../Small/FoundLostSearch"; 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg";
 import UploadConfirmModal from "../UploadConfirmModal";
@@ -27,15 +27,15 @@ const FoundFormWeb = () => {
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
 
   const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
-  const [getApi, setGetApi] = useState(0);
 
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
   const [selectCategory, setCategory] = useState(0);
-  const [address, setAddress] = useState("");
-  const [lost, setLost] = useState([]);
+  const [lost, setLost] = useState("");
+  const [address, setAddress] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  const [keyword, setKeyword] = useState();
 
   useEffect(() => {
     if (showModal || showLoading) {
@@ -57,29 +57,28 @@ const FoundFormWeb = () => {
     }
   }, [location]);
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("request: ", selectCategory);
-        const response = await axios.get("https://koyangyee.info/board/found/all/category/new", {
-          params: { category: selectCategory },
-          withCredentials: true,
-        });
-        
-        // 1) 기존 데이터(lost)와 비교 후 변경된 경우에만 setLost 실행
-        if (JSON.stringify(response.data.board) !== JSON.stringify(lost)) {
-          setLost(response.data.board || []);
+        console.log("카테고리: ", selectCategory);
+        let url = "";
+        url=`https://koyangyee.info/board/lost/all/category/new?category=${selectCategory}`;
+        if (keyword !== undefined) {
+          url=`https://koyangyee.info/board/lost/all/category/search/new?category=${selectCategory}&search=${keyword}`;
         }
+        const response = await axios.get(encodeURI(url));
+        console.log("GET URL: ", url);
+        console.log("Response: ", response.data);
+        setLost(response.data.board);
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }
     };
   
-    // 2) selectCategory가 기본값(0)이 아닐 때만 API 호출
-    if (selectCategory !== 0) {
-      fetchData();
-    }
-  }, [selectCategory, lost]);
+    fetchData();
+  }, [selectCategory, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -149,7 +148,6 @@ const FoundFormWeb = () => {
     // 이미 같은 카테고리라면 변경하지 않음
     if (categoryId !== selectCategory) {
       setCategory(categoryId);
-      setGetApi(1); // getApi로 추가 로직이 있다면 여기서만 활성화
     }
   };
 
@@ -223,9 +221,9 @@ const FoundFormWeb = () => {
 
       {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
 
-      {lost && getApi === 1 ?
+      {lost?
         <div className={styles.page}> 
-      <LostSearch selectCategory={selectCategory} setLost={setLost} />
+      <LostSearch setKeyword={setKeyword}/>
       <div className={styles.sidebar} > 
           <div className={styles.cardList} >
           { lost.map((item) => ( 

@@ -1,9 +1,9 @@
 @font-face {
-    font-family: 'yg-jalnan';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: 'RiaSans-ExtraBold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
   
   html, body {
     margin: 0;
@@ -61,17 +61,17 @@
   }
   
   .Lost {
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       font-size: 35px;
   }
   
   .comma {
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       font-size: 25px;
   }
   
   .restTitle{
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       font-size: 28px;
   }
   
@@ -86,7 +86,7 @@
   
   .showMore {
       flex-grow: 1;
-      font-family: 'yg-jalnan';
+      font-family: 'RiaSans-ExtraBold';
       color: #858282;
       font-size: 15px;
       font-style: normal;

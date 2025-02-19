@@ -70,6 +70,7 @@ function LostPage() {
     <div className={styles.backcolor}>
       <div className={styles.bannerWrapper}>
         <LostBanner className={styles.banner}/>
+        <Link to={'/lost-form'} className={styles.bannerBtn}>LOST 게시물 작성하기</Link>
       </div>
       <div className={styles.contentsContainer}>
       <div className={styles.contents}>

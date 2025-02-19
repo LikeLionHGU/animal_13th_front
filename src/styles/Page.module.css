@@ -36,6 +36,43 @@ html, body {
     margin: 0 auto;
 }
 
+.bannerBtn {
+  position: absolute; /* 배너 위에 버튼 배치 */
+  top: 38%;
+  left: 16.7%;
+  background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background 0.3s;
+  cursor: pointer;
+
+  display: flex;
+  width: 202px;
+  height: 34px;
+  padding: 5px 11px;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  flex-shrink: 0;
+
+  border-radius: 19px;
+  background: #F6F7F7;
+
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.bannerBtn:hover {
+  background: #23414D;
+  color: white;
+}
+
 .h2 {
     color: #000;
     font-size: 21px;

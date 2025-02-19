@@ -71,6 +71,7 @@ const onSubmit = async (event) => {
     alert("알 수 없는 오류가 발생했습니다.");
   } finally {
     setShowLoading(false);
+    window.location.reload();
   }
 };
 
@@ -97,6 +98,18 @@ const handleFileChange = (event) => {
         <div>title: {`${lostDetail.title}`}</div>
         <div>Content: {`${lostDetail.content}`}</div>
         <img src={lostDetail.image} alt={lostDetail.title}/>
+
+        <form onSubmit={onSubmit}>
+          <input className={styles.commentInputBox} id="comment" type="text" ></input>
+          <input id="galleryInput" type="file" accept="image/*" onChange={handleFileChange}  />
+            {imageFile ? (
+              <div onClick={() => document.getElementById("galleryInput").click()} >
+                <img src={URL.createObjectURL(imageFile)} alt="Uploaded"  />
+              </div>
+            ):<div></div>}
+            <button className={styles.button} type="submit">완료</button>
+        </form>
+
         {lostDetail.comments.map((item) => (
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
@@ -115,16 +128,6 @@ const handleFileChange = (event) => {
         <h1>Loading...</h1>
       </>
     }
-    <form onSubmit={onSubmit}>
-      <input id="comment" type="text" ></input>
-      <input id="galleryInput" type="file" accept="image/*" onChange={handleFileChange}  />
-        {imageFile ? (
-          <div onClick={() => document.getElementById("galleryInput").click()} >
-            <img src={URL.createObjectURL(imageFile)} alt="Uploaded"  />
-          </div>
-        ):<div></div>}
-        <button className={styles.button} type="submit">완료</button>
-    </form>
     </div>
   )
 }

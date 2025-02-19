@@ -41,6 +41,7 @@ function FoundPage() {
   const [latest, setLatest] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [ showModal, setShowModal] = useState(false);
+  const [id, setId] = useState(); //모달 창 아이디디
   const [userInfo, setUserInfo] = useState("");
 
   useEffect(() => {
@@ -104,11 +105,11 @@ const onLatestChange = (event) => {
 
 const onWrite = (id) => {
   setShowModal(true); // 모달을 띄움
-  navigate(`/found-detail/${id}`);
+  setId(id);
 }
 
 const foundNavigate = () =>{
-  navigate("/found-form");
+  navigate(`/found-detail/${id}`);
 }
   
   return (

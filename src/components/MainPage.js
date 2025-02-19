@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import GoogleLoginButton from '../components/API/GoogleLoginButton';
+//import GoogleLoginButton from '../components/API/GoogleLoginButton';
 import styles from '../styles/Mainpage.module.css'
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
 import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
@@ -98,7 +98,8 @@ function MainPage() {
                         <div className={styles.cardList} >
 
                             { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                        <Link to={`/lost-detail/${item.id}`}>
+                        <Link to={`/lost-detail/${item.id}`}
+                            style={{ textDecoration: "none", color: "inherit" }} >
                         <div
                                 key={item.id}
                                 className={styles.cardContainer}

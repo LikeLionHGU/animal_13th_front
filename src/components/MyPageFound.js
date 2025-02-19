@@ -54,11 +54,11 @@ function MyPageFound() {
             <span className={styles.myfoundtitle}>내가 작성한 FOUND</span> 
           </div>
 
-          <div>
-          <select name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
-            <option value="true" >최신순</option>
-            <option value="false" >오래된순</option>
-          </select>
+          <div className={styles.dropdownWrapper}>
+            <select className={styles.dropdown} name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
+              <option value="true" >최신순</option>
+              <option value="false" >오래된순</option>
+            </select>
         </div>
 
           {loading ? (
@@ -83,7 +83,6 @@ function MyPageFound() {
                     </Link>
                     ))}
                     </div>
-                    
                 : (
                     <p>불러온 정보 없음</p> // 데이터가 없을 경우
                 )}

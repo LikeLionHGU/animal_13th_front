@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
-import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg"; 
+import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg";  
 import axios from "axios";
 import {Link} from "react-router-dom";
 import FoundPageSearch from "./Small/FoundPageSearch"; 

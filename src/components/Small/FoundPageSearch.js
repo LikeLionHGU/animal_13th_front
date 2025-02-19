@@ -3,6 +3,7 @@ import styles from "../../styles/FoundPageSearch.module.css";
 import axios from "axios";
 import { ReactComponent as SearchIcon } from "../../assets/icons/Vector.svg";
 
+
 function FoundPageSearch({ selectCategory, setFoundData, setKeyword }) {
   const [search, setSearch] = useState("");
   const [click, setClick] = useState(false);
@@ -46,7 +47,6 @@ function FoundPageSearch({ selectCategory, setFoundData, setKeyword }) {
           value={search}
           placeholder="무엇을 찾고 계신가요?"
           onChange={(e) => setSearch(e.target.value)}
-          onClick={handleSearch}
         ></input>
       </div>
       <button type="submit" style={{ display: "none" }}></button> {/* 엔터 입력 지원 */}

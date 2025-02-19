@@ -85,9 +85,6 @@ function LostPage() {
       </div>
       <div className={styles.contentsContainer}>
       <div className={styles.contents}>
-        <div className={styles.zummLogoContainer}>
-        </div>
-
         <div className={styles.filterContainer}>
           {categories.map((category) => (
             <button

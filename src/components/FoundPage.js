@@ -84,9 +84,10 @@ const onLatestChange = (event) => {
   console.log("latest:", value);
 };
 
-const onWrite = (event) => {
-  event.preventDefault(); // 폼 기본 제출 방지
+const onWrite = (id) => {
+  id.preventDefault(); // 폼 기본 제출 방지
   setShowModal(true); // 모달을 띄움
+  navigate(`/found-detail/${id}`);
 }
 
 const foundNavigate = () =>{
@@ -96,9 +97,9 @@ const foundNavigate = () =>{
   return (
     <div className={styles.backcolor}>
        <div className={styles.bannerWrapper}>
-        <div className={styles.buttonContainer}>
+        <div className={styles.bannerWrapper}>
           <FoundBanner className={styles.banner}/>
-          <button  className={styles.foundWrite} onClick={onWrite}>Found 글 작성</button>
+          <Link to={'/found-form'} className={styles.bannerBtn}>FOUND 게시물 작성하기</Link>
         </div>
       </div>
       <div className={styles.contentsContainer}>
@@ -128,10 +129,10 @@ const foundNavigate = () =>{
             ) : foundData ?
               <div className={styles.cardList} >
                 {foundData.map((item) => (
-                    <Link to={`/found-detail/${item.id}`}>
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
                     style={{ cursor: "pointer" }}
+                    onClick={() => onWrite(item.id)}
                     >
                         <div className={styles.cardContainer}>
                             <img src={item.image} alt={item.title} className={styles.cardImage} />
@@ -144,7 +145,6 @@ const foundNavigate = () =>{
                             </div>
                         </div>
                     </div>
-                </Link>
                 ))}
                 </div>
                 

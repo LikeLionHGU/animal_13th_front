@@ -65,12 +65,12 @@ function MyPageLost() {
         <span className={styles.myfoundtitle}>내가 작성한 LOST</span> 
       </div>
 
-      <div>
-      <select name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
-        <option value="true" >최신순</option>
-        <option value="false" >오래된순</option>
-      </select>
-     </div>
+      <div className={styles.dropdownWrapper}>
+            <select className={styles.dropdown} name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
+              <option value="true" >최신순</option>
+              <option value="false" >오래된순</option>
+            </select>
+        </div>
 
       {loading ? (
         <p>로딩 중...</p> // 로딩 중 메시지 표시

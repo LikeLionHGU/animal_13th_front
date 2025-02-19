@@ -280,13 +280,13 @@ useEffect(() => {
           </div>
 
           <div className={styles.formGroup}>
-            <input id="location" name="location" type="text" placeholder="예상 분실 위치 (선택)" className={`${styles.textboxSize} ${styles.formField}` }  />
+            <input id="location" name="location" type="text" placeholder="" className={`${styles.textboxSize} ${styles.formField}` }  />
             <label htmlFor="location" className={styles.formLabel}>예상 위치</label>
           </div>
 
           <div className={styles.formGroup}>
-            <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="전화번호 (선택) (예시: 010-1234-1234) " className={`${styles.textboxSize} ${styles.formField}`}/>
-            <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (예시: 010-1234-1234)</label>
+            <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="010-XXXX-XXXX" className={`${styles.textboxSize} ${styles.formField}`}/>
+            <label htmlFor="phoneNum" className={styles.formLabel}>전화번호</label>
           </div>
 
           <div>

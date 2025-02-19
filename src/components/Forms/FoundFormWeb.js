@@ -5,9 +5,12 @@ import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
 import LostSearch from "../Small/FoundLostSearch"; 
-
+import { ReactComponent as Banner } from "../../assets/icons/MyLostFoundPageBanner.svg";
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg";
+import { ReactComponent as ImageUploadFieldHover } from "../../assets/icons/imageUploadFieldHover.svg"; 
 import UploadConfirmModal from "../UploadConfirmModal";
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB (bytes)
 
 const categories = [
   { id: 1, name: "전자기기" },
@@ -20,11 +23,23 @@ const categories = [
   { id: 8, name: "기타" },
 ];
 
+const categoryMap = {
+  1: "전자기기",
+  2: "카드/학생증",
+  3: "지갑/현금",
+  4: "택배",
+  5: "도서 및 서류",
+  6: "의류/액세서리",
+  7: "가방",
+  8: "기타",
+};
+
 const FoundFormWeb = () => {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
   const [imageFile, setImageFile] = useState(null);
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
+  const [isDragging, setIsDragging] = useState(false); // 드래그 상태 관리
 
   const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
 
@@ -80,10 +95,54 @@ const FoundFormWeb = () => {
   }, [selectCategory, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
 
 
+  const handleFileUpload = (file) => {
+    // 1. 파일 용량 체크 (10MB 초과 시 알림)
+    if (file.size > MAX_FILE_SIZE) {
+      alert("파일이 너무 큽니다. 10MB 이하의 이미지를 업로드해주세요.");
+      return;
+    }
+
+    // 2. 문제없는 경우 상태에 저장
+    setImageFile(file);
+  };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImageFile(file);
+      handleFileUpload(file);
+    }
+  };
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+  
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isDragging) setIsDragging(true);
+  };
+  
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  
+    // 드래그 중인 파일이 영역을 완전히 벗어났을 때만 상태 변경
+    if (e.relatedTarget === null || !e.currentTarget.contains(e.relatedTarget)) {
+      setIsDragging(false);
+    }
+  };
+  
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false); // 드롭 이후 드래그 상태 해제
+  
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      handleFileUpload(file);
     }
   };
 
@@ -119,10 +178,6 @@ const FoundFormWeb = () => {
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
 
     try {
-      console.log("FormData 내용:");
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}:`, pair[1]);
-      }
 
       const response = await axios.post("https://koyangyee.info/board/found/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -152,100 +207,154 @@ const FoundFormWeb = () => {
   };
 
   return (
-    <div className={`${styles.container} ${showLoading ? styles.blur : ""}`}>
-      {showLoading && (
-        <div className={styles.loadingOverlay}>
-          <div className={styles.loadingText}>Loading...</div>
-        </div>
-      )}
-
-      <form onSubmit={onSubmit} className={styles.formContainer}>
-        <h1>FOUND 글쓰기</h1>
-        <div className={styles.formGroup}>
-          <input id="title" type="text" className={styles.formField} required />
-          <label htmlFor="title" className={styles.formLabel}>습득물명 (필수)</label>
-        </div>
-
-        <h3>카테고리</h3>
-        <div className={styles.filterContainer}>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              type="button"
-              className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
-              onClick={() => onCategorySelect(category.id)}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-
-        <h2>물건을 찾은 위치를 입력해 주세요!</h2>
-        <NavermapsProvider ncpClientId={MapAPIid}>
-          <div className={styles.mapSize}>
-            <MapnLocation setLocation={setLocation} setAddress={setAddress} />
+    <div className={styles.backcolor}>
+      <div className={styles.bannerWrapper}>
+        <Banner className={styles.banner}/>
+      </div>
+      <div className={`${styles.container} ${showLoading ? styles.blur : ""}`}>
+        {showLoading && (
+          <div className={styles.loadingOverlay}>
+            <div className={styles.loadingText}>Loading...</div>
           </div>
-        </NavermapsProvider>
-        <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
-
-        <div className={styles.formGroup}>
-          <input id="detailLocation" type="text" className={styles.formField} />
-          <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
-        </div>
-
-        <div className={styles.formGroup}>
-          <input id="phoneNum" type="text" maxLength="13" className={styles.formField} />
-          <label htmlFor="phoneNum" className={styles.formLabel}>전화번호 (선택)</label>
-        </div>
-
-        <h3>상세정보</h3>
-        <textarea id="content" ref={textareaRef} className={styles.contentTextBox} onInput={() => {
-          textareaRef.current.style.height = "auto";
-          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-        }}/>
-
-        <h3>사진</h3>
-        <input id="galleryInput" type="file" accept="image/*" onChange={handleFileChange} className={styles.imgInput} />
-        {imageFile ? (
-          <div onClick={() => document.getElementById("galleryInput").click()} className={styles.imgContainer}>
-            <img src={URL.createObjectURL(imageFile)} alt="Uploaded" className={styles.imgDisplay} />
-          </div>
-        ) : (
-          <ImageUploadField className={styles.imgUploadField} style={{ cursor: "pointer" }} onClick={() => document.getElementById("galleryInput").click()} />
         )}
 
-        <div className={styles.buttonContainer}>
-          <button className={styles.button} type="submit">완료</button>
-        </div>
-      </form>
+        <form onSubmit={onSubmit} className={styles.formContainer}>
+          <div className={styles.formContentsContainer}>
+            <h1 className={styles.formTitle}>FOUND 글쓰기</h1>
+            <div className={styles.formGroup}>
+            <label htmlFor="title" className={styles.formLabel}>습득물 명 <span style={{ color: "red" }}>*</span></label>
+              <input id="title" type="text" className={styles.formField} placeholder="어떤 물건인지 간단하게 알려주세요 (ex. 검정색 지갑)" required />
+            </div>
 
-      {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
+            <div className={styles.categoryTitle} htmlFor="category">
+              카테고리 <span style={{ color: "red" }}>*</span>
+            </div>
+            <div className={styles.filterContainer}>
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  id="category"
+                  type="button"
+                  className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
+                  onClick={() => onCategorySelect(category.id)}
+                  required
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
 
-      {lost?
+            <h2 className={styles.categoryTitle}>위치 <span style={{ color: "red" }}>*</span></h2>
+            <NavermapsProvider ncpClientId={MapAPIid}>
+              <div className={styles.mapSize}>
+                <MapnLocation setLocation={setLocation} setAddress={setAddress} />
+              </div>
+            </NavermapsProvider>
+            <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
+
+            <div className={styles.formGroup}>
+              <input id="detailLocation" type="text" className={styles.formField} placeholder="물건이 어디에 있는지 상세히 알려주세요 (ex. 뉴턴 102호)" />
+              <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
+            </div>
+
+            <div className={styles.formGroup}>
+              <input id="phoneNum" type="text" maxLength="13" placeholder="010-XXXX-XXXX" className={styles.formField} />
+              <label htmlFor="phoneNum" className={styles.formLabel}>전화번호</label>
+            </div>
+
+            <h3 className={styles.categoryTitle}>상세정보</h3>
+            <textarea id="content" ref={textareaRef} className={styles.contentTextBox} onInput={() => {
+              textareaRef.current.style.height = "auto";
+              textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+            }}/>
+
+
+          <h3 className={styles.categoryTitle}>사진</h3>
+          <div
+            className={`${styles.dragDropArea} ${isDragging ? styles.dragActive : ""}`}
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+  <input
+    id="galleryInput"
+    type="file"
+    accept="image/*"
+    onChange={handleFileChange}
+    className={styles.imgInput}
+  />
+
+  {imageFile ? (
+    <div
+      onClick={() => document.getElementById("galleryInput").click()}
+      className={styles.imgContainer}
+    >
+      <img
+        src={URL.createObjectURL(imageFile)}
+        alt="Uploaded"
+        className={styles.imgDisplay}
+      />
+    </div>
+  ) : (
+    <div
+      onClick={() => document.getElementById("galleryInput").click()}
+      style={{ cursor: "pointer" }}
+    >
+      {/* 드래그 상태에 따라 이미지 변경 */}
+      {isDragging ? (
+        <ImageUploadFieldHover className={styles.imgUploadField} />
+      ) : (
+        <ImageUploadField className={styles.imgUploadField} />
+      )}
+      <p className={styles.dragDropText}>
+      </p>
+    </div>
+  )}
+</div>
+            <div className={styles.buttonContainer}>
+              <button className={styles.button} type="submit">완료</button>
+            </div>      
+          </div>
+        </form>
+
+        {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
+
         <div className={styles.page}> 
-      <LostSearch setKeyword={setKeyword}/>
-      <div className={styles.sidebar} > 
-          <div className={styles.cardList} >
-          { lost.map((item) => ( 
-        <div
-          key={item.id}
-          className={styles.cardContainer}
-          style={{ cursor: "pointer" }}
-        >
-        <img src={item.image} alt={item.title} className={styles.cardImage} />
-        <div className={styles.cardContent}>
-          <span className={styles.cardTitle}>{item.title}</span>
-          <span className={styles.cardCategory}>{item.category}</span>
-          <span className={styles.cardDate}>{item.printDate}</span>
+          <div className={styles.positionSticky}>
+            <div className={styles.sidebar}> 
+              <div className={styles.sidebarTitle}>여기에 있나요?</div>
+              <LostSearch setKeyword={setKeyword}/>
+                {lost ?
+                <div className={styles.cardList} >
+                { lost.map((item) => ( 
+              <div
+                key={item.id}
+                className={styles.cardContainer}
+                style={{ cursor: "pointer" }}
+              >
+              <img src={item.image} alt={item.title} className={styles.cardImage} />
+              <div className={styles.cardContent}>
+                <span className={styles.cardTitle}>{item.title}</span>
+                <span className={styles.cardCategory}>
+                  {categoryMap[item.category] || "기타"}
+                </span>
+                <span className={styles.cardDate}>{item.printDate}</span>
+                <span className={styles.cardLocation}>{item.location}</span>
+                <span className={styles.sidebarCommentBtn}>제보하기</span>
+                <span className={styles.cardContent}>{item.content}</span>
+              </div>
+          </div>
+          ))}
+          </div>:
+          <div>
+            불러오는 중...
+          </div>}
+          
+          </div>
+          </div>
         </div>
       </div>
-      ))}
-      </div>
-      </div>
-        </div> :
-        <>
-          <div></div>
-        </>}
     </div>
   );
 };

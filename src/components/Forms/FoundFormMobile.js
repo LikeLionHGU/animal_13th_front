@@ -6,7 +6,7 @@ import axios from "axios";
 import styles from "../../styles/FormMobile.module.css";
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
-
+import UploadConfirmModal from "../UploadConfirmModal";
 
 const FoundFormMobile = () => {
   const navigate = useNavigate();
@@ -20,6 +20,8 @@ const FoundFormMobile = () => {
   const [selectCategory, setCategory] = useState("") // 카테고리 선택 감지
   const [address, setAddress] = useState(""); //좌표 주소로 변환 
 
+  const [showModal, setShowModal] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
     if (location && typeof location.lat === "function") {
@@ -37,10 +39,18 @@ const FoundFormMobile = () => {
     }
   };
 
-  // 폼 제출 시 모든 데이터를 formData에 추가
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-  
+    setShowModal(true);
+  };
+
+  // 폼 제출 시 모든 데이터를 formData에 추가
+  const handleConfirm = async (event) => {
+    if (showLoading) return;
+
+    setShowModal(false);
+    setShowLoading(true);
+
     const formData = new FormData();
   
     // 이미지 파일이 있으면 추가
@@ -48,14 +58,13 @@ const FoundFormMobile = () => {
       formData.append("image", imageFile);
     }
   
-    // 폼 데이터 수집
     const boardData = {
-      title: event.target.title.value,
+      title: document.getElementById("title").value,
       category: selectCategory,
-      phoneNum: event.target.phoneNum.value,
-      content: event.target.content.value,
-      locaton: displayLocation,
-      detailLocation: event.target.detailLocation.value,
+      phoneNum: document.getElementById("phoneNum").value,
+      content: document.getElementById("content").value,
+      location: displayLocation,
+      detailLocation: document.getElementById("detailLocation").value,
       boardType: 0,
       latitude: location.lat,
       longitude: location.lng,
@@ -65,44 +74,30 @@ const FoundFormMobile = () => {
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
   
     try {
-      // FormData 확인용
-      console.log("FormData 내용:");
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}:`, pair[1]);
-      }
-      //여기까지는 나중에 삭제
-  
-      // 서버로 데이터 전송
       const response = await axios.post("https://koyangyee.info/board/found/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true, 
       });
 
-    const { isLogin, isSuccess } = response.data;
-
-    if (isSuccess === 1) {
-      console.log("업로드 완료:", response.data);
-      alert("업로드 완료");
-      navigate("/"); 
-    } else {
-      if (isSuccess === 0) {
-        alert("업로드에 실패했습니다. 다시 시도해주세요.");
-        console.error("서버에서 업로드를 실패로 처리했습니다.");
+      const { isSuccess } = response.data;
+      if (isSuccess === 1) {
+        alert("업로드 완료");
+        navigate("/");
+      } else {
+        alert("업로드 실패. 다시 시도해주세요.");
       }
+    } catch (error) {
+      console.error("요청 중 오류 발생:", error.message);
+      alert("알 수 없는 오류가 발생했습니다.");
+    } finally {
+      setShowLoading(false);
     }
-  } catch (error) {
-    console.error("요청 중 오류 발생:", error.message);
-    alert("알 수 없는 오류가 발생했습니다.");
-  }
-};
+  };
+
   const onCategorySelect = (event) => {
     console.log(event.target.value);
     setCategory(event.target.value);
   }
-
-  useEffect(() => {
-    console.log(selectCategory); // 카테고리 변경시 마다 카테고리 Int 값 selectCategory에 업데이트
-  }, [selectCategory]);
 
    const autoResize = () => {
     const textarea = textareaRef.current;
@@ -197,6 +192,9 @@ const FoundFormMobile = () => {
           <button className={styles.button} type="submit">완료</button>
         </div>
       </form>
+
+      {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
+
     </div>
     </div>
   );

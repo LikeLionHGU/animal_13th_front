@@ -22,8 +22,9 @@ function LostSearch({ setKeyword}) {
         <input
           type="text"
           value={search}
-          placeholder="무엇을 찾고 계신가요?"
+          placeholder="키워드를 입력하세요."
           onChange={(e) => setSearch(e.target.value)}
+          className={styles.searchPlaceholder}
         />
       </div>
       <button type="submit" style={{ display: "none" }}></button> {/* 엔터 입력 지원 */}

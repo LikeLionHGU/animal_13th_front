@@ -1,7 +1,41 @@
 .container {
     display: flex;
     justify-content: space-between;
+    width: 1165px;
+    margin: 0 auto;
+    gap: 17px;
+    position: relative;
+    bottom: 33px;
   }
+
+  .backcolor {
+    background: #F6F7F7;
+  }
+
+  .bannerWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.categoryTitle {
+  color: #143950;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 37px;
+}
+
+.banner {
+    width: 100%;
+    height: auto; /* 비율 유지 */
+    max-width: 100vw;
+    object-fit: cover; /* 이미지가 찌그러지지 않도록 */
+    display: block;
+    margin: 0 auto;
+}
 
 .imgContainer {
     width: 200px;
@@ -81,21 +115,42 @@
     padding: 0;
 }
 
+.positionSticky{
+  position: sticky;
+  top:5px;
+}
+
 .sidebar {
-    flex: 1;
-    height: 700px;
+    width: 300px;
+    height: 60vh;
     overflow-y: auto;
     background: #ffffff;
-    border-radius: 8px;
+    border-radius: 30px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    padding: 27px;
+}
+
+.sidebarTitle {
+  color: #193946;
+  font-family: "Gmarket Sans";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 14px;
 }
 
 .formContainer {
-    flex: 3;
-    padding: 20px;
+    width: 800px;
+    padding: 41px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 30px 30px 0 0;
+}
+
+.formContentsContainer {
+  position: relative;
+  bottom: 115px;
 }
 
 .postItem {
@@ -146,43 +201,33 @@
   margin-top: 5px;
   margin-bottom: 5px;
 
-  &::placeholder {
-    color: transparent;
-  }
 
-  &:placeholder-shown ~ .formLabel {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
+  &::placeholder {
+    color: #A2A0A0;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
 }
 
 .formLabel {
   position: absolute;
-  top: 0;
+  bottom: 40px;
   display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #A2A0A0;
   width: 100%; /* 라벨도 입력 필드 크기에 맞춤 */
   text-align: left; /* 왼쪽 정렬 */
+
+  color: #143950;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
 }
 
-.formField:focus {
-  ~ .formLabel {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #A2A0A0;
-    font-weight:700;    
-  }
-  padding-bottom: 6px;  
-  font-weight: 700;
-  border-width: 3px;
-  border-image-slice: 1;
-}
 /* reset input */
 .formField{
   &:required,&:invalid { box-shadow:none; }
@@ -190,19 +235,21 @@
 
 .filterContainer {
   display: flex;
-  gap: 19px; 
+  gap: 10px; 
   overflow-x: auto; 
   white-space: nowrap;
   padding: 10px 0;
 }        
 
 .filterButton {
+  font-family: Pretendard;
+  line-height: normal;
   border: 2px solid #CFECF0;
   background-color: white; 
   color: black;
   font-size: 15px;
   font-weight: 400;
-  padding: 7px 13px;
+  padding: 5px 13px;
   border-radius: 19px; 
   flex-shrink: 0;
   cursor: pointer;
@@ -223,55 +270,36 @@
     color: #A2A0A0;
 }
 
-@media screen and (max-width: 450px) {
-  .mapSize {
-    height: 22%;
-  }
-
-  .addressDisplay {
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 30px;
-  }
-
-  h2 {
-    font-size: 17px;
-  }
-
-  .formLabel {
-    font-size: 10px;
-  }
-
-  label {
-    font-size: 10px;
-  }
-
-  .buttonContainer {
-    display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center; /* 세로 가운데 정렬 (필요 시) */
-    padding-bottom: 5px;
-  }
-
-  .imgDisplay {
-    display: block; /* margin: auto 적용을 위해 block 설정 */
-    margin: auto; /* 가로 중앙 정렬 */
-  }
-}
-
 .page{
   display:flex;
   flex-direction: column;
   width: 300vw;
 }
 
+.loadingMessage{
+  color: #000;
+  font-family: "Gmarket Sans";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.formTitle {
+  color: #193946;
+  font-family: "Gmarket Sans";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 70px;
+}
+
 /*전체 카드=>가로로 정렬 위해서*/
 .cardList {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* 카드 사이 간격 */
+  padding: 28px 0; /* 카드 사이 간격 */
 }
 
 /*개별 요소(부모 요소X)*/
@@ -282,8 +310,8 @@
 
 .cardImage {
   border-radius: 12px;
-  width: 200px;
-  height: 50px; /* 높이를 고정 */
+  width: 80px;
+  height: 80px; /* 높이를 고정 */
   object-fit: cover;
 }
 
@@ -296,8 +324,12 @@
 }
 
 .cardTitle {
-  font-size: 16px;
-  font-weight: bold;
+  color: #000;
+  font-family: "Gmarket Sans";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .cardCategory {
@@ -312,6 +344,27 @@
   font-size: 12px;
   color: darkgray;
   align-self: flex-end;
+}
+
+.cardLocation{
+  color: #000;
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.sidebarCommentBtn{
+  padding: 4px 10px;
+  border-radius: 19px;
+  border: 1px solid #7ACAD6;
+  color: #143950;
+  font-family: Pretendard;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .loadingOverlay {

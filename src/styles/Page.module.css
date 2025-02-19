@@ -11,6 +11,10 @@ html, body {
   box-sizing: border-box;
 }
 
+.backcolor{
+  background-color: #F6F7F7;;
+}
+
 .writeIcon {
     position: absolute;
     right: 37px;

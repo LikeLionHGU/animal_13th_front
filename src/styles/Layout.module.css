@@ -151,6 +151,10 @@
   text-align: center;
 }
 
+.googleLoginContainer{
+  margin: 0 auto;
+}
+
 /* 로그인 모달 닫기 버튼 */
 .closeButton {
   margin-top: 15px;

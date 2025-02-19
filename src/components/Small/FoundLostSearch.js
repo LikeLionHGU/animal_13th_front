@@ -1,10 +1,9 @@
 import { useState } from "react";
-import styles from "../../styles/FoundPageSearch.module.css";
+import styles from "../../styles/LostSearch.module.css";
 import { ReactComponent as SearchIcon } from "../../assets/icons/Vector.svg";
 
-function FoundPageSearch({ setKeyword }) {
+function LostSearch({ setKeyword}) {
   const [search, setSearch] = useState("");
-
   const handleSearch = (e) => {
     e.preventDefault(); // 기본 제출 방지
 
@@ -12,6 +11,9 @@ function FoundPageSearch({ setKeyword }) {
     console.log("검색 실행됨:", search);
     setKeyword(search); // 검색어를 FoundPage로 전달
   };
+
+  
+
 
   return (
     <form className={styles.searchContainer} onSubmit={handleSearch}>
@@ -30,4 +32,5 @@ function FoundPageSearch({ setKeyword }) {
   );
 }
 
-export default FoundPageSearch;
+export default LostSearch;
+

@@ -1,12 +1,18 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import styles from "../styles/DetailPage.module.css";
 
 function LostPageDetail( ) {
   const [lostDetail, setLostDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
+  
+  const [comments, setComments] = useState([]);
+  const [showLoading, setShowLoading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,8 +30,64 @@ function LostPageDetail( ) {
     fetchData();
 }, [id]);
 
+const onSubmit = async (event) => {
+  event.preventDefault();
+  if (showLoading) return;
+
+  setShowLoading(true);
+
+  const formData = new FormData();
+
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
+
+  const boardData = {
+    content: event.target.comment.value,
+  };
+
+  formData.append("content", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
+
+  try {
+    console.log("FormData 내용:");
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}:`, pair[1]);
+    }
+
+    const response = await axios.post(`https://koyangyee.info/comment/add/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+      withCredentials: true,
+    });
+
+    const { isSuccess } = response.data;
+    if (isSuccess === 1) {
+      alert("업로드 완료");
+      navigate(`/lost-detail/${id}`);
+    } else {
+      alert("업로드 실패. 다시 시도해주세요.");
+    }
+  } catch (error) {
+    console.error("요청 중 오류 발생:", error.message);
+    alert("알 수 없는 오류가 발생했습니다.");
+  } finally {
+    setShowLoading(false);
+  }
+};
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    setImageFile(file);
+  }
+};
+
   return (
-    <div>
+    <div className={`${styles.container} ${showLoading ? styles.blur : ""}`}>
+      {showLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingText}>Loading...</div>
+        </div>
+      )}
       {lostDetail ? 
       <>
       <div>
@@ -53,6 +115,16 @@ function LostPageDetail( ) {
         <h1>Loading...</h1>
       </>
     }
+    <form onSubmit={onSubmit}>
+      <input id="comment" type="text" ></input>
+      <input id="galleryInput" type="file" accept="image/*" onChange={handleFileChange}  />
+        {imageFile ? (
+          <div onClick={() => document.getElementById("galleryInput").click()} >
+            <img src={URL.createObjectURL(imageFile)} alt="Uploaded"  />
+          </div>
+        ):<div></div>}
+        <button className={styles.button} type="submit">완료</button>
+    </form>
     </div>
   )
 }

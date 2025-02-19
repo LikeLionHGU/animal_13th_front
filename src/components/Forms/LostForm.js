@@ -90,8 +90,10 @@ const LostForm = () => {
 
       const { isLogin, isSuccess } = response.data;
 
-      if (isLogin === 1 && isSuccess === 1) {
+      if (response.isLogin === 1 && response.isSuccess === 1) {
         console.log("업로드 완료:", response.data);
+        console.log("isLogin:", response.isLogin);
+        console.log("isSuccess:", response.isSuccess);
         alert("업로드 완료");
         navigate("/"); 
       } else {

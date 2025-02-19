@@ -85,7 +85,6 @@ const onLatestChange = (event) => {
 };
 
 const onWrite = (id) => {
-  id.preventDefault(); // 폼 기본 제출 방지
   setShowModal(true); // 모달을 띄움
   navigate(`/found-detail/${id}`);
 }

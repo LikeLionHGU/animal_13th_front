@@ -4,6 +4,7 @@ import styles from "../../styles/Layout.module.css";
 import { ReactComponent as Logo } from "../../assets/icons/zuumLogo.svg";
 import { ReactComponent as BigLogo } from "../../assets/icons/zuumLogoBig.svg";
 import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton 추가
+import axios from "axios";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -12,11 +13,27 @@ const Layout = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
-  const [newsList, setNewsList] = useState([
-    { id: 1, title: "iPhone 13", category: "FOUND", date: "1일 전" },
-  ]);
+  const [newsList, setNewsList] = useState();
 
   const newsRef = useRef(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/notification");
+            console.log("알림: ", response.data.notifications);
+            console.log("데이터: ", response.data);
+            setNewsList(response.data.notifications);
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    fetchData();
+    const intervalId = setInterval(fetchData, 10000);
+
+    return () => clearInterval(intervalId);
+}, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

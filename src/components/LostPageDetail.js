@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styles from "../styles/DetailPage.module.css";
 
@@ -8,6 +8,7 @@ function LostPageDetail( ) {
   const [lostDetail, setLostDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
   
   const [comments, setComments] = useState([]);
   const [showLoading, setShowLoading] = useState(false);
@@ -61,7 +62,7 @@ const onSubmit = async (event) => {
     const { isSuccess } = response.data;
     if (isSuccess === 1) {
       alert("업로드 완료");
-      // navigate("/");
+      navigate(`/lost-detail/${id}`);
     } else {
       alert("업로드 실패. 다시 시도해주세요.");
     }

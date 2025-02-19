@@ -37,7 +37,7 @@ html, body {
 
 .bannerWrapper {
     width: 100%;
-    display: flex;
+    position: relative;
     justify-content: center;
 }
 
@@ -48,11 +48,12 @@ html, body {
     object-fit: cover; /* 이미지가 찌그러지지 않도록 */
     display: block;
     margin: 0 auto;
+    display: block;
 }
 
 .bannerBtn {
   position: absolute; /* 배너 위에 버튼 배치 */
-  top: 38%;
+  top: 27vh;
   left: 16.7%;
   background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
   color: black;
@@ -63,13 +64,13 @@ html, body {
   cursor: pointer;
 
   display: flex;
-  width: 202px;
-  height: 34px;
-  padding: 5px 11px;
+  width: 14%;
+  height: 9%;
   justify-content: center;
   align-items: center;
   gap: 13px;
   flex-shrink: 0;
+  padding: 2px 4px;
 
   border-radius: 19px;
   background: #F6F7F7;
@@ -355,3 +356,18 @@ html, body {
   line-height: normal;
  }
   
+
+.TopBtn {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 57px;
+  height: 57px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border-radius: 50%;
+}
+
+.TopBtn:hover {
+  background-color: #9ED8E1;
+}

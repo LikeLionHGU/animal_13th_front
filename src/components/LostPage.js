@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
 import { ReactComponent as LostBanner } from "../assets/icons/LostPageBanner.svg";
+import { ReactComponent as TopBtn } from "../assets/icons/TopBtn.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -76,6 +77,13 @@ function LostPage() {
     setLatest(value);
     console.log("latest:", value);
   };
+
+  const onTopBtnClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // 부드러운 스크롤 효과
+    });
+  }
   
   return (
     <div className={styles.backcolor}>
@@ -134,7 +142,11 @@ function LostPage() {
                   <p>불러온 정보 없음</p> // 데이터가 없을 경우
               )}
             </div>
-
+          
+          <TopBtn 
+          className={styles.TopBtn}
+          onClick={() => onTopBtnClick()} 
+          />
         <FloatingButton
                   onLostClick={() => navigate("/lost-form")}
                   onFoundClick={() => navigate("/found-form")}

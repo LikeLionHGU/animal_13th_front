@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import styles from '../styles/Page.module.css';
 import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 추가
 import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg"; 
-import { ReactComponent as DropdownBtn } from "../assets/icons/DropdownButton.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import FoundPageSearch from "./Small/FoundPageSearch"; 
@@ -65,8 +64,10 @@ const onLatestChange = (event) => {
 };
   
   return (
-    <div className={styles.wrapper}>
-      <FoundBanner/>
+    <div className={styles.backcolor}>
+       <div className={styles.bannerWrapper}>
+        <FoundBanner className={styles.banner}/>
+      </div>
       <div className={styles.contentsContainer}>
         <div className={styles.contents}>
         <div className={styles.filterContainer}>

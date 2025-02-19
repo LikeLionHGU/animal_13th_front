@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import styles from '../styles/Page.module.css';
+import styles from '../styles/Mypage.module.css';
 import axios from "axios";
 import {Link} from "react-router-dom";
+import { ReactComponent as MyLostBanner } from "../assets/icons/MyLostFoundPageBanner.svg";
 
 function MyPageLost() {
   const navigate = useNavigate();
@@ -43,11 +44,14 @@ function MyPageLost() {
   };
   
   return (
-    <div className={styles.contents}>
-      <div className={styles.zummLogoContainer}>
+    <div className={styles.backcolor}>
+      <div className={styles.bannerWrapper}>
+          <MyLostBanner className={styles.banner}/>
       </div>
+    <div className={styles.myLFContentsContainer}>
+    <div className={styles.myLFContents}>
       <div className={styles.title}>
-        <span className={styles.Lost}>내가 작성한 LOST</span> 
+        <span className={styles.myfoundtitle}>내가 작성한 LOST</span> 
       </div>
 
       <div>
@@ -82,7 +86,9 @@ function MyPageLost() {
              : (
                 <p>불러온 정보 없음</p> // 데이터가 없을 경우
             )}
+      </div>
     </div>
+  </div>
   )
 }
 

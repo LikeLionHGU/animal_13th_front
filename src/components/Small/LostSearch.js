@@ -1,40 +1,33 @@
 import { useState } from "react";
-import styles from "../../styles/FoundSearch.module.css";
-import axios from "axios";
+import styles from "../../styles/LostSearch.module.css";
+import { ReactComponent as SearchIcon } from "../../assets/icons/Vector.svg";
 
-function LostSearch({ selectCategory, setLost }) {
-  const [keyword, setKeyword] = useState(""); // 검색어 상태
+function LostSearch({ setKeyword}) {
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    e.preventDefault(); // 기본 제출 방지
 
-  // 검색 버튼을 눌렀을 때 실행
-  const handleSearch = async () => {
-    if (!keyword) return; // 빈 검색어는 요청하지 않음
-    console.log("검색 버튼 클릭 시 keyword 값:", keyword);
-
-    //const url = `https://koyangyee.info/board/lost/all/category/search?category=${selectCategory}&search=${keyword}`;
-
-    const url = `https://koyangyee.info/board/lost/all/category/search/new?category=${selectCategory}&search=${keyword}`;
-    console.log(decodeURI(url));
-    console.log(encodeURI(url));
-
-    try {
-      const response = await axios.get(encodeURI(url));
-
-      console.log("ResponseLost:", response.data);
-      setLost(response.data.board); 
-    } catch (error) {
-      console.error("검색 요청 실패:", error);
-    }
+    if (!search.trim()) return; // 빈 검색어 방지
+    console.log("검색 실행됨:", search);
+    setKeyword(search); // 검색어를 FoundPage로 전달
   };
 
+  
+
+
   return (
-    <div className={styles.search}>
-      <input
-        type="text"
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)} // 입력값 업데이트
-      />
-      <button onClick={handleSearch}>검색하기</button>
-    </div>
+    <form className={styles.searchContainer} onSubmit={handleSearch}>
+      <div className={styles.searchBox}>
+        <SearchIcon className={styles.searchIcon} onClick={handleSearch} />
+        <input
+          type="text"
+          value={search}
+          placeholder="무엇을 찾고 계신가요?"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+      <button type="submit" style={{ display: "none" }}></button> {/* 엔터 입력 지원 */}
+    </form>
   );
 }
 

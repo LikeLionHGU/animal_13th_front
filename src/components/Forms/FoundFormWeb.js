@@ -36,6 +36,7 @@ const FoundFormWeb = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  const [keyword, setKeyword] = useState();
 
   useEffect(() => {
     if (showModal || showLoading) {
@@ -57,29 +58,27 @@ const FoundFormWeb = () => {
     }
   }, [location]);
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("request: ", selectCategory);
-        const response = await axios.get("https://koyangyee.info/board/found/all/category/new", {
-          params: { category: selectCategory },
-          withCredentials: true,
-        });
-        
-        // 1) 기존 데이터(lost)와 비교 후 변경된 경우에만 setLost 실행
-        if (JSON.stringify(response.data.board) !== JSON.stringify(lost)) {
-          setLost(response.data.board || []);
+        let url = "";
+        if (keyword) {
+         url=`https://koyangyee.info/board/found/all/category/search/new?category=${selectCategory}&search=${keyword}`;
         }
+  
+        const response = await axios.get(encodeURI(url));
+        console.log("GET URL: ", url);
+        console.log("Response: ", response.data);
+        setLost(response.data.board);
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }
     };
   
-    // 2) selectCategory가 기본값(0)이 아닐 때만 API 호출
-    if (selectCategory !== 0) {
-      fetchData();
-    }
-  }, [selectCategory, lost]);
+    fetchData();
+  }, [selectCategory, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -223,9 +222,9 @@ const FoundFormWeb = () => {
 
       {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
 
-      {lost && getApi === 1 ?
+      {lost && (getApi === 1) ?
         <div className={styles.page}> 
-      <LostSearch selectCategory={selectCategory} setLost={setLost} />
+      <LostSearch setKeyword={setKeyword}/>
       <div className={styles.sidebar} > 
           <div className={styles.cardList} >
           { lost.map((item) => ( 

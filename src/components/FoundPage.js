@@ -41,6 +41,8 @@ function FoundPage() {
   const [latest, setLatest] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [ showModal, setShowModal] = useState(false);
+  const [id, setId] = useState(); //모달 창 아이디디
+  const [userInfo, setUserInfo] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,6 +74,23 @@ function FoundPage() {
   }, [selectCategory, latest, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
   
 
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/user");
+            console.log("user: ", response.data);
+            setUserInfo(response.data);
+            if(response.data.isLogin === 0){
+              alert("로그인이 필요한 페이지입니다.");
+              navigate("/");
+          }
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    fetchData();
+  }, []);
+
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
   setSelectCategory(categoryId);
@@ -84,21 +103,21 @@ const onLatestChange = (event) => {
   console.log("latest:", value);
 };
 
-const onWrite = (event) => {
-  event.preventDefault(); // 폼 기본 제출 방지
+const onWrite = (id) => {
   setShowModal(true); // 모달을 띄움
+  setId(id);
 }
 
 const foundNavigate = () =>{
-  navigate("/found-form");
+  navigate(`/found-detail/${id}`);
 }
   
   return (
     <div className={styles.backcolor}>
        <div className={styles.bannerWrapper}>
-        <div className={styles.buttonContainer}>
+        <div className={styles.bannerWrapper}>
           <FoundBanner className={styles.banner}/>
-          <button  className={styles.foundWrite} onClick={onWrite}>Found 글 작성</button>
+          <Link to={'/found-form'} className={styles.bannerBtn}>FOUND 게시물 작성하기</Link>
         </div>
       </div>
       <div className={styles.contentsContainer}>
@@ -128,10 +147,10 @@ const foundNavigate = () =>{
             ) : foundData ?
               <div className={styles.cardList} >
                 {foundData.map((item) => (
-                    <Link to={`/found-detail/${item.id}`}>
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
                     style={{ cursor: "pointer" }}
+                    onClick={() => onWrite(item.id)}
                     >
                         <div className={styles.cardContainer}>
                             <img src={item.image} alt={item.title} className={styles.cardImage} />
@@ -144,7 +163,6 @@ const foundNavigate = () =>{
                             </div>
                         </div>
                     </div>
-                </Link>
                 ))}
                 </div>
                 

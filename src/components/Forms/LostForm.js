@@ -29,6 +29,25 @@ const LostForm = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  
+  const [userInfo, setUserInfo] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/user");
+            console.log("user: ", response.data);
+            setUserInfo(response.data);
+            if(response.data.isLogin === 0){
+              alert("로그인이 필요한 페이지입니다.");
+              navigate("/");
+          }
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (showModal || showLoading) {
@@ -88,17 +107,24 @@ const LostForm = () => {
         withCredentials: true, // 추가
       });
 
-      const { isLogin, isSuccess } = response.data;
+      console.log("업로드 완료:", response.data);
+      console.log("isLogin:", response.data.isLogin);
+      console.log("isSuccess:", response.data.isSuccess);
 
-      if (isLogin === 1 && isSuccess === 1) {
+
+
+      if (response.data.isLogin === 1 && response.data.isSuccess === 1) {
         console.log("업로드 완료:", response.data);
+        console.log("isLogin:", response.data.isLogin);
+        console.log("isSuccess:", response.data.isSuccess);
         alert("업로드 완료");
         navigate("/"); 
       } else {
-        if (isSuccess === 0) {
+        if (response.data.isSuccess === 0) {
           alert("업로드에 실패했습니다. 다시 시도해주세요.");
           console.error("서버에서 업로드를 실패로 처리했습니다.");
-        } else if (isLogin === 0){
+          navigate("/"); 
+        } else if (response.data.isLogin === 0){
           alert("로그인 정보 없음");
           navigate("/"); 
         }

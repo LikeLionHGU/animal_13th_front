@@ -24,7 +24,6 @@ function LostPageDetail( ) {
     fetchData();
 }, [id]);
 
-
   return (
     <div>
       {lostDetail ? 

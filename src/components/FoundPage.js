@@ -67,6 +67,7 @@ const onLatestChange = (event) => {
     <div className={styles.backcolor}>
        <div className={styles.bannerWrapper}>
         <FoundBanner className={styles.banner}/>
+        <Link to={'/found-form'} className={styles.bannerBtn}>FOUND 게시물 작성하기</Link>
       </div>
       <div className={styles.contentsContainer}>
         <div className={styles.contents}>

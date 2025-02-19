@@ -103,18 +103,19 @@ function MainPage() {
                     <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
                     <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
                 </div>
-            <div className={styles.title} style={{justifyContent: "space-between"}}>
-                    <div className={styles.titleText}>
+            <div className={styles.title}>
+                    <span className={styles.titleText}>
                         <span className={styles.Lost}>LOST</span> 
                         <span className={styles.comma}>, </span>
                         <span  className={styles.restTitle}>분실물
                         </span>
                         <span className={styles.lineLost}></span>
                         <div className={styles.stroke}></div>
-                    </div>
+                    </span>
                     <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
                 </div>
                 <div>
+                    
                     {lostMain ? 
                     
                         <div className={styles.cardList} >
@@ -142,11 +143,11 @@ function MainPage() {
                         </div>
                     :
                     <>
-                        불러온 정보 없음
+                        {loading ? <>로딩 중...</> : <>불러온 정보 없음 </> }
                     </>} 
                 </div>
 
-                <div className={styles.title} style={{justifyContent: "space-between"}}>
+                <div className={styles.title}>
                     <div className={styles.titleText}>
                         <span className={styles.Lost}>FOUND</span> 
                         <span className={styles.comma}>,</span>

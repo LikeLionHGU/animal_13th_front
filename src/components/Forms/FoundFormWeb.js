@@ -4,7 +4,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/Form.module.css?v=2";
-import LostSearch from "../Small/LostSearch"; 
+import LostSearch from "../Small/FoundLostSearch"; 
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg";
 import UploadConfirmModal from "../UploadConfirmModal";
@@ -27,12 +27,11 @@ const FoundFormWeb = () => {
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
 
   const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
-  const [getApi, setGetApi] = useState(0);
 
   const [displayLocation, setDisplayLocation] = useState(`${location.lat}, ${location.lng}`);
   const [selectCategory, setCategory] = useState(0);
-  const [address, setAddress] = useState("");
-  const [lost, setLost] = useState([]);
+  const [lost, setLost] = useState("");
+  const [address, setAddress] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
@@ -62,11 +61,12 @@ const FoundFormWeb = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("카테고리: ", selectCategory);
         let url = "";
-        if (keyword) {
-         url=`https://koyangyee.info/board/found/all/category/search/new?category=${selectCategory}&search=${keyword}`;
+        url=`https://koyangyee.info/board/lost/all/category/new?category=${selectCategory}`;
+        if (keyword !== undefined) {
+          url=`https://koyangyee.info/board/lost/all/category/search/new?category=${selectCategory}&search=${keyword}`;
         }
-  
         const response = await axios.get(encodeURI(url));
         console.log("GET URL: ", url);
         console.log("Response: ", response.data);
@@ -148,7 +148,6 @@ const FoundFormWeb = () => {
     // 이미 같은 카테고리라면 변경하지 않음
     if (categoryId !== selectCategory) {
       setCategory(categoryId);
-      setGetApi(1); // getApi로 추가 로직이 있다면 여기서만 활성화
     }
   };
 
@@ -222,7 +221,7 @@ const FoundFormWeb = () => {
 
       {showModal && <UploadConfirmModal onClose={() => setShowModal(false)} onConfirm={handleConfirm} />}
 
-      {lost && (getApi === 1) ?
+      {lost?
         <div className={styles.page}> 
       <LostSearch setKeyword={setKeyword}/>
       <div className={styles.sidebar} > 

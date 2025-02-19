@@ -74,7 +74,7 @@ function MyPage() {
           setIsLoggedin(response.data.isLogin);
           if(response.data.isLogin === 0){
             alert("로그인이 필요한 페이지입니다.");
-            // navigate("/");
+            navigate("/");
         }
       } catch (error) {
           console.error("오류 발생:", error);

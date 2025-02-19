@@ -41,6 +41,7 @@ function FoundPage() {
   const [latest, setLatest] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [ showModal, setShowModal] = useState(false);
+  const [userInfo, setUserInfo] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,6 +72,23 @@ function FoundPage() {
     fetchData();
   }, [selectCategory, latest, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
   
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/user");
+            console.log("user: ", response.data);
+            setUserInfo(response.data);
+            if(response.data.isLogin === 0){
+              alert("로그인이 필요한 페이지입니다.");
+              navigate("/");
+          }
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    fetchData();
+  }, []);
 
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);

@@ -24,7 +24,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 21px 35px;
-    background-color: white;
+    background-color: #F6F7F7;
   }
   
   .leftSection {
@@ -62,28 +62,33 @@
   
   .rightSection {
     display: flex;
-    gap: 30px; 
+    gap: 20px; 
   }
-  
+
   .rightSection a {
     text-decoration: none;
     color: black;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px; /* 왼쪽과 동일하게 18px으로 조정 */
+    padding: 5px 10px; /* 호버 시 영역을 잡아주려면 padding 적용 */
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* 호버 효과 추가 */
+  .rightSection a:hover {
+    transform: scale(1.05);
+    color: #7ACAD6;
+  }
+  
+  /* 활성 탭 효과 */
+  .rightSection a.active {
+    color: #7ACAD6;
   }
   
   .main {
     flex-grow: 1;
     /* padding: 20px; */
-  }
-
-  .headerButtonDesign {
-      background: none;
-      border: none;
-      color: black;
-      font-weight: 600;
-      font-size: 16px;
-      cursor: pointer;
+    /* background-color: #F6F7F7; */
   }
 
   .modal {
@@ -115,6 +120,50 @@
     align-items: center;
     z-index: 1000;
   }
+
+  /* 모달 배경 흐림 효과 */
+.blurBackground {
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+/* 로그인 모달 배경 */
+.loginModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 로그인 모달 */
+.loginModal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* 로그인 모달 닫기 버튼 */
+.closeButton {
+  margin-top: 15px;
+  padding: 8px 15px;
+  background-color: #7ACAD6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.closeButton:hover {
+  background-color: #5AA6B5;
+}
   
   .modalContent {
     background: white;
@@ -166,3 +215,23 @@
     align-items: center;
     padding: 0 20px;
   }
+
+  /* 로딩 오버레이 */
+.loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3); /* 반투명 어둡게 처리 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* 기존 모달들보다 위에 오도록 */
+}
+
+.loadingText {
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}

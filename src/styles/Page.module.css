@@ -11,14 +11,32 @@ html, body {
   box-sizing: border-box;
 }
 
+.backcolor {
+  background-color: #F6F7F7;
+}
+
 .writeIcon {
     position: absolute;
     right: 37px;
     bottom: 37px;
 }
 
-.contents{
-    margin: 0 200px 140px 200px;
+.contentsContainer{
+    width: 1040px;
+    margin: 0 auto;
+    padding: 0 44px; 
+    background-color: white;
+    z-index: 5;
+    border-radius: 30px 30px 0 0;
+    position: relative;
+    bottom: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.contents {
+  position: relative;
+  width: 100%;
 }
 
 .bannerWrapper {
@@ -210,13 +228,49 @@ html, body {
     color: darkgray;
     align-self: flex-start;
   }
+
+  .dropdown {
+    border-radius: 19px;
+    border: 1px solid #9FD8E0;
+    display: flex;
+    width: 82px;
+    height: 27px;
+    padding: 5px 11px 5px 13px;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;  
+    justify-content: flex-end;
+  }
+
+  .dropdown:focus {
+    border: 1px solid #9FD8E0;
+    background-color: transparent;
+    color: black;
+    outline: none;
+    /* appearance: none;  */
+  }
+
+  .dropdownWrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
   
 .filterContainer {
     display: flex;
-    gap: 19px; 
+    gap: 8px; 
     overflow-x: auto; 
     white-space: nowrap;
-    padding: 10px 0;
+    position: relative;
+    bottom: 50px;
   }        
   
   .filterButton {
@@ -225,7 +279,7 @@ html, body {
     color: black;
     font-size: 17px;
     font-weight: 400;
-    padding: 7px 13px;
+    padding: 5px 10px;
     border-radius: 19px; 
     flex-shrink: 0;
     cursor: pointer;
@@ -233,13 +287,13 @@ html, body {
   }
   
   .filterButton.active {
-    background-color: rgba(122, 202, 214, 0.84);
+    background-color: white;
     color: black;
   }
   
   .filterButton:hover {
     transform: scale(1.05); 
-    background: rgba(122, 202, 214, 0.84);
+    background: white;
   }
   
 

@@ -7,10 +7,11 @@ import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton �
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const triggerLogin = useRef({ current: null }); // 초기값을 객체로 설정하여 undefined 방지
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [newsList, setNewsList] = useState([
     { id: 1, title: "iPhone 13", category: "FOUND", date: "1일 전" },
   ]);
@@ -29,8 +30,26 @@ const Layout = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isLoginModalOpen) {
+      document.body.style.overflow = "hidden"; // 스크롤 방지
+    } else {
+      document.body.style.overflow = "auto"; // 스크롤 가능
+    }
+  }, [isLoginModalOpen]);
+
+  const handleLoginSuccess = () => {
+    setIsLoginModalOpen(false); // 로그인 모달 닫기
+    document.body.style.overflow = "auto"; // 스크롤 다시 가능하도록 설정
+  };
+
   return (
     <div className={styles.container}>
+      {isAuthLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingText}>로그인 중...</div>
+        </div>
+      )}
       <header className={styles.header}>
         <div className={styles.leftSection}>
           <Link to="/" className={styles.logo}>
@@ -50,21 +69,35 @@ const Layout = ({ children }) => {
         </div>
 
         <div className={styles.rightSection}>
-          {/* Login 버튼 클릭 시 Google 로그인 실행 */}
-
-            <GoogleLoginButton />
-
-          {/* <button onClick={() => triggerLogin.current && triggerLogin.current()} className={styles.headerButtonDesign}>
+          <Link onClick={() => setIsLoginModalOpen(true)} className={isLoginModalOpen ? styles.active : ""}>
             Login
-          </button> */}
-          <button onClick={() => setIsModalOpen(true)} className={styles.headerButtonDesign}>
-            News
-          </button>
-          <button onClick={() => navigate("/mypage")} className={styles.headerButtonDesign}>
+          </Link>
+          <Link onClick={() => setIsModalOpen(true)} className={isModalOpen ? styles.active : ""}>
+            Alert
+          </Link>
+          <Link to="/mypage" className={location.pathname === "/mypage" ? styles.active : ""}>
             My page
-          </button>
+          </Link>
         </div>
       </header>
+
+        {/* 로그인 모달 */}
+        {isLoginModalOpen && (
+        <div className={styles.loginModalOverlay}>
+          <div className={styles.loginModal}>
+            <h2>로그인 하시겠습니까?</h2>
+            <GoogleLoginButton 
+              onLoginSuccess={handleLoginSuccess} 
+              setIsAuthLoading={setIsAuthLoading}
+            />
+            <button 
+              className={styles.closeButton} 
+                onClick={() => setIsLoginModalOpen(false)}>
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 뉴스 모달 */}
       {isModalOpen && (

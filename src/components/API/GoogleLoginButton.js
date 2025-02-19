@@ -4,9 +4,8 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import styles from "../../styles/GoogleLoginStyle.module.css";
 axios.defaults.withCredentials = true;
 
-function GoogleLoginButton() {
+function GoogleLoginButton( { onLoginSuccess, setIsAuthLoading }) {
     const [clientId, setClientId] = useState(""); // 백엔드에서 받아온 Client ID 저장
-    const [showLogin, setShowLogin] = useState(false); // GoogleLogin 실행 여부
 
     useEffect(() => {
         // 백엔드에서 Google Client ID 가져오기
@@ -40,13 +39,16 @@ function GoogleLoginButton() {
                 { googleIdToken },
                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
-
-            console.log("로그인 성공:", request.data);
             alert("로그인 성공");
+            if (onLoginSuccess) {
+                onLoginSuccess(); // 부모 컴포넌트에서 전달한 로그인 성공 처리 실행
+            }
 
         } catch (error) {
             console.error("로그인 요청 실패:", error);
             alert("로그인 실패. 다시 시도해주세요.");
+        } finally {
+            if (setIsAuthLoading) setIsAuthLoading(false);
         }
     };
 
@@ -58,7 +60,11 @@ function GoogleLoginButton() {
         <div> {/* 필요할 때만 보이게 */}
             <GoogleOAuthProvider clientId={clientId}>
                 <div className={styles.googleLoginButton}>
-                    <GoogleLogin onSuccess={responseMessage} onError={errorMessage}>login</GoogleLogin>
+                    <GoogleLogin 
+                    onSuccess={responseMessage} 
+                    onError={errorMessage}>
+                        login
+                    </GoogleLogin>
                 </div>
             </GoogleOAuthProvider>
         </div>

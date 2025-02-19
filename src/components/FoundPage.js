@@ -25,7 +25,7 @@ function FoundPage() {
   const navigate = useNavigate();
   
   const [foundData, setFoundData] = useState();
-  const [category, setCategory] = useState(0);
+  const [selectCategory, setSelectCategory] = useState(0);
   const [loading, setLoading] = useState(true);
   const [latest, setLatest] = useState(true);
   const [keyword, setKeyword] = useState("");
@@ -33,12 +33,12 @@ function FoundPage() {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      console.log("request: ", category);
+      console.log("request: ", selectCategory);
       console.log("keyword: ", keyword);
 
       const url = latest 
-        ? `https://koyangyee.info/board/found/all/category/new?category=${category}&search=${keyword}`
-        : `https://koyangyee.info/board/found/all/category/old?category=${category}&search=${keyword}`;
+        ? `https://koyangyee.info/board/found/all/category/new?category=${selectCategory}&search=${keyword}`
+        : `https://koyangyee.info/board/found/all/category/old?category=${selectCategory}&search=${keyword}`;
         const response = await axios.get(encodeURI(url));
         console.log("GET URL: ", url )
         console.log("Response: ", response.data);
@@ -50,11 +50,11 @@ useEffect(() => {
   };
 
   fetchData();
-}, [category, latest]); 
+}, [selectCategory, latest]); 
 
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
-  setCategory(categoryId);
+  setSelectCategory(categoryId);
 
 }
 
@@ -88,37 +88,29 @@ const onWrite = () => {
 }
   
   return (
-    <div>
-      <div className={styles.foundContainer}>
-        <FoundBanner className={styles.FoundBanner}/>
-        <button onClick={onWrite} className={styles.foundWrite}>Found글 작성하기</button>
+    <div className={styles.backcolor}>
+       <div className={styles.bannerWrapper}>
+        <FoundBanner className={styles.banner}/>
       </div>
-      <div className={styles.contents}>
-      <div className={styles.zummLogoContainer}>
-      </div>
-      <div className={styles.title}>
-        <span className={styles.Lost}>FOUND</span> 
-        <span className={styles.comma}>, </span>
-        <span className={styles.restTitle}>물건을 찾았어요</span>
-      </div>
-      <div className={styles.intro}>혹시 잃어버린 물건이 있나요? 여기에서 확인해보세요!</div>
-      <FoundPageSearch selectCategory={category} setFoundData={setFoundData} setKeyword={setKeyword} />
-      <div className={styles.filterContainer}>
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            type="button"
-            className={`${styles.filterButton} ${category === category.id ? styles.active : ""}`}
-            onClick={() => onCategorySelect(category.id)}
-          >
-            {category.name}
-          </button>
-        ))}
-      </div>
-     
-     <div>
-      <select name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
-        <option value="true" >최신순</option>
+      <div className={styles.contentsContainer}>
+        <div className={styles.contents}>
+        <div className={styles.filterContainer}>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              type="button"
+              className={`${styles.filterButton} ${selectCategory === category.id ? styles.active : ""}`}
+              onClick={() => onCategorySelect(category.id)}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+        <FoundPageSearch selectCategory={selectCategory} setFoundData={setFoundData} setKeyword={setKeyword} />
+       
+     <div className={styles.dropdownWrapper}>
+      <select className={styles.dropdown} name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
+        <option value="true" >최신순 </option>
         <option value="false" >오래된순</option>
       </select>
      </div>
@@ -148,6 +140,7 @@ const onWrite = () => {
              : (
                 <p>불러온 정보 없음</p> // 데이터가 없을 경우
             )}
+            </div>
 
       <FloatingButton
                 onLostClick={() => navigate("/lost-form")}

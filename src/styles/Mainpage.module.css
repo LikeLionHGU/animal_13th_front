@@ -167,13 +167,13 @@
   /*전체 카드=>가로로 정렬 위해서*/
   .cardList {
       display: flex;
-      justify-content: flex-start ;
+      justify-content: center ;
+      flex-wrap: wrap;
       gap: 24px;
       flex-wrap: nowrap;
       text-decoration: none;
-      margin-bottom: 127px;
-      margin-left:50px;
-
+      margin: 0 auto 127px auto;
+      width: 100%;
   }
   
   /*개별 요소(부모 요소X)*/

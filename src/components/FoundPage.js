@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import FoundPageSearch from "./Small/FoundPageSearch"; 
 import { useNavigate } from "react-router-dom";
 import FoundWriteModal from "../components/FoundWriteModal";
+import { ReactComponent as TopBtn } from "../assets/icons/TopBtn.svg";
 
 const categories = [
   { id: 0 , name: "전체" },
@@ -111,6 +112,14 @@ const onWrite = (id) => {
 const foundNavigate = () =>{
   navigate(`/found-detail/${id}`);
 }
+
+const onTopBtnClick = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth', // 부드러운 스크롤 효과
+  });
+}
+
   
   return (
     <div className={styles.backcolor}>
@@ -170,7 +179,10 @@ const foundNavigate = () =>{
                 <p>불러온 정보 없음</p> // 데이터가 없을 경우
             )}
             </div>
-
+        <TopBtn 
+          className={styles.TopBtn}
+          onClick={() => onTopBtnClick()} 
+        />
       <FloatingButton
                 onLostClick={() => navigate("/lost-form")}
                 onFoundClick={() => navigate("/found-form")}

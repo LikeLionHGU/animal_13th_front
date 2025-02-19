@@ -348,4 +348,17 @@
       display: block;
       margin: 0 auto;
   }
+
+  .dropdown:focus {
+    border: 1px solid #9FD8E0;
+    background-color: transparent;
+    color: black;
+    outline: none;
+    /* appearance: none;  */
+  }
+
+  .dropdownWrapper {
+    display: flex;  
+    justify-content: flex-end;
+  }
     

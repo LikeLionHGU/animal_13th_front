@@ -86,10 +86,12 @@ const Layout = ({ children }) => {
         <div className={styles.loginModalOverlay}>
           <div className={styles.loginModal}>
             <h2>로그인 하시겠습니까?</h2>
+            <div className={styles.googleLoginContainer}>
             <GoogleLoginButton 
               onLoginSuccess={handleLoginSuccess} 
               setIsAuthLoading={setIsAuthLoading}
             />
+            </div>
             <button 
               className={styles.closeButton} 
                 onClick={() => setIsLoginModalOpen(false)}>

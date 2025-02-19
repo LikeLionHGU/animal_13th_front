@@ -8,6 +8,17 @@ import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
+const categoryMap = {
+    1: "전자기기",
+    2: "카드/학생증",
+    3: "지갑/현금",
+    4: "택배",
+    5: "도서 및 서류",
+    6: "의류/액세서리",
+    7: "가방",
+    8: "기타",
+  };
+
 
 function MainPage() {
     const navigate = useNavigate();
@@ -97,7 +108,9 @@ function MainPage() {
                                 <img src={item.image} alt={item.title} className={styles.cardImage} />
                                 <div className={styles.cardContent}>
                                     <span className={styles.cardTitle}>{item.title}</span>
-                                    <span className={styles.cardCategory}>{item.category}</span>
+                                    <span className={styles.cardCategory}>
+                                        {categoryMap[item.category] || "기타"}
+                                    </span>
                                     <span className={styles.cardDate}>{item.printDate}</span>
                                 </div>
                             </div>
@@ -136,7 +149,9 @@ function MainPage() {
                                 <img src={item.image} alt={item.title} className={styles.cardImage} />
                                 <div className={styles.cardContent}>
                                     <span className={styles.cardTitle}>{item.title}</span>
-                                    <span className={styles.cardCategory}>{item.category}</span>
+                                    <span className={styles.cardCategory}>
+                                        {categoryMap[item.category] || "기타"}
+                                    </span>
                                     <span className={styles.cardDate}>{item.printDate}</span> 
                                 </div>
                             </div>

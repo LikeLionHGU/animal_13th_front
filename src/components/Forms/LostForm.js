@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-//import Swal from 'sweetalert2';
 
 import styles from "../../styles/Form.module.css?v=2";
 import FoundSearch from "../Small/FoundLostSearch"; 
@@ -46,29 +45,10 @@ const LostForm = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  
-  const [userInfo, setUserInfo] = useState("");
 
   const [found, setFound] = useState();
   const [keyword, setKeyword] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await axios.get("https://koyangyee.info/user");
-            console.log("user: ", response.data);
-            console.log("userInfo: ", userInfo);
-            setUserInfo(response.data);
-            if(response.data.isLogin === 0){
-              alert("로그인이 필요한 페이지입니다.");
-              navigate("/");
-          }
-        } catch (error) {
-            console.error("오류 발생:", error);
-        }
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (showModal || showLoading) {

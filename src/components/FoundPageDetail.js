@@ -1,6 +1,5 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import styles from '../styles/FoundDetail.module.css';
 
@@ -35,15 +34,15 @@ function FoundPageDetail( ) {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await axios.get(`https://koyangyee.info/board/found/${id}`);
-            console.log("foundDetail: ", response.data.board);
-            console.log("IsUser: ", response.data.isUser);
-            setFoundDetail(response.data.board);
-            setIsUser(response.data.isUser);
-        } catch (error) {
-            console.error("오류 발생:", error);
-        }
+      try {
+        const response = await axios.get(`https://koyangyee.info/board/found/${id}`);
+        console.log("foundDetail: ", response.data.board);
+        console.log("IsUser: ", response.data.isUser);
+        setFoundDetail(response.data.board);
+        setIsUser(response.data.isUser);
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
     };
     fetchData();
 }, [id]);
@@ -73,6 +72,18 @@ const onDeleteClick = () => {
 const onEditClick = () => {
 
 }
+  /*사용자 정보 PUSH*/
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(`https://koyangyee.info/board/found/saw/${id}`);
+        console.log("post여부 확인: ", response);
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   // 로딩 처리
   if (!foundDetail) {
@@ -146,7 +157,7 @@ const onEditClick = () => {
    
       </div>
     </div>
-  )
+  );
 }
 
-export default FoundPageDetail
+export default FoundPageDetail;

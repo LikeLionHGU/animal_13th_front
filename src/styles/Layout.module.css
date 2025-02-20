@@ -240,15 +240,5 @@
   font-weight: bold;
 }
 
-/*블러처리*/
-.blur{
-  width: 1039.819px;
-  height: 155.9px;
-  flex-shrink: 0;
-  fill: rgba(217, 217, 217, 0.84);
-  backdrop-filter: blur(12.350000381469727px);
-}
-/*블러 처리 없애기*/
-.blurDelete{
-  display: none;
-}  
+
+

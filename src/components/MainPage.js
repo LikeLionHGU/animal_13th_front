@@ -27,6 +27,7 @@ function MainPage() {
   const [foundMain, setFoundMain] = useState();
   const [loading, setLoading] = useState(true);
   const [browser, setBrowser] = useState("web"); // 기본값 "web"
+  const [showBlur, setShowBlur] = useState(true); //블러처리 하려고 띄움(글자랑 다르게 대문자자)
 
   useEffect(() => {
     // 디바이스 환경 감지
@@ -180,6 +181,13 @@ function MainPage() {
           )}
         </div>
       </div>
+      {/*
+      블러 띄우기
+        {showBlur ? ( 
+            <Foundblur className={styles.blur}/>) : 
+            <Foundblur className={styles.blurDelete}/>
+        }
+        */}
     </div>
   );
 }

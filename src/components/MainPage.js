@@ -9,6 +9,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import MainPageMobile from "./MainPageMobile";
+import LoginLayout from "./Layouts/LoginLayout";
 //import MainPageWeb from "./MainPageWeb";
 
 const categoryMap = {
@@ -28,6 +29,7 @@ function MainPage() {
   const [foundMain, setFoundMain] = useState();
   const [loading, setLoading] = useState(true);
   const [browser, setBrowser] = useState("web"); // 기본값 "web"
+  const [showLogin, setshowLogin] = useState(false);
 
   useEffect(() => {
     // 디바이스 환경 감지
@@ -181,16 +183,20 @@ function MainPage() {
                 <div className={styles.blurText}> 
                     로그인을 해야지 열람 가능해요!
                 </div> 
-                <button className={styles.blurButton}>로그인</button>
+                <button className={styles.blurButton} onClick={() => setshowLogin(true)}>
+                로그인
+                </button>
                     <Blur />
+                    
                 </div>
+                
             
           ) : (
             <p>불러온 정보 없음</p>
           )}
         </div>
       </div>
-
+      {showLogin && <LoginLayout />}
     </div>
   );
 }

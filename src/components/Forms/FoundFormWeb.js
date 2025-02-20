@@ -9,6 +9,7 @@ import { ReactComponent as Banner } from "../../assets/icons/MyLostFoundPageBann
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg";
 import { ReactComponent as ImageUploadFieldHover } from "../../assets/icons/imageUploadFieldHover.svg"; 
 import UploadConfirmModal from "../UploadConfirmModal";
+import DefaultImg from "../../assets/icons/DefaultImg.svg";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB (bytes)
 
@@ -161,6 +162,16 @@ const FoundFormWeb = () => {
 
     if (imageFile) {
       formData.append("image", imageFile);
+    } else {
+      try {
+        const response = await fetch(DefaultImg);
+        const blob = await response.blob();
+        const defaultFile = new File([blob], "DefaultImg.svg", { type: "image/svg+xml" });
+        formData.append("image", defaultFile);
+      } catch (err) {
+        console.error("기본 이미지 불러오기 실패:", err);
+        alert("기본 이미지를 불러올 수 없습니다.");
+      }
     }
 
     const boardData = {
@@ -185,7 +196,9 @@ const FoundFormWeb = () => {
       });
 
       const { isSuccess } = response.data;
-      if (isSuccess === 1) {
+      console.log(response);
+      console.log(imageFile);
+      if (response.data.isSuccess === 1) {
         alert("업로드 완료");
         navigate("/");
       } else {

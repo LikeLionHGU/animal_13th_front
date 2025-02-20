@@ -9,6 +9,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import Swal from 'sweetalert2';
 
+
 const categoryMap = {
     1: "전자기기",
     2: "카드/학생증",
@@ -25,7 +26,7 @@ function MainPage() {
     const navigate = useNavigate();
     const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
-    const [loading, setLoading] = useState(true); // 로딩 상태 추가
+    const [loading, setLoading] = useState(true); // 로딩 상태 추
 
      useEffect(() => {
          const fetchData = async () => {
@@ -159,10 +160,10 @@ function MainPage() {
                 </div>
 
                 <div>
+               
                 {loading ? (
             <p>로딩 중...</p> // 로딩 중 메시지 표시
                 ) : foundMain ?
-                
                 <div className={styles.cardList} >
                     {foundMain.map((item) => (
                         <Link to={`/found-detail/${item.id}`}

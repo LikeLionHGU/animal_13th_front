@@ -5,7 +5,7 @@ import FloatingButton from "../components/FloatingButton"; // 글쓰기 버튼 �
 import { ReactComponent as FoundBanner } from "../assets/icons/FoundPageBanner.svg";  
 import axios from "axios";
 import {Link} from "react-router-dom";
-import FoundPageSearch from "./Small/FoundPageSearch"; 
+import FoundPageSearch from "./Small/FoundLostSearch"; 
 import { useNavigate } from "react-router-dom";
 import FoundWriteModal from "../components/FoundWriteModal";
 import { ReactComponent as TopBtn } from "../assets/icons/TopBtn.svg";
@@ -47,6 +47,23 @@ function FoundPage() {
 
   useEffect(() => {
     const fetchData = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/user");
+            console.log("user: ", response.data);
+            setUserInfo(response.data);
+            if(response.data.isLogin === 0){
+              alert("로그인이 필요한 페이지입니다.");
+              navigate("/");
+          }
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
       try {
         let url = "";
         if (keyword) {
@@ -74,23 +91,6 @@ function FoundPage() {
     fetchData();
   }, [selectCategory, latest, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
   
-
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await axios.get("https://koyangyee.info/user");
-            console.log("user: ", response.data);
-            setUserInfo(response.data);
-            if(response.data.isLogin === 0){
-              alert("로그인이 필요한 페이지입니다.");
-              navigate("/");
-          }
-        } catch (error) {
-            console.error("오류 발생:", error);
-        }
-    };
-    fetchData();
-  }, []);
 
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);

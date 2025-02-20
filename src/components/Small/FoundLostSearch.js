@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../styles/LostSearch.module.css";
+import styles from "../../styles/FoundPageSearch.module.css";
 import { ReactComponent as SearchIcon } from "../../assets/icons/Vector.svg";
 
 function LostSearch({ setKeyword}) {
@@ -22,7 +22,7 @@ function LostSearch({ setKeyword}) {
         <input
           type="text"
           value={search}
-          placeholder="키워드를 입력하세요."
+          placeholder="무엇을 찾고 계신가요?"
           onChange={(e) => setSearch(e.target.value)}
           className={styles.searchPlaceholder}
         />

@@ -21,6 +21,7 @@ function FoundPageDetail( ) {
   const [sawPeople, setSawpeople] = useState([]);
   const [lat, setLat] = useState(); //지도 위치 (latitude)
   const [lng, setLng] = useState(); //지도 위치 (longitude)
+  const [address, setAddress] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -135,11 +136,11 @@ const onEditClick = () => {
           </div>
           <div>
             <h2>위치</h2>
-            <div className={styles.address}>주소 <span> 주소 띄우기</span></div>
-            <div className={styles.detailLocation}>상세위치 <span>{foundDetail.detailLocation === "null" ? `${foundDetail.detailLocation}` : "없음"}</span></div>
+            <div className={styles.address}> <span> 주소 띄우기</span></div>
+            <div className={styles.detailLocation}>{address} <span>{foundDetail.detailLocation === "null" ? `${foundDetail.detailLocation}` : "없음"}</span></div>
           </div>
           <div className={styles.mapSize}>
-            <DetailMap lat={lat} lng={lng}/>
+            <DetailMap lat={lat} lng={lng} setAddress={setAddress}/>
           </div>
           {isUser ? <>
             <button onClick={() => onEditClick()}> 수정 </button>

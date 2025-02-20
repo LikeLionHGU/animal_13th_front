@@ -180,6 +180,12 @@ background: #F6F7F7;
   color: black;
   width: 100%; /* 라벨도 입력 필드 크기에 맞춤 */
   text-align: left; /* 왼쪽 정렬 */
+
+  color: #143950;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .formField:focus {

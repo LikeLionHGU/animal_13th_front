@@ -164,12 +164,12 @@ const FoundFormWeb = () => {
     }
 
     const boardData = {
-      title: document.getElementById("title").value,
+      title: document.getElementById("title")?.value || "",
       category: selectCategory,
-      phoneNum: document.getElementById("phoneNum").value,
-      content: document.getElementById("content").value,
+      phoneNum: document.getElementById("phoneNum")?.value || "",
+      content: document.getElementById("content")?.value || "",
       location: displayLocation,
-      detailLocation: document.getElementById("detailLocation").value,
+      detailLocation: document.getElementById("detailLocation")?.value || "",
       boardType: 0,
       latitude: location.lat,
       longitude: location.lng,

@@ -7,11 +7,12 @@ import styles from "../../styles/FormMobile.module.css";
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 import UploadConfirmModal from "../UploadConfirmModal";
+import DefaultImg from "../../assets/icons/DefaultImg.svg"
 
 const FoundFormMobile = () => {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
-  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태s
+  const [imageFile, setImageFile] = useState(); // 이미지 파일 상태s
   const MapAPIid = process.env.REACT_APP_MAP_CLIENT_ID;
   const [location, setLocation] = useState({ lat: 36.103096, lng: 129.387299 }); // MapnLocation에서 값 받아오기
 
@@ -50,6 +51,15 @@ const FoundFormMobile = () => {
 
     setShowModal(false);
     setShowLoading(true);
+
+    if (!imageFile) {
+      // imageFile이 없으면 fetch를 이용해 DefaultImg를 Blob으로 변환
+      (async () => {
+        const response = await fetch(DefaultImg);
+        const blob = await response.blob();
+        setImageFile(new File([blob], "DefaultImg.svg", { type: "image/svg+xml" }));
+      })();
+    }
 
     const formData = new FormData();
   

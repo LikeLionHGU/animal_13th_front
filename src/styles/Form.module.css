@@ -43,6 +43,9 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    margin: 0 auto;
+    border: 1px solid #7ACAD6;
+    border-radius: 10px;
 }
 
 .imgInput {

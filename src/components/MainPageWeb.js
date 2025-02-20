@@ -20,7 +20,7 @@ const categoryMap = {
   };
 
 
-function MainPage() {
+function MainPageWeb() {
     const navigate = useNavigate();
     
     const [lostMain, setLostMain] = useState();
@@ -174,4 +174,4 @@ function MainPage() {
     )
 }
 
-export default MainPage
+export default MainPageWeb

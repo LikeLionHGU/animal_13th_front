@@ -9,7 +9,6 @@ import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import Swal from 'sweetalert2';
-import React, { useState, useEffect } from "react";
 import MainPageMobile from "./MainPageMobile";
 import MainPageWeb from "./MainPageWeb";
 

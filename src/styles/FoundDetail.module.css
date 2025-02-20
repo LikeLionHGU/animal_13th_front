@@ -6,6 +6,14 @@
     width: 372.03px;  /* 카드의 너비를 적절하게 조절 */
     height: 267.25px;
     object-fit: contain; 
+    position:relative;
+}
+
+.people{
+    position:absolute;
+    top: 40%;
+    left: 40%;
+    font-size: 35px;
 }
 
 .contentContainer {

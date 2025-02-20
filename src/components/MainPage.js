@@ -29,7 +29,7 @@ function MainPage() {
   const [foundMain, setFoundMain] = useState();
   const [loading, setLoading] = useState(true);
   const [browser, setBrowser] = useState("web"); // 기본값 "web"
-  const [showLogin, setshowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     // 디바이스 환경 감지
@@ -183,7 +183,11 @@ function MainPage() {
                 <div className={styles.blurText}> 
                     로그인을 해야지 열람 가능해요!
                 </div> 
-                <button className={styles.blurButton} onClick={() => setshowLogin(true)}>
+                <button 
+                className={styles.blurButton} 
+                onClick={() => setShowLogin(true)}
+                style={{ cursor: "pointer" }}
+                >
                 로그인
                 </button>
                     <Blur />
@@ -196,7 +200,7 @@ function MainPage() {
           )}
         </div>
       </div>
-      {showLogin && <LoginLayout />}
+      {showLogin && <LoginLayout setShowLogin={setShowLogin}/>}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import styles from "../../styles/Layout.module.css";
 import GoogleLoginButton from "../API/GoogleLoginButton";
 
-const LoginLayout = () => {
+const LoginLayout = ({setShowLogin}) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
@@ -48,7 +48,10 @@ const LoginLayout = () => {
                 setIsAuthLoading={setIsAuthLoading}
               />
             </div>
-            <button className={styles.closeButton} onClick={() => setIsLoginModalOpen(false)}>
+            <button className={styles.closeButton} onClick={() => {
+                setIsLoginModalOpen(false);
+                setShowLogin(false);
+                }}>
               닫기
             </button>
           </div>
@@ -60,7 +63,9 @@ const LoginLayout = () => {
         <div className={styles.FoundModalOverlay}>
           <div className={styles.Loginmodal}>
             <h2>로그아웃 하시겠습니까?</h2>
-            <button className={styles.closeButton} onClick={handleLogout}>
+            <button className={styles.closeButton} onClick={() => {
+                setShowLogin(false);
+                }}>
               확인
             </button>
           </div>

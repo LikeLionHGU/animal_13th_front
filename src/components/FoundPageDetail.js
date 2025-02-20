@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import styles from '../styles/FoundDetail.module.css';
+import { useNavigate } from "react-router-dom";
 
 const categoryMap = {
   1: "전자기기",

@@ -324,29 +324,44 @@
 .cardList {
   display: flex;
   flex-direction: column;
-  padding: 28px 0; /* 카드 사이 간격 */
 }
 
 /*개별 요소(부모 요소X)*/
 .cardContainer {
-  display: flex; 
-  flex-direction: row; 
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 12px; /* 이미지와 콘텐츠 간격 */
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+.imageContainerSide {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* 이미지 크기 유지 */
 }
 
 .cardImage {
   border-radius: 12px;
-  width: 80px;
-  height: 80px; /* 높이를 고정 */
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 비율 유지하며 꽉 채우기 */
 }
 
-.cardContent {
+.cardContainer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 12px;
-  width: 100%;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 12px; /* 이미지와 콘텐츠 간격 */
+  padding: 10px;
+  cursor: pointer;
 }
+
 
 .cardTitle {
   color: #000;
@@ -355,6 +370,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-bottom: 5px;
 }
 
 .cardCategory {
@@ -380,16 +396,20 @@
   line-height: normal;
 }
 
-.sidebarCommentBtn{
+.sidebarCommentBtn {
+  align-self: flex-end; /* 오른쪽 정렬 */
   padding: 4px 10px;
   border-radius: 19px;
   border: 1px solid #7ACAD6;
+  width: 40px;
   color: #143950;
   font-family: Pretendard;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  cursor: pointer;
+  margin-top: 5px;
 }
 
 .loadingOverlay {

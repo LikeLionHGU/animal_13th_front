@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "../../styles/Layout.module.css";
 import { ReactComponent as Logo } from "../../assets/icons/zuumLogo.svg";
-import { ReactComponent as BigLogo } from "../../assets/icons/zuumLogoBig.svg";
+import { ReactComponent as FooterLogo } from "../../assets/icons/FooterLogo.svg";
 import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton 추가
 import axios from "axios";
+import { ReactComponent as Github } from "../../assets/icons/githubIcon.svg";
 import { googleLogout } from "@react-oauth/google";
 
 const categoryMap = {
@@ -132,7 +133,8 @@ const Layout = ({ children }) => {
             onClick={() => setIsModalOpen(true)}
             className={isModalOpen ? styles.active : ""}
           >
-            Alert
+            {newsList ? <span style={{color: "red"}}>Alert</span>:<>Alert</>}
+            
           </Link>
           <Link
             to="/mypage"
@@ -183,7 +185,7 @@ const Layout = ({ children }) => {
                 //setShowBlur(true);
               }}
             >
-              닫기
+              확인
             </button>
           </div>
         </div>
@@ -219,13 +221,20 @@ const Layout = ({ children }) => {
             <br />
             Designer: 김채원
             <br />
-            Frontend: 한규호, 박서연 (깃허브)
+            Frontend: 한규호, 박서연
+            <a href="https://github.com/LikeLionHGU/animal_13th_front" target="_blank" rel="noopener noreferrer">
+              <Github style={{marginLeft: "3px"}} />
+            </a>
             <br />
-            Backend: 권혁민, 여지현 (깃허브)
+            Backend: 권혁민, 여지현 
+            <a href="https://github.com/LikeLionHGU/AnimalFarm_Back" target="_blank" rel="noopener noreferrer">
+              <Github style={{marginLeft: "3px"}}
+              />
+            </a>
           </p>
         </div>
         <div className={styles.footerRight}>
-          <BigLogo />
+          <FooterLogo className={styles.footerLogo} />
         </div>
       </footer>
     </div>

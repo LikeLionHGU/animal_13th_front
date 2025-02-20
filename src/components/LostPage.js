@@ -142,7 +142,6 @@ function LostPage() {
                               </div>
                           </div>
                       </div>
-                  
                   ))}
                   </div>
                   

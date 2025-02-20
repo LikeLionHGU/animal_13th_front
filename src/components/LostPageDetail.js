@@ -214,7 +214,7 @@ return (
           />
       </form>
       {lostDetail.comments ? <div className={styles.cardList} >
-    {lostDetail.comments.map((item) => ( // 띄우는 콘텐츠들 배치하기
+    {lostDetail.comments.map((item, index) => ( // 띄우는 콘텐츠들 배치하기
     <div
         className={styles.cardContainer}
         style={{ cursor: "pointer" }}
@@ -222,7 +222,7 @@ return (
           <div>
             <img src={item.image} alt={item.userName} className={styles.cardImage} />
             </div>
-          <div>{`천사${item.id}`}</div>
+          <div>{`천사${index + 1}`}</div>
         <div className={styles.cardContent}>
             <span className={styles.cardTitle}>{item.content}</span>
             <span className={styles.cardDate}>{item.printDate}</span>

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import MainPageMobile from "./MainPageMobile";
 import LoginLayout from "./Layouts/LoginLayout";
+import FoundWriteModal from "../components/FoundWriteModal";
 //import MainPageWeb from "./MainPageWeb";
 
 const categoryMap = {
@@ -30,6 +31,8 @@ function MainPage() {
   const [loading, setLoading] = useState(true);
   const [browser, setBrowser] = useState("web"); // 기본값 "web"
   const [showLogin, setShowLogin] = useState(false);
+  const [ showModal, setShowModal] = useState(false);
+  const [id, setId] = useState(); //모달 창 아이디디
 
   useEffect(() => {
     // 디바이스 환경 감지
@@ -103,6 +106,14 @@ function MainPage() {
   if (browser === "mobile") {
     return <MainPageMobile />;
   }
+
+  const onWrite = (itemId) => {
+    setId(itemId); // id 저장
+    setShowModal(true); // 모달 열기
+    console.log("아이디: ", itemId);
+    console.log("저장된 아이디: ", id);
+  };
+  
 
   return (
     <>
@@ -182,30 +193,24 @@ function MainPage() {
             localStorage.getItem("isLogin") === "1" ? (
               <div className={styles.cardList}>
                 {foundMain.map((item) => (
-                  <Link
-                    to={`/found-detail/${item.id}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    <div key={item.id} style={{ cursor: "pointer" }}>
-                      <div className={styles.cardContainer}>
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className={styles.cardImage}
-                        />
-                        <div className={styles.cardContent}>
-                          <span className={styles.cardTitle}>{item.title}</span>
-                          <span className={styles.cardCategory}>
-                            {categoryMap[item.category] || "기타"}
-                          </span>
-                          <span className={styles.cardDate}>
-                            {item.printDate}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+            <div 
+            key={item.id} 
+            style={{ cursor: "pointer" }} 
+            onClick={() => onWrite(item.id)} // 여기서 올바르게 item.id를 전달
+            >
+            <div className={styles.cardContainer}>
+            <img src={item.image} alt={item.title} className={styles.cardImage} />
+            <div className={styles.cardContent}>
+                <span className={styles.cardTitle}>{item.title}</span>
+                <span className={styles.cardCategory}>
+                {categoryMap[item.category] || "기타"}
+                </span>
+                <span className={styles.cardDate}>{item.printDate}</span>
+            </div>
+            </div>
+        </div>
+        ))}
+
               </div>
             ) : (
               <div className={styles.blur}>
@@ -228,6 +233,9 @@ function MainPage() {
         </div>
       </div>
       {showLogin && <LoginLayout setShowLogin={setShowLogin} />}
+      {showModal && <FoundWriteModal onClose={() => setShowModal(false)} 
+      onConfirm={() => navigate(`/found-detail/${id}`)}/>}
+
     </>
   );
   

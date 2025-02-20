@@ -39,6 +39,7 @@ function GoogleLoginButton( { onLoginSuccess, setIsAuthLoading }) {
                 { googleIdToken },
                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
+            setIsAuthLoading(true);
             alert("로그인 성공");
             if (onLoginSuccess) {
                 onLoginSuccess(); // 부모 컴포넌트에서 전달한 로그인 성공 처리 실행

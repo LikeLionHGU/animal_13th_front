@@ -32,7 +32,7 @@ function FoundPageDetail( ) {
         console.log("foundDetail: ", response.data.board);
         console.log("IsUser: ", response.data.isUser);
         setLat(response.data.board.latitude);
-        setLng(response.data.board.longtitude);
+        setLng(response.data.board.longitude);
 
         setFoundDetail(response.data.board);
         setIsUser(response.data.isUser);

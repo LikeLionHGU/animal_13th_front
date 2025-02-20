@@ -219,7 +219,7 @@ html, body {
     display: flex;
     justify-content: flex-start ;
     flex-wrap: wrap;
-    gap: 16px; /* 카드 사이 간격 */
+    gap: 52px; /* 카드 사이 간격 */
 }
 
 /*개별 요소(부모 요소X)*/
@@ -228,7 +228,7 @@ html, body {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 200px;  /* 카드의 너비를 적절하게 조절 */
+    width: 310px;  /* 카드의 너비를 적절하게 조절 */
 }
   
   .cardImage {
@@ -284,6 +284,7 @@ html, body {
     line-height: normal;
     cursor: pointer;  
     justify-content: flex-end;
+    margin-bottom: 35px;
   }
 
   .dropdown:focus {

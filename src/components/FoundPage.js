@@ -90,37 +90,6 @@ function FoundPage() {
   
     fetchData();
   }, [selectCategory, latest, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
-  
-  
-  useEffect(() => {
-    const mockData = [
-      {
-        id: 1,
-        image: "https://i.ibb.co/TD1YDGKw/Group-384.png", 
-        title: "검정색 지갑",
-        category: 3,
-        printDate: "2024/02/20",
-      },
-      {
-        id: 2,
-        image: "https://i.ibb.co/TD1YDGKw/Group-384.png",
-        title: "에어팟 프로",
-        category: 1,
-        printDate: "2024/02/19",
-      },
-      {
-        id: 3,
-        image: "https://i.ibb.co/TD1YDGKw/Group-384.png",
-        title: "노트북 파우치",
-        category: 7,
-        printDate: "2024/02/18",
-      },
-    ];
-
-
-    setLoading(false);
-    setFoundData(mockData);
-  }, []);
 
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
@@ -153,12 +122,11 @@ const onTopBtnClick = () => {
   
   return (
     <div className={styles.backcolor}>
-       <div className={styles.bannerWrapper}>
         <div className={styles.bannerWrapper}>
           <FoundBanner className={styles.banner}/>
           <Link to={'/found-form'} className={styles.bannerBtn}>FOUND 게시물 작성하기</Link>
         </div>
-      </div>
+      
       <div className={styles.contentsContainer}>
         <div className={styles.contents}>
         <div className={styles.filterContainer}>

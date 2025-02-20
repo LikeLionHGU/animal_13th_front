@@ -40,6 +40,10 @@ function LostPage() {
   const [latest, setLatest] = useState(true);
   const [keyword, setKeyword] = useState("");
 
+  const onCardClick = (id) => {
+    navigate(`/lost-detail/${id}`);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -122,10 +126,10 @@ function LostPage() {
               ) : lostData ?
                 <div className={styles.cardList} >
                   {lostData.map((item) => (
-                      <Link to={`/lost-detail/${item.id}`}>
                       <div
                       key={item.id} // key는 item.board.id가 아닌 item.id 사용
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer"}}
+                      onClick={() => onCardClick(item.id)}
                       >
                           <div className={styles.cardContainer}>
                               <img src={item.image} alt={item.title} className={styles.cardImage} />
@@ -138,7 +142,7 @@ function LostPage() {
                               </div>
                           </div>
                       </div>
-                  </Link>
+                  
                   ))}
                   </div>
                   

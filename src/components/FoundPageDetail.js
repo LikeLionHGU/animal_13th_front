@@ -17,6 +17,7 @@ const categoryMap = {
 function FoundPageDetail( ) {
   const [foundDetail, setFoundDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
+  const navigate = useNavigate();
   const [sawPeople, setSawpeople] = useState([
     "Alice",
     "Bob",
@@ -31,23 +32,6 @@ function FoundPageDetail( ) {
   ]);
   const { id } = useParams();
 
-   // 목데이터 세팅
-   useEffect(() => {
-    const mockData = {
-      id: 1,
-      title: "검정색 지갑",
-      image: "https://i.ibb.co/TD1YDGKw/Group-384.png", // 샘플 이미지
-      PhoneNum: "010-1234-5678",
-      category: "지갑/현금",
-      printDate: "2024/02/20",
-      content: "지하철역 근처에서 발견했습니다. 신분증과 카드가 들어있습니다.",
-    };
-
-    setFoundDetail(mockData);
-  }, []);
-
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,7 +45,33 @@ function FoundPageDetail( ) {
       }
     };
     fetchData();
-  }, [id]);
+}, [id]);
+
+const onDeleteClick = () => {
+  const fetchData = async () => {
+    const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+    if (!isConfirmed) return;
+
+    try {
+        const response = await axios.delete(`https://koyangyee.info/board/found/${id}`);
+
+        if (response.status === 200) {
+          alert("삭제가 완료되었습니다.");
+          navigate("/found-page"); // 삭제 후 목록 페이지로 이동
+        } else {
+          alert("삭제에 실패했습니다. 다시 시도해주세요.");
+        }
+    } catch (error) {
+        console.error("오류 발생:", error);
+       alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+    }
+  };
+  fetchData();
+}
+
+const onEditClick = () => {
+
+}
   /*사용자 정보 PUSH*/
   useEffect(() => {
     const fetchData = async () => {
@@ -74,6 +84,7 @@ function FoundPageDetail( ) {
     };
     fetchData();
   }, [id]);
+
   // 로딩 처리
   if (!foundDetail) {
     return <div>Loading...</div>;
@@ -116,7 +127,14 @@ function FoundPageDetail( ) {
             <div className={styles.address}>주소 <span> 주소 띄우기</span></div>
             <div className={styles.detailLocation}>상세위치 <span>{foundDetail.detailLocation === "null" ? `${foundDetail.detailLocation}` : "없음"}</span></div>
           </div>
-          {/* 여기에 지도 넣기 */}
+          <div className={styles.mapSize}>
+            {/* 여기에 지도 넣기 */}
+          </div>
+          {isUser ? <>
+            <button onClick={() => onEditClick()}> 수정 </button>
+            <button onClick={() => onDeleteClick()}> 삭제 </button>
+          </>:<>
+          </>}
           </div>
         </div>
         <div className={styles.sawPeopleContainer}>

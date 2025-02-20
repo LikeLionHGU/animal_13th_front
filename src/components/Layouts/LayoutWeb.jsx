@@ -7,6 +7,17 @@ import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton �
 import axios from "axios";
 import { googleLogout } from "@react-oauth/google";
 
+const categoryMap = {
+  1: "전자기기",
+  2: "카드/학생증",
+  3: "지갑/현금",
+  4: "택배",
+  5: "도서 및 서류",
+  6: "의류/액세서리",
+  7: "가방",
+  8: "기타",
+};
+
 const Layout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -164,15 +175,15 @@ const Layout = ({ children }) => {
 
       {/* 뉴스 모달 */}
       {isModalOpen && (
-        <div className={styles.modal} ref={newsRef}>
+        <div style={{cursor: "pointer"}} className={styles.modal} ref={newsRef}>
           <h2 className={styles.modalTitle}>새로운 소식</h2>
           <ul className={styles.newsList}>
             {newsList ? <>
               {newsList.map((news) => (
-              <li onClick={() => navigate(`/lost-detail/${news.id}`)} key={news.id} className={styles.newsItem}>
-                <span className={styles.newsCategory}>• {news.category}</span>
+              <li onClick={() => navigate(`/lost-detail/${news.boardId}`)} key={news.id} className={styles.newsItem}>
+                <span className={styles.newsCategory}>• {categoryMap[news.category] || "기타"}</span>
                 <strong>{news.title}</strong>
-                <span className={styles.newsDate}>{news.date}</span>
+                <span className={styles.newsDate}>{news.printDate}</span>
               </li>
             ))}
             </>:<div className={styles.noNotification}>알림이 없습니다</div>}

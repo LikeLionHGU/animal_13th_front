@@ -251,7 +251,7 @@ useEffect(() => {
           <div className={styles.formContentsContainer}>
         <h1 className={styles.formTitle}>LOST 글쓰기</h1>
         <div className={styles.formGroup}>
-            <input id="title" name="title" type="text" placeholder="어떤 물건인지 간단하게 알려주세요 (ex. 검정색 지갑)" className={styles.formField} required />
+            <input id="title" style={{fontSize: "16.5px" }} name="title" type="text" placeholder="어떤 물건인지 간단하게 알려주세요 (ex. 검정색 지갑)" className={styles.formField} required />
             <label htmlFor="title" className={styles.formLabel}>분실물 명<span style={{ color: "red" }}>*</span></label>
           </div>
 
@@ -274,12 +274,12 @@ useEffect(() => {
           </div>
 
           <div className={styles.formGroup}>
-            <input id="location" name="location" type="text" placeholder="" className={`${styles.textboxSize} ${styles.formField}` }  />
+            <input id="location" name="location" type="text" style={{fontSize: "16.5px" }} placeholder="" className={`${styles.textboxSize} ${styles.formField}` }  />
             <label htmlFor="location" className={styles.formLabel}>예상 위치</label>
           </div>
 
           <div className={styles.formGroup}>
-            <input id="phoneNum" name="phoneNum" type="text" maxLength="13" placeholder="010-XXXX-XXXX" className={`${styles.textboxSize} ${styles.formField}`}/>
+            <input id="phoneNum" name="phoneNum" type="text" style={{fontSize: "16.5px" }} maxLength="13" placeholder="010-XXXX-XXXX" className={`${styles.textboxSize} ${styles.formField}`}/>
             <label htmlFor="phoneNum" className={styles.formLabel}>전화번호</label>
           </div>
 
@@ -291,6 +291,7 @@ useEffect(() => {
               id="content"
               placeholder="추가적인 정보가 있으면 알려주세요."
               onInput={autoResize}
+              style={{fontSize: "16.5px" }}
               ref={textareaRef}
             />
           </div>

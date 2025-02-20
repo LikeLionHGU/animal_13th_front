@@ -215,6 +215,7 @@ function MainPage() {
                 <button
                   className={styles.blurButton}
                   onClick={() => setshowLogin(true)}
+                  style={{cursor: "pointer"}}
                 >
                   로그인
                 </button>

@@ -98,9 +98,9 @@
     width: 250px;
     max-height: 300px;
     background: white;
-    border-radius: 8px;
+    border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    padding: 0 15px 15px 15px;
     overflow-y: auto; 
     z-index: 1000;
   }
@@ -178,9 +178,25 @@
   }
 
   .modalTitle {
-    font-size: 18px;
-    font-weight: 700;
     margin-bottom: 10px;
+    border-bottom: 1px solid #8ED1DB;
+    padding-bottom: 14px;
+
+    color: #000;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .noNotification{
+    color: #000;
+    font-family: Pretendard;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
   }
   
   .newsList {
@@ -196,6 +212,10 @@
     padding: 8px 0;
     border-bottom: 1px solid #ddd;
     font-size: 14px;
+  }
+
+  .newsItem:hover {
+    background-color: #F6F7F7;
   }
   
   .newsCategory {

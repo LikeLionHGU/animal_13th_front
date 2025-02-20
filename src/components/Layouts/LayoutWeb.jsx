@@ -91,8 +91,7 @@ const Layout = ({ children }) => {
         </div>
 
         <div className={styles.rightSection}>
-        <button onClick={() => onAlertBtnClick()}> 알림받기</button>
-        <Link
+       <Link
           onClick={() => {
             if (islogin === "Login") {
               // 로그인 상태가 아니면 로그인 모달 열기
@@ -167,13 +166,15 @@ const Layout = ({ children }) => {
         <div className={styles.modal} ref={newsRef}>
           <h2 className={styles.modalTitle}>새로운 소식</h2>
           <ul className={styles.newsList}>
-            {newsList.map((news) => (
-              <li key={news.id} className={styles.newsItem}>
+            {newsList ? <>
+              {newsList.map((news) => (
+              <li onClick={(news) => navigate(`/lost-detail/${news.id}`)} key={news.id} className={styles.newsItem}>
                 <span className={styles.newsCategory}>• {news.category}</span>
                 <strong>{news.title}</strong>
                 <span className={styles.newsDate}>{news.date}</span>
               </li>
             ))}
+            </>:<div className={styles.noNotification}>알림이 없습니다</div>}
           </ul>
         </div>
       )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styles from '../styles/FoundDetail.module.css';
 import { useNavigate } from "react-router-dom";
@@ -153,8 +153,8 @@ const onEditClick = () => {
           <div className={styles.sawPeopleContents}>
             <div className={styles.sawPeopleTitle}>조회한 사람</div>
             <div className={styles.filterContainer}>
-            {sawPeople.map((person) => (
-            <div key={person.userName} className={styles.sawNames}>
+            {sawPeople.map((person, index) => (
+            <div key={index} className={styles.sawNames}>
             {person.userName}
           </div>
           ))}

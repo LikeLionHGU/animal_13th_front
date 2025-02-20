@@ -77,12 +77,11 @@ function MyPageLost() {
             ) : lostData ?
               <div className={styles.cardList} >
                 {lostData.map((item) => (
-                    <Link to={`/lost-detail/${item.id}`}>
                     <div
                     key={item.id} // key는 item.board.id가 아닌 item.id 사용
                     style={{ cursor: "pointer" }}
                     >
-                        <div className={styles.cardContainer}>
+                        <div onClick={() => navigate(`/lost-detail/${item.id}`)} className={styles.cardContainer}>
                             <img src={item.image} alt={item.title} className={styles.cardImage} />
                             <div className={styles.cardContent}>
                                 <span className={styles.cardTitle}>{item.title}</span>
@@ -93,7 +92,6 @@ function MyPageLost() {
                             </div>
                         </div>
                     </div>
-                </Link>
                 ))}
                 </div>
              : (

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Mainpage.module.css";
-import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
-import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
-import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 
-import { ReactComponent as Blur } from "../assets/icons/blur.svg"; 
+import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg";
+import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg";
+import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg";
+import { ReactComponent as Blur } from "../assets/icons/blur.svg";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -42,7 +42,9 @@ function MainPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://koyangyee.info/board/lost/main");
+        const response = await axios.get(
+          "https://koyangyee.info/board/lost/main"
+        );
         console.log("Lost: ", response.data.board);
         setLostMain(response.data.board);
       } catch (error) {
@@ -55,7 +57,9 @@ function MainPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://koyangyee.info/board/found/main");
+        const response = await axios.get(
+          "https://koyangyee.info/board/found/main"
+        );
         console.log("Found: ", response.data.board);
         setFoundMain(response.data.board);
       } catch (error) {
@@ -128,12 +132,25 @@ function MainPage() {
           ) : lostMain ? (
             <div className={styles.cardList}>
               {lostMain.map((item) => (
-                <Link to={`/lost-detail/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div key={item.id} className={styles.cardContainer} style={{ cursor: "pointer" }}>
-                    <img src={item.image} alt={item.title} className={styles.cardImage} />
+                <Link
+                  to={`/lost-detail/${item.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div
+                    key={item.id}
+                    className={styles.cardContainer}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className={styles.cardImage}
+                    />
                     <div className={styles.cardContent}>
                       <span className={styles.cardTitle}>{item.title}</span>
-                      <span className={styles.cardCategory}>{categoryMap[item.category] || "기타"}</span>
+                      <span className={styles.cardCategory}>
+                        {categoryMap[item.category] || "기타"}
+                      </span>
                       <span className={styles.cardDate}>{item.printDate}</span>
                     </div>
                   </div>
@@ -163,16 +180,27 @@ function MainPage() {
             <p>로딩 중...</p>
           ) : foundMain ? (
             localStorage.getItem("isLogin") === "1" ? (
-                <div className={styles.cardList}>
+              <div className={styles.cardList}>
                 {foundMain.map((item) => (
-                  <Link to={`/found-detail/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                  <Link
+                    to={`/found-detail/${item.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
                     <div key={item.id} style={{ cursor: "pointer" }}>
                       <div className={styles.cardContainer}>
-                        <img src={item.image} alt={item.title} className={styles.cardImage} />
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className={styles.cardImage}
+                        />
                         <div className={styles.cardContent}>
                           <span className={styles.cardTitle}>{item.title}</span>
-                          <span className={styles.cardCategory}>{categoryMap[item.category] || "기타"}</span>
-                          <span className={styles.cardDate}>{item.printDate}</span>
+                          <span className={styles.cardCategory}>
+                            {categoryMap[item.category] || "기타"}
+                          </span>
+                          <span className={styles.cardDate}>
+                            {item.printDate}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -191,10 +219,21 @@ function MainPage() {
                 로그인
                 </button>
                     <Blur />
-                    
+            ) : (
+              <div className={styles.blur}>
+                <div className={styles.blurText}>
+                  로그인을 해야지 열람 가능해요!
                 </div>
-                
-            
+                <button
+                  className={styles.blurButton}
+                  onClick={() => setshowLogin(true)}
+                  style={{cursor: "pointer"}}
+                >
+                  로그인
+                </button>
+                <Blur />
+              </div>
+            )
           ) : (
             <p>불러온 정보 없음</p>
           )}

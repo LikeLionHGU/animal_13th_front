@@ -166,8 +166,8 @@
   }
   
   .titleText {
-      display: flex;
-      align-items: center; 
+    display: flex;
+    align-items: center; 
   }
   
   .mypageSmallTitle {
@@ -178,6 +178,7 @@
     font-weight: 700;
     line-height: normal;
     flex-shrink: 0;
+    margin-bottom: 32px;
   }
   
   .comma {
@@ -207,6 +208,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
   
   .stroke {
@@ -276,7 +278,8 @@
       display: flex;
       justify-content: flex-start ;
       flex-wrap: wrap;
-      gap: 16px; /* 카드 사이 간격 */
+      gap: 20px; /* 카드 사이 간격 */
+      text-decoration: none;
   }
   
   /*개별 요소(부모 요소X)*/
@@ -285,8 +288,9 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       overflow: hidden;
-      width: 240.349px;  /* 카드의 너비를 적절하게 조절 */
-  }
+      width: 220px;  /* 카드의 너비를 적절하게 조절 */
+      text-decoration: none;
+    }
     
   .cardImage {
     width: 100%;
@@ -382,6 +386,7 @@
     line-height: normal;
     cursor: pointer;  
     justify-content: flex-end;
+    margin-bottom: 25px;
   }
 
   .dropdown:focus {

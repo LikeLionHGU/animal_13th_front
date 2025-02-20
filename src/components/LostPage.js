@@ -6,6 +6,7 @@ import { ReactComponent as LostBanner } from "../assets/icons/LostPageBanner.svg
 import { ReactComponent as TopBtn } from "../assets/icons/TopBtn.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import LostPageSearch from "./Small/FoundLostSearch"; 
 
 const categories = [
   { id: 0 , name: "전체" },
@@ -37,35 +38,36 @@ function LostPage() {
   const [selectCategory, setSelectCategory] = useState(0);
   const [loading, setLoading] = useState(true);
   const [latest, setLatest] = useState(true);
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("request: ", selectCategory);
+        let url = "";
+        if (keyword) {
+          // 검색어가 있을 경우, 검색 API 사용
+          url = latest 
+            ? `https://koyangyee.info/board/lost/all/category/search/new?category=${selectCategory}&search=${keyword}`
+            : `https://koyangyee.info/board/lost/all/category/search/old?category=${selectCategory}&search=${keyword}`;
+        } else {
+          // 검색어가 없을 경우, 일반 카테고리 API 사용
+          url = latest 
+            ? `https://koyangyee.info/board/lost/all/category/new?category=${selectCategory}`
+            : `https://koyangyee.info/board/lost/all/category/old?category=${selectCategory}`;
+        }
   
-        const url = latest 
-          ? 'https://koyangyee.info/board/lost/all/category/new'
-          : 'https://koyangyee.info/board/lost/all/category/old';
-  
-        const response = await axios({
-          method: 'get',
-          url: url,
-          params: {
-            "category": selectCategory
-          }
-        }, { withCredentials : true })
-          .then((response)=>{
-            console.log("Response: ", response.data);
-            setLostData(response.data.board);
-            setLoading(false);
-        })
+        const response = await axios.get(encodeURI(url));
+        console.log("GET URL: ", url);
+        console.log("Response: ", response.data);
+        setLostData(response.data.board);
+        setLoading(false);
       } catch (error) {
         console.error("오류 발생:", error.response?.data || error.message);
       }
     };
   
     fetchData();
-  }, [selectCategory, latest]); 
+  }, [selectCategory, latest, keyword]);
 
   const onCategorySelect = (categoryId) => {
     console.log(categoryId);
@@ -105,6 +107,8 @@ function LostPage() {
             </button>
           ))}
         </div>
+
+        <LostPageSearch selectCategory={selectCategory} setFoundData={setLostData} setKeyword={setKeyword} />
 
         <div className={styles.dropdownWrapper}>
         <select className={styles.dropdown} name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>

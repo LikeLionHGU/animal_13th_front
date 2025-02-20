@@ -1,18 +1,12 @@
-
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 //import GoogleLoginButton from '../components/API/GoogleLoginButton';
-import styles from '../styles/Mainpage.module.css'
+import styles from '../styles/MainpageMobile.module.css'
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
 import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
 import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 
 import axios from "axios";
 import {Link} from "react-router-dom";
-import Swal from 'sweetalert2';
-import React, { useState, useEffect } from "react";
-import MainPageMobile from "./MainPageMobile";
-import MainPageWeb from "./MainPageWeb";
-
 
 const categoryMap = {
     1: "전자기기",
@@ -26,11 +20,12 @@ const categoryMap = {
   };
 
 
-function MainPage() {
+function MainPageMobile() {
     const navigate = useNavigate();
+    
     const [lostMain, setLostMain] = useState();
     const [foundMain, setFoundMain] = useState();
-    const [loading, setLoading] = useState(true); // 로딩 상태 추
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
      useEffect(() => {
          const fetchData = async () => {
@@ -63,32 +58,10 @@ function MainPage() {
     const foundFormClick = () => {
         navigate("/found-form");
     }
-    const lostFormClick = async () => {
-        try {
-            const response = await axios.get("https://koyangyee.info/user");
-            console.log("user: ", response.data);
-    
-            if (response.data.isLogin === 0) {
-                const result = await Swal.fire({
-                    title: '로그인이 필요합니다.',
-                    text: '분실물 등록을 위해 로그인해 주세요.',
-                    icon: 'warning',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '확인',
-                });
-    
-                if (result.isConfirmed) {
-                    navigate("/"); // 로그인 페이지로 이동 (원하는 경로로 변경 가능)
-                }
-                return; // 여기서 함수 실행 중단
-            }
-    
-            navigate("/lost-form"); // 로그인된 경우만 분실물 작성 페이지로 이동
-        } catch (error) {
-            console.error("오류 발생:", error);
-        }
-    };
-    
+
+    const lostFormClick = () => {
+        navigate("/lost-form");
+    }
 
     const foundPageClick = () => {
         navigate("/found-page");
@@ -96,20 +69,8 @@ function MainPage() {
 
     const lostPageClick = () => {
         navigate("/lost-page");
-  const MainPage = () => {
-  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
-
-  useEffect(()=>{
-    const user = navigator.userAgent;
-    // 기본 환경 웹으로 설정
-    setBrowser("web")
-  
-    // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
-    if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
-        setBrowser("mobile")
-
     }
-},[])
+
     return (
         <div>
             <div className={styles.bannerWrapper}>
@@ -122,10 +83,7 @@ function MainPage() {
                 </div>
             <div className={styles.title}>
                     <span className={styles.titleText}>
-                        <span className={styles.Lost}>LOST</span> 
-                        <span className={styles.comma}>, </span>
-                        <span  className={styles.restTitle}>분실물
-                        </span>
+                        <span className={styles.Lost}>LOST, 분실물</span>
                         <span className={styles.lineLost}></span>
                         <div className={styles.stroke}></div>
                     </span>
@@ -137,7 +95,7 @@ function MainPage() {
                     
                         <div className={styles.cardList} >
 
-                            { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
+                            { lostMain.slice(0, 3).map((item) => ( // 띄우는 콘텐츠들 배치하기
                         <Link to={`/lost-detail/${item.id}`}
                             style={{ textDecoration: "none", color: "inherit" }} >
                         <div
@@ -160,15 +118,13 @@ function MainPage() {
                         </div>
                     :
                     <>
-                        {loading ? <>로딩 중...</> : <>불러온 정보 없음 </> }
+                        {loading ? <>로딩 중...</> : <></> }
                     </>} 
                 </div>
 
                 <div className={styles.title}>
                     <div className={styles.titleText}>
-                        <span className={styles.Lost}>FOUND</span> 
-                        <span className={styles.comma}>,</span>
-                        <span className={styles.restTitle}>습득물</span>
+                        <span className={styles.Lost}>FOUND, 습득물</span>
                         <span className={styles.lineFound}></span>
                         <div className={styles.stroke}></div>
                     </div>
@@ -176,12 +132,11 @@ function MainPage() {
                 </div>
 
                 <div>
-               
                 {loading ? (
             <p>로딩 중...</p> // 로딩 중 메시지 표시
                 ) : foundMain ?
                 <div className={styles.cardList} >
-                    {foundMain.map((item) => (
+                    {foundMain.slice(0, 3).map((item) => (
                         <Link to={`/found-detail/${item.id}`}
                         style={{ textDecoration: "none", color: "inherit" }}>
                         <div
@@ -204,19 +159,14 @@ function MainPage() {
                     </div>
                     
                 : (
-                    <p>불러온 정보 없음</p> // 데이터가 없을 경우
+                    <p></p> // 데이터가 없을 경우
                 )}
                 </div>
             </div>
             </div>
-
-            
             
                 
     )
 }
 
-  return browser === "mobile" ? <MainPageMobile /> : <MainPageWeb />;
-};
-
-export default MainPage;
+export default MainPageMobile

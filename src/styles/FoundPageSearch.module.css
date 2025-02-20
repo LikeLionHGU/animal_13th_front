@@ -3,17 +3,19 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 65px;
   }
   
   .searchBox {
     position: relative;
     display: flex;
     align-items: center;
-    width: 400px; /* 원하는 크기로 조절 */
+    width: 960px; /* 원하는 크기로 조절 */
     border: 2px solid #bce0e7;
     border-radius: 20px;
     padding: 5px 10px;
     background-color: white;
+
   }
   
   .searchIcon {

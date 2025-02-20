@@ -21,26 +21,24 @@ const Layout = ({ children }) => {
   const [showBlur, setShowBlur] = useState(true); //블러처리 하려고 띄움(글자랑 다르게 대문자자)
 
   const newsRef = useRef(null);
-  //로그아웃
-  const handleLogout = async () => {
-    try {
-        // 1️⃣ 구글 SDK를 사용하여 클라이언트 측 로그아웃
-        googleLogout(); // Google OAuth 상태 초기화
 
-        // 2️⃣ 백엔드에도 로그아웃 요청
-        const request= await axios.post("https://koyangyee.info/auth/logout",
-         {}, 
-         { withCredentials: true });
+  const onAlertBtnClick = () => {
+      const fetchData = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/notification");
+            console.log("알림: ", response.data.notifications);
+            console.log("데이터: ", response.data);
+            setNewsList(response.data.notifications);
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    fetchData();
+    // const intervalId = setInterval(fetchData, 10000);
 
-        alert("로그아웃 되었습니다.");
-        console.log("로그아웃 확인: ", request);
-
-    } catch (error) {
-        console.error("로그아웃 실패:", error);
-        alert("로그아웃 실패. 다시 시도해주세요.");
-    }
-};
-
+    // return () => clearInterval(intervalId);
+  }
+    
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (newsRef.current && !newsRef.current.contains(event.target)) {
@@ -94,6 +92,7 @@ const Layout = ({ children }) => {
         </div>
 
         <div className={styles.rightSection}>
+        <button onClick={() => onAlertBtnClick()}> 알림받기</button>
         <Link
           onClick={() => {
             if (islogin === "Login") {
@@ -108,7 +107,6 @@ const Layout = ({ children }) => {
         >
           {islogin}
         </Link>
-
           <Link onClick={() => setIsModalOpen(true)} className={isModalOpen ? styles.active : ""}>
             Alert
           </Link>

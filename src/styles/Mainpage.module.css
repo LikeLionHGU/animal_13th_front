@@ -68,19 +68,31 @@
   }
   
   .Lost {
-      font-family: 'RiaSans-ExtraBold';
-      font-size: 35px;
+    font-family: 'RiaSans-ExtraBold';
+    color: #193946;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
   }
   
   .comma {
       font-family: 'RiaSans-ExtraBold';
       font-size: 25px;
+      color: #193946;
+      font-style: normal;
+      font-weight: 800;
+      line-height: normal;
+      margin: 0 5px;
   }
   
   .restTitle{
-      font-family: 'RiaSans-ExtraBold';
-      font-size: 28px;
-      flex-basis: 20%;
+      color: #193946;
+      font-family: "Gmarket Sans";
+      font-size: 31px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
   }
   
   .intro {

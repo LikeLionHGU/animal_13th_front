@@ -12,9 +12,6 @@ function LostSearch({ setKeyword}) {
     setKeyword(search); // 검색어를 FoundPage로 전달
   };
 
-  
-
-
   return (
     <form className={styles.searchContainer} onSubmit={handleSearch}>
       <div className={styles.searchBox}>

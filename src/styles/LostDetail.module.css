@@ -337,3 +337,70 @@
   line-height: normal;
   margin-top: 13px;
 }
+
+.completeContainer{
+  background-color: #143950;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17.6px 0 11.6px 33px;
+  position: fixed;
+  width: 97.7vw;
+  bottom: 0px;
+  opacity: 80%;
+}
+
+.completeTitle{
+  color: #FFF;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 25px; 
+}
+
+.completeContent{
+  color: #FFF;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+}
+
+.completeButton{
+  color: #D7ECEF;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 19px;
+  border: 1px solid #D7ECEF;
+  background-color: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 7px 35.5px;
+  margin:auto 0;
+}
+
+.completeButton:hover{
+  background-color: #D7ECEF;
+  border: 1px solid #143950;
+  color: #143950;
+}
+
+.deleteBtn{
+  margin-left: 400px;
+  border-radius: 19px;
+  border: 2px solid #CFECF0;
+  cursor: pointer;
+}
+
+.completeTag{
+  width:120px;
+  height:120px;
+  position: absolute;
+  left: 200px;
+  top: 230px;
+}

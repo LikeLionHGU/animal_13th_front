@@ -345,17 +345,17 @@ const FoundFormWeb = () => {
                 key={item.id}
                 className={styles.cardContainer}
                 style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/lost-detail/${item.id}`)}
               >
-              <img src={item.image} alt={item.title} className={styles.cardImage} />
+             <div className={styles.imageContainerSide}>
+                <img src={item.image} alt={item.title} className={styles.cardImage} />
+              </div>
               <div className={styles.cardContent}>
-                <span className={styles.cardTitle}>{item.title}</span>
-                <span className={styles.cardCategory}>
-                  {categoryMap[item.category] || "기타"}
-                </span>
-                <span className={styles.cardDate}>{item.printDate}</span>
-                <span className={styles.cardLocation}>{item.location}</span>
-                <span className={styles.sidebarCommentBtn}>제보하기</span>
-                <span className={styles.cardContent}>{item.content}</span>
+                <div className={styles.cardTitle}>{item.title}</div>
+                <div className={styles.cardContent}>
+                  {item.content.length > 15 ? `${item.content.slice(0, 15)}...` : item.content}
+              </div>
+                <div className={styles.sidebarCommentBtn}>제보하기</div>
               </div>
           </div>
           ))}

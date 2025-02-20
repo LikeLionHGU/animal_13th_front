@@ -127,6 +127,10 @@ const onEditClick = () => {
               <div className={styles.phone}>
                 <span className={styles.phoneTitle}>전화번호</span>
                 <span className={styles.phoneNum}>{foundDetail.PhoneNum === "undefined" ? `${foundDetail.category}` : "없음"}</span>
+                {isUser ? <>
+            <button onClick={() => onDeleteClick()}> 삭제 </button>
+          </>:<>
+          </>}
               </div>
               <div className={styles.contentBox}>
               <div className={styles.contentContent}>{`${foundDetail.content}`}</div>
@@ -141,11 +145,6 @@ const onEditClick = () => {
           <div className={styles.mapSize}>
             <DetailMap lat={lat} lng={lng}/>
           </div>
-          {isUser ? <>
-            <button onClick={() => onEditClick()}> 수정 </button>
-            <button onClick={() => onDeleteClick()}> 삭제 </button>
-          </>:<>
-          </>}
           </div>
         </div>
         <div className={styles.sawPeopleContainer}>

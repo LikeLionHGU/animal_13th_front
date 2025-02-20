@@ -286,3 +286,8 @@
   align-items: center;
   z-index: 1000;
 }
+
+.footerLogo{
+  position: relative;
+  top: 60px;
+}

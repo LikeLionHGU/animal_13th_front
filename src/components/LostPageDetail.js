@@ -6,6 +6,8 @@ import styles from "../styles/LostDetail.module.css";
 import { ReactComponent as ImgUploadIcon } from "../assets/icons/ImgUploadIcon.svg";
 import { ReactComponent as SendIcon } from "../assets/icons/commentSendButton.svg";
 import { ReactComponent as ProfileImg } from "../assets/icons/profileZuumuck.svg";
+import { ReactComponent as Tag } from "../assets/icons/completedTag.svg";
+
 
 const categoryMap = {
   1: "전자기기",
@@ -21,6 +23,7 @@ const categoryMap = {
 function LostPageDetail( ) {
   const [lostDetail, setLostDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
+  const [isFound, setIsFound] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   
@@ -37,6 +40,7 @@ function LostPageDetail( ) {
             console.log("IsUser: ", response.data.isUser);
             setLostDetail(response.data.board);
             setIsUser(response.data.isUser);
+            setIsFound(response.data.isFound);
             console.log("comment: ", response.data.board.comments.content);
         } catch (error) {
             console.error("오류 발생:", error);
@@ -72,9 +76,28 @@ const onDeleteClick = () => {
   fetchData();
 }
 
-const onEditClick = () => {
-  
+const onCompleteBtnClick = () => {
+  const fetchData = async () => {
+    const isConfirmed = window.confirm("글을 완료 처리하시겠습니까?");
+    if (!isConfirmed) return;
+
+    try {
+        const response = await axios.get(`https://koyangyee.info/board/lost/complete/${id}`);
+
+        if (response.status === 200) {
+          alert("글이 완료 처리되었습니다.");
+          navigate("/lost-page"); // 삭제 후 목록 페이지로 이동
+        } else {
+          alert("완료 처리에 실패했습니다. 다시 시도해주세요.");
+        }
+    } catch (error) {
+        console.error("오류 발생:", error);
+       alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+    }
+  };
+  fetchData();
 }
+
 const onSubmitClick = async (event) => {
   event.preventDefault();
   if (showLoading) return;
@@ -126,15 +149,6 @@ const onSubmitClick = async (event) => {
   }
 };
 
-// const handleFileChange = (event) => {
-//   const file = event.target.files[0];
-//   if (file) {
-//     setImageFile(file);
-//   }
-// };
-
-
-
 const handleFileChange = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -154,6 +168,7 @@ return (
       <div className={styles.detailContentsContainer}>
         <div className={styles.detailContents}>
           <div className={styles.foundDetailTitle}>LOST 글 상세조회</div>
+          {isFound === 1 ? <><Tag className={styles.completeTag}/></>:<></>}
           <div className={styles.pathTop}>
             <span className={styles.path}>{"HOME > LOST > "}</span> 
             <span className={styles.pathTitle}>{`${lostDetail.title}`}</span>
@@ -175,7 +190,11 @@ return (
             </div>
             <div className={styles.phone}>
               <span className={styles.phoneTitle}>전화번호</span>
-              <span className={styles.phoneNum}>{lostDetail.PhoneNum === "undefined" ? `${lostDetail.category}` : "없음"}</span>
+              <span className={styles.phoneNum}>{lostDetail.PhoneNum === "undefined" ?  "없음" : `${lostDetail.category}` }</span>
+              {(isUser === 1 && isFound === 0)  ? <>
+          <button className={styles.deleteBtn} onClick={() => onDeleteClick()}> 삭제 </button>
+        </>:<>
+        </>}
             </div>
             <div className={styles.contentBox}>
               <div className={styles.contentContent}>{`${lostDetail.content}`}</div>
@@ -221,6 +240,7 @@ return (
     <div
         className={styles.commentContainer}
         style={{ cursor: "pointer" }}
+        key={index}
         >
           <div className={styles.profileContainer}><ProfileImg className={styles.profileImg} /><span className={styles.userNameText}>{`천사${index + 1}`}</span></div>
         <div className={styles.cardContent}>
@@ -234,15 +254,19 @@ return (
 
     ))}
 </div>:<div>댓글없음</div>}
-
-        {isUser ? <>
-          <button onClick={() => onEditClick()}> 수정 </button>
-          <button onClick={() => onDeleteClick()}> 삭제 </button>
-        </>:<>
-        </>}
         </div>
       </div>
     </div>
+    {isUser === 1 ? <> <div className={styles.completeContainer}>
+        <div>
+          <div className={styles.completeTitle}>분실물을 찾으셨습니까?</div>
+          <div className={styles.completeContent}>완료 시 게시글은 게시판에서 삭제되며 마이페이지에서 조회 가능합니다.</div>
+        </div>
+        <div>
+          <button onClick={() => onCompleteBtnClick()} className={styles.completeButton}>완료</button>
+        </div>
+      </div></>:<></>}
+     
   </div>
 )
 }

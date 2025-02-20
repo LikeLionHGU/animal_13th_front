@@ -167,7 +167,7 @@ function MyPage() {
                     <div className={styles.cardList} >
                         
                         {myFound.map((item) => (
-                             <Link to={`/lost-detail/${item.id}`}
+                             <Link to={`/found-detail/${item.id}`}
                              style={{ textDecoration: "none", color: "inherit" }} >
                             <div
                             key={item.id} // key는 item.board.id가 아닌 item.id 사용

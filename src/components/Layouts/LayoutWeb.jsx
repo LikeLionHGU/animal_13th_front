@@ -7,7 +7,7 @@ import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton �
 import axios from "axios";
 import { googleLogout } from "@react-oauth/google";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, setisLoggedIn }) => {
   const location = useLocation();
   const navigate = useNavigate();
   //로그인, 로그아웃 글자
@@ -62,6 +62,7 @@ const Layout = ({ children }) => {
     setIsLoginModalOpen(false); // 로그인 모달 닫기
     setIslogin("Logout");
     setShowBlur(false);
+    setisLoggedIn(true);
     document.body.style.overflow = "auto"; // 스크롤 다시 가능하도록 설정
   };
 

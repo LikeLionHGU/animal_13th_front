@@ -264,3 +264,9 @@
       background: rgba(122, 202, 214, 0.84);
     }
 
+    .blur{
+      backdrop-filter: blur(2px); 
+    }
+.getlogin{
+  display: none;
+}

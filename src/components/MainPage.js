@@ -8,6 +8,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import MainPageMobile from "./MainPageMobile";
+import Getlogin from "./Layouts/LayoutWeb"; //로그인 정보 받는 파일
 //import MainPageWeb from "./MainPageWeb";
 
 const categoryMap = {
@@ -27,7 +28,7 @@ function MainPage() {
   const [foundMain, setFoundMain] = useState();
   const [loading, setLoading] = useState(true);
   const [browser, setBrowser] = useState("web"); // 기본값 "web"
-  const [showBlur, setShowBlur] = useState(true); //블러처리 하려고 띄움(글자랑 다르게 대문자자)
+ const [isLoggedIn, setisLoggedIn] = useState(false);
 
   useEffect(() => {
     // 디바이스 환경 감지
@@ -160,7 +161,7 @@ function MainPage() {
           {loading ? (
             <p>로딩 중...</p>
           ) : foundMain ? (
-            <div className={styles.cardList}>
+            <div className={isLoggedIn ? styles.cardList : styles.blur}>
               {foundMain.map((item) => (
                 <Link to={`/found-detail/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
                   <div key={item.id} style={{ cursor: "pointer" }}>
@@ -181,13 +182,7 @@ function MainPage() {
           )}
         </div>
       </div>
-      {/*
-      블러 띄우기
-        {showBlur ? ( 
-            <Foundblur className={styles.blur}/>) : 
-            <Foundblur className={styles.blurDelete}/>
-        }
-        */}
+      <Getlogin setisLoggedIn className={styles.getlogin}/>
     </div>
   );
 }

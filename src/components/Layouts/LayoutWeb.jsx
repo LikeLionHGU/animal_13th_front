@@ -28,27 +28,26 @@ const Layout = ({ children }) => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [newsList, setNewsList] = useState();
-  const [showBlur, setShowBlur] = useState(true); //블러처리 하려고 띄움(글자랑 다르게 대문자자)
 
   const newsRef = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://koyangyee.info/notification");
-        setNewsList(response.data.notifications);
-        console.log(response.data);
-      } catch (error) {
-        console.error("알림 가져오기 오류:", error);
-      }
-    };
-  
-    fetchData(); // 첫 실행
-    const intervalId = setInterval(fetchData, 10000); // 10초마다 실행
-  
-    return () => clearInterval(intervalId); // 언마운트 시 정리
-  }, []);
-    
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //         try {
+  //             const response = await axios.get("https://koyangyee.info/notification");
+  //             console.log("알림: ", response.data.notifications);
+  //             console.log("데이터: ", response.data);
+  //             setNewsList(response.data.notifications);
+  //         } catch (error) {
+  //             console.error("오류 발생:", error);
+  //         }
+  //     };
+  //     fetchData();
+  //     const intervalId = setInterval(fetchData, 10000);
+
+  //     return () => clearInterval(intervalId);
+  // }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (newsRef.current && !newsRef.current.contains(event.target)) {
@@ -70,12 +69,11 @@ const Layout = ({ children }) => {
   }, [isLoginModalOpen]);
 
   const handleLoginSuccess = () => {
-    
     localStorage.setItem("isLogin", 1);
     window.location.reload();
     setIsLoginModalOpen(false); // 로그인 모달 닫기
     setIslogin("Logout");
-   // setShowBlur(false);
+    // setShowBlur(false);
     document.body.style.overflow = "auto"; // 스크롤 다시 가능하도록 설정
   };
 
@@ -92,86 +90,104 @@ const Layout = ({ children }) => {
             <Logo />
           </Link>
           <nav className={styles.nav}>
-            <Link to="/" className={location.pathname === "/" ? styles.active : ""}>
+            <Link
+              to="/"
+              className={location.pathname === "/" ? styles.active : ""}
+            >
               HOME
             </Link>
-            <Link to="/lost-page" className={location.pathname === "/lost-page" ? styles.active : ""}>
+            <Link
+              to="/lost-page"
+              className={
+                location.pathname === "/lost-page" ? styles.active : ""
+              }
+            >
               LOST
             </Link>
-            <Link to="/found-page" className={location.pathname === "/found-page" ? styles.active : ""}>
+            <Link
+              to="/found-page"
+              className={
+                location.pathname === "/found-page" ? styles.active : ""
+              }
+            >
               FOUND
             </Link>
           </nav>
         </div>
 
         <div className={styles.rightSection}>
-       <Link
-          onClick={() => {
-
-
-            localStorage.getItem("isLogin") === "1" ? setIsLogoutModalOpen(true) : setIsLoginModalOpen(true);
-          }}
-          className={isLoginModalOpen || isLogoutModalOpen ? styles.active : ""}
-        >
-          {localStorage.getItem("isLogin") === "1" ? "Logout" : "Login"}
-        </Link>
-          <Link onClick={() => setIsModalOpen(true)} className={isModalOpen ? styles.active : ""}>
+          <Link
+            onClick={() => {
+              localStorage.getItem("isLogin") === "1"
+                ? setIsLogoutModalOpen(true)
+                : setIsLoginModalOpen(true);
+            }}
+            className={
+              isLoginModalOpen || isLogoutModalOpen ? styles.active : ""
+            }
+          >
+            {localStorage.getItem("isLogin") === "1" ? "Logout" : "Login"}
+          </Link>
+          <Link
+            onClick={() => setIsModalOpen(true)}
+            className={isModalOpen ? styles.active : ""}
+          >
             Alert
           </Link>
-          <Link to="/mypage" className={location.pathname === "/mypage" ? styles.active : ""}>
+          <Link
+            to="/mypage"
+            className={location.pathname === "/mypage" ? styles.active : ""}
+          >
             My page
           </Link>
         </div>
       </header>
 
-        {/* 로그인 모달 */}
-        {isLoginModalOpen && (
-          <div className={styles.loginModalOverlay}>
-            <div className={styles.loginModal}>
-              <h2>로그인 하시겠습니까?</h2>
-              <div 
-              onClick={() => 
-                setIsLoginModalOpen(false)
-
-              }
-              className={styles.googleLoginContainer}>
-                <GoogleLoginButton 
-                  onLoginSuccess={handleLoginSuccess} 
-                  setIsAuthLoading={setIsAuthLoading}
-                />
-              </div>
-              <button 
-                className={styles.closeButton} 
-                onClick={() => setIsLoginModalOpen(false)}
-              >
-                닫기
-              </button>
+      {/* 로그인 모달 */}
+      {isLoginModalOpen && (
+        <div className={styles.loginModalOverlay}>
+          <div className={styles.loginModal}>
+            <h2>로그인 하시겠습니까?</h2>
+            <div
+              onClick={() => setIsLoginModalOpen(false)}
+              className={styles.googleLoginContainer}
+            >
+              <GoogleLoginButton
+                onLoginSuccess={handleLoginSuccess}
+                setIsAuthLoading={setIsAuthLoading}
+              />
             </div>
+            <button
+              className={styles.closeButton}
+              onClick={() => setIsLoginModalOpen(false)}
+            >
+              닫기
+            </button>
           </div>
+        </div>
       )}
 
-
-        {isLogoutModalOpen && (
-          <div className={styles.loginModalOverlay}>
-            <div className={styles.loginModal}>
-              <h2>로그아웃 하시겠습니까?</h2>
-              <button 
-               className={styles.closeButton} 
-                onClick={() =>{ 
-                  //handleLogout();
-                  localStorage.removeItem('isLogin');
-                  window.location.reload();
-                  // setIslogin("Login"); // 상태 변경
-                  setIsLogoutModalOpen(false);
-                  setShowBlur(true);
+      {isLogoutModalOpen && (
+        <div className={styles.loginModalOverlay}>
+          <div className={styles.loginModal}>
+            <h2>로그아웃 하시겠습니까?</h2>
+            <button
+              className={styles.closeButton}
+              onClick={() => {
+                //handleLogout();
+                localStorage.removeItem("isLogin");
+                window.location.reload();
+                setIslogin("Login"); // 상태 변경
+                setIsLogoutModalOpen(false);
+                // setIslogin("Login"); // 상태 변경
+                //setShowBlur(true);
               }}
-              >
-                확인
-              </button>
-            </div>
+            >
+              닫기
+            </button>
           </div>
-        )}
-
+        </div>
+      )}
 
       {/* 뉴스 모달 */}
       {isModalOpen && (
@@ -193,22 +209,25 @@ const Layout = ({ children }) => {
 
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
-          <div className={styles.footerLeft}>
-            <h3>사업자 정보</h3>
-            <p>
-              (주)주움 | 경상북도 포항시 북구 흥해읍 한동로 558 <br/>
-              dongmulnongjangteam | 동물농장<br/>
-              Planner: 이선유<br/>
-              Designer: 김채원<br/>
-              Frontend: 한규호, 박서연 (깃허브)<br/>
-              Backend: 권혁민, 여지현 (깃허브)
-            </p>
-          </div>
-          <div className={styles.footerRight}>
-            <BigLogo/>
-          </div>
-        </footer>
-
+        <div className={styles.footerLeft}>
+          <h3>사업자 정보</h3>
+          <p>
+            (주)주움 | 경상북도 포항시 북구 흥해읍 한동로 558 <br />
+            dongmulnongjangteam | 동물농장
+            <br />
+            Planner: 이선유
+            <br />
+            Designer: 김채원
+            <br />
+            Frontend: 한규호, 박서연 (깃허브)
+            <br />
+            Backend: 권혁민, 여지현 (깃허브)
+          </p>
+        </div>
+        <div className={styles.footerRight}>
+          <BigLogo />
+        </div>
+      </footer>
     </div>
   );
 };

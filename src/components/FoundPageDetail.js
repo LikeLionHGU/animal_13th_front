@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styles from '../styles/FoundDetail.module.css';
+import { useNavigate } from "react-router-dom";
+import DetailMap from "../components/API/DetailMap";
 
 const categoryMap = {
   1: "전자기기",
@@ -18,6 +20,8 @@ function FoundPageDetail( ) {
   const [foundDetail, setFoundDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
   const [sawPeople, setSawpeople] = useState([]);
+  const [lat, setLat] = useState(); //지도 위치 (latitude)
+  const [lng, setLng] = useState(); //지도 위치 (longitude)
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -27,6 +31,9 @@ function FoundPageDetail( ) {
         const response = await axios.get(`https://koyangyee.info/board/found/${id}`);
         console.log("foundDetail: ", response.data.board);
         console.log("IsUser: ", response.data.isUser);
+        setLat(response.data.board.latitude);
+        setLng(response.data.board.longitude);
+
         setFoundDetail(response.data.board);
         setIsUser(response.data.isUser);
       } catch (error) {
@@ -133,7 +140,7 @@ const onEditClick = () => {
             <div className={styles.detailLocation}>상세위치 <span>{foundDetail.detailLocation === "null" ? `${foundDetail.detailLocation}` : "없음"}</span></div>
           </div>
           <div className={styles.mapSize}>
-            {/* 여기에 지도 넣기 */}
+            <DetailMap lat={lat} lng={lng}/>
           </div>
           {isUser ? <>
             <button onClick={() => onEditClick()}> 수정 </button>

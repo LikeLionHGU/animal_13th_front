@@ -157,7 +157,7 @@
 
 /* 로그인 모달 닫기 버튼 */
 .closeButton {
-  margin-top: 15px;
+  margin: 15px auto 0 auto;
   padding: 8px 15px;
   background-color: #7acad6;
   color: white;
@@ -271,6 +271,7 @@
   padding: 20px;
   overflow-y: auto;
   z-index: 1001; /* 모달이 배경보다 위에 있도록 설정 */
+  text-align: center;
 }
 
 .FoundModalOverlay {

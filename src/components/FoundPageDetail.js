@@ -17,18 +17,7 @@ const categoryMap = {
 function FoundPageDetail( ) {
   const [foundDetail, setFoundDetail] = useState(null);
   const [isUser, setIsUser] = useState("");
-  const [sawPeople, setSawpeople] = useState([
-    "Alice",
-    "Bob",
-    "Charlie",
-    "David",
-    "Eve",
-    "Frank",
-    "Grace",
-    "Hannah",
-    "Ivy",
-    "Jack"
-  ]);
+  const [sawPeople, setSawpeople] = useState([]);
   const { id } = useParams();
 
    // 목데이터 세팅
@@ -67,13 +56,29 @@ function FoundPageDetail( ) {
     const fetchData = async () => {
       try {
         const response = await axios.post(`https://koyangyee.info/board/found/saw/${id}`);
-        console.log("post여부 확인: ", response);
+        console.log( response);
       } catch (error) {
         console.error("오류 발생:", error);
       }
     };
     fetchData();
   }, [id]);
+
+   /* 사용자 이름 GET해오기 */
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://koyangyee.info/board/found/saw/${id}`);
+        console.log("유저 데이터: ", response.data.people);
+        setSawpeople(response.data.people || []); // 만약 undefined가 오면 빈 배열로 설정
+        console.log("조회한 사람 리스트: ", response.data);
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
   // 로딩 처리
   if (!foundDetail) {
     return <div>Loading...</div>;
@@ -117,21 +122,19 @@ function FoundPageDetail( ) {
             <div className={styles.detailLocation}>상세위치 <span>{foundDetail.detailLocation === "null" ? `${foundDetail.detailLocation}` : "없음"}</span></div>
           </div>
           {/* 여기에 지도 넣기 */}
+          
           </div>
         </div>
         <div className={styles.sawPeopleContainer}>
           <div className={styles.sawPeopleContents}>
             <div className={styles.sawPeopleTitle}>조회한 사람</div>
             <div className={styles.filterContainer}>
-            {sawPeople.map((name) => (
-              <div
-                key={name}
-                type="text"
-                className={styles.sawNames}
-              >
-                {name}
-            </div>
+            {sawPeople.map((person) => (
+            <div key={person.userName} className={styles.sawNames}>
+            {person.userName}
+          </div>
           ))}
+
         </div>
           </div>
         </div>

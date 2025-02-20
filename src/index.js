@@ -8,8 +8,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const googleCientID = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID;
 root.render(
   <GoogleOAuthProvider clientId={googleCientID}>
-    <React.StrictMode>
+      <React.StrictMode>  
         <App />
-    </React.StrictMode>
+    </React.StrictMode> 
   </GoogleOAuthProvider>
 );

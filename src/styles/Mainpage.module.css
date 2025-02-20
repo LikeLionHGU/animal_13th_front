@@ -265,7 +265,47 @@
     }
 
     .blur{
-      backdrop-filter: blur(2px); 
+      width: 1039.819px;
+      height: 155.9px;
+      flex-shrink: 0;
+      fill: rgba(217, 217, 217, 0.84);
+      backdrop-filter: blur(12.350000381469727px);
+      position:relative;
+      padding-left: 50px;
+
+    }
+
+    .blurText{
+      position:absolute;
+      top:45px;
+      left:450px;
+      color: #000;
+      font-family: Pretendard;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    .blurButton{
+      position:absolute;
+      top:80px;
+      left:520px;
+      width: 102.192px;
+      height: 37.028px;
+      padding: 6px 22px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background: #23414D;
+      color: #FFF;
+      font-family: Pretendard;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
     }
 .getlogin{
   display: none;

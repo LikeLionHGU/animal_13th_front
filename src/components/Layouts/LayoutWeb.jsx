@@ -5,6 +5,8 @@ import { ReactComponent as Logo } from "../../assets/icons/zuumLogo.svg";
 import { ReactComponent as BigLogo } from "../../assets/icons/zuumLogoBig.svg";
 import GoogleLoginButton from "../API/GoogleLoginButton"; // GoogleLoginButton 추가
 import axios from "axios";
+import Foundblur from "./Foundblur";
+import { googleLogout } from "@react-oauth/google";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -16,6 +18,7 @@ const Layout = ({ children }) => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [newsList, setNewsList] = useState();
+  const [showBlur, setShowBlur] = useState(true); //블러처리 하려고 띄움(글자랑 다르게 대문자자)
 
   const newsRef = useRef(null);
 
@@ -36,8 +39,6 @@ const Layout = ({ children }) => {
     // return () => clearInterval(intervalId);
   }
     
-
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (newsRef.current && !newsRef.current.contains(event.target)) {
@@ -61,6 +62,7 @@ const Layout = ({ children }) => {
   const handleLoginSuccess = () => {
     setIsLoginModalOpen(false); // 로그인 모달 닫기
     setIslogin("Logout");
+    setShowBlur(false);
     document.body.style.overflow = "auto"; // 스크롤 다시 가능하도록 설정
   };
 
@@ -120,7 +122,10 @@ const Layout = ({ children }) => {
             <div className={styles.loginModal}>
               <h2>로그인 하시겠습니까?</h2>
               <div 
-              onClick={() => setIsLoginModalOpen(false)}
+              onClick={() => 
+                setIsLoginModalOpen(false)
+
+              }
               className={styles.googleLoginContainer}>
                 <GoogleLoginButton 
                   onLoginSuccess={handleLoginSuccess} 
@@ -145,10 +150,13 @@ const Layout = ({ children }) => {
               <button 
                className={styles.closeButton} 
                 onClick={() =>{ 
+                  handleLogout();
                   setIslogin("Login"); // 상태 변경
-                  setIsLogoutModalOpen(false)}}
+                  setIsLogoutModalOpen(false);
+                  setShowBlur(true);
+              }}
               >
-                닫기
+                확인
               </button>
             </div>
           </div>
@@ -188,6 +196,12 @@ const Layout = ({ children }) => {
             <BigLogo/>
           </div>
         </footer>
+
+        {/*블러 띄우기*/}
+        {showBlur ? ( 
+          <Foundblur className={styles.blur}/>) : 
+          <Foundblur className={styles.blurDelete}/>
+        }
     </div>
   );
 };

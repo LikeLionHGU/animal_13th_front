@@ -9,9 +9,11 @@ import axios from "axios";
 const Layout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  //로그인, 로그아웃 글자
+  const [islogin, setIslogin] = useState("Login");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [newsList, setNewsList] = useState();
 
@@ -58,6 +60,7 @@ const Layout = ({ children }) => {
 
   const handleLoginSuccess = () => {
     setIsLoginModalOpen(false); // 로그인 모달 닫기
+    setIslogin("Logout");
     document.body.style.overflow = "auto"; // 스크롤 다시 가능하도록 설정
   };
 
@@ -88,9 +91,20 @@ const Layout = ({ children }) => {
 
         <div className={styles.rightSection}>
         <button onClick={() => onAlertBtnClick()}> 알림받기</button>
-          <Link onClick={() => setIsLoginModalOpen(true)} className={isLoginModalOpen ? styles.active : ""}>
-            Login
-          </Link>
+        <Link
+          onClick={() => {
+            if (islogin === "Login") {
+              // 로그인 상태가 아니면 로그인 모달 열기
+              setIsLoginModalOpen(true);
+            } else {
+              // 로그인 상태이면 로그아웃 모달 열기
+              setIsLogoutModalOpen(true);
+            }
+          }}
+          className={isLoginModalOpen || isLogoutModalOpen ? styles.active : ""}
+        >
+          {islogin}
+        </Link>
           <Link onClick={() => setIsModalOpen(true)} className={isModalOpen ? styles.active : ""}>
             Alert
           </Link>
@@ -102,23 +116,44 @@ const Layout = ({ children }) => {
 
         {/* 로그인 모달 */}
         {isLoginModalOpen && (
-        <div className={styles.loginModalOverlay}>
-          <div className={styles.loginModal}>
-            <h2>로그인 하시겠습니까?</h2>
-            <div className={styles.googleLoginContainer}>
-            <GoogleLoginButton 
-              onLoginSuccess={handleLoginSuccess} 
-              setIsAuthLoading={setIsAuthLoading}
-            />
+          <div className={styles.loginModalOverlay}>
+            <div className={styles.loginModal}>
+              <h2>로그인 하시겠습니까?</h2>
+              <div 
+              onClick={() => setIsLoginModalOpen(false)}
+              className={styles.googleLoginContainer}>
+                <GoogleLoginButton 
+                  onLoginSuccess={handleLoginSuccess} 
+                  setIsAuthLoading={setIsAuthLoading}
+                />
+              </div>
+              <button 
+                className={styles.closeButton} 
+                onClick={() => setIsLoginModalOpen(false)}
+              >
+                닫기
+              </button>
             </div>
-            <button 
-              className={styles.closeButton} 
-                onClick={() => setIsLoginModalOpen(false)}>
-              닫기
-            </button>
           </div>
-        </div>
       )}
+
+
+        {isLogoutModalOpen && (
+          <div className={styles.loginModalOverlay}>
+            <div className={styles.loginModal}>
+              <h2>로그아웃 하시겠습니까?</h2>
+              <button 
+               className={styles.closeButton} 
+                onClick={() =>{ 
+                  setIslogin("Login"); // 상태 변경
+                  setIsLogoutModalOpen(false)}}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
+
 
       {/* 뉴스 모달 */}
       {isModalOpen && (

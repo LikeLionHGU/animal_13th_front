@@ -91,6 +91,36 @@ function FoundPage() {
     fetchData();
   }, [selectCategory, latest, keyword]); // keyword 상태가 변경될 때도 반영되도록 포함
   
+  
+  useEffect(() => {
+    const mockData = [
+      {
+        id: 1,
+        image: "https://i.ibb.co/TD1YDGKw/Group-384.png", 
+        title: "검정색 지갑",
+        category: 3,
+        printDate: "2024/02/20",
+      },
+      {
+        id: 2,
+        image: "https://i.ibb.co/TD1YDGKw/Group-384.png",
+        title: "에어팟 프로",
+        category: 1,
+        printDate: "2024/02/19",
+      },
+      {
+        id: 3,
+        image: "https://i.ibb.co/TD1YDGKw/Group-384.png",
+        title: "노트북 파우치",
+        category: 7,
+        printDate: "2024/02/18",
+      },
+    ];
+
+
+    setLoading(false);
+    setFoundData(mockData);
+  }, []);
 
 const onCategorySelect = (categoryId) => {
   console.log(categoryId);
@@ -147,7 +177,7 @@ const onTopBtnClick = () => {
        
      <div className={styles.dropdownWrapper}>
       <select className={styles.dropdown} name="latest" id="latest" onChange={onLatestChange} value={String(latest)}>
-        <option value="true" >최신순 </option>
+        <option value="true" >최신순</option>
         <option value="false" >오래된순</option>
       </select>
      </div>

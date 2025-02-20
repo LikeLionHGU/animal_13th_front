@@ -5,7 +5,7 @@ import axios from "axios";
 import styles from "../styles/LostDetail.module.css";
 import { ReactComponent as ImgUploadIcon } from "../assets/icons/ImgUploadIcon.svg";
 import { ReactComponent as SendIcon } from "../assets/icons/commentSendButton.svg";
-
+import { ReactComponent as ProfileImg } from "../assets/icons/profileZuumuck.svg";
 
 const categoryMap = {
   1: "전자기기",
@@ -29,6 +29,8 @@ function LostPageDetail( ) {
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
 
+const [reverse, setReverse] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
         try {
@@ -38,6 +40,8 @@ function LostPageDetail( ) {
             setLostDetail(response.data.board);
             setIsUser(response.data.isUser);
             console.log("comment: ", response.data.board.comments.content);
+            setReverse(response.data.board.comments.slice(0).reverse().map(num => num));
+          
         } catch (error) {
             console.error("오류 발생:", error);
         }
@@ -112,7 +116,7 @@ const onSubmitClick = async (event) => {
 
     if (response.data.isSuccess === 1) {
       alert("업로드 완료");
-      navigate(`/lost-detail/${id}`); // 업로드 후 상세 페이지로 이동
+      window.location.reload();
     } else {
       alert("업로드 실패. 다시 시도해주세요.");
     }
@@ -138,6 +142,7 @@ const handleFileChange = (event) => {
   if (file) {
     const imageUrl = URL.createObjectURL(file);
     setUploadedImage(imageUrl);
+    setImageFile(file); // 추가: FormData에 파일 추가를 위해 필요
   }
 };
 
@@ -213,19 +218,19 @@ return (
             style={{display: "none"}}
           />
       </form>
-      {lostDetail.comments ? <div className={styles.cardList} >
-    {lostDetail.comments.map((item, index) => ( // 띄우는 콘텐츠들 배치하기
+      {reverse ? <div className={styles.cardList} >
+    {reverse.map((item, index) => ( // 띄우는 콘텐츠들 배치하기
     <div
-        className={styles.cardContainer}
+        className={styles.commentContainer}
         style={{ cursor: "pointer" }}
         >
-          <div>
-            <img src={item.image} alt={item.userName} className={styles.cardImage} />
-            </div>
-          <div>{`천사${index + 1}`}</div>
+          <div className={styles.profileContainer}><ProfileImg className={styles.profileImg} /><span className={styles.userNameText}>{`천사${index + 1}`}</span></div>
         <div className={styles.cardContent}>
-            <span className={styles.cardTitle}>{item.content}</span>
-            <span className={styles.cardDate}>{item.printDate}</span>
+            <span className={styles.commentContent}>{item.content}</span>
+          {item.image ? <div className={styles.commentImageContainer}>
+            <img src={item.image} alt={item.userName} className={styles.commentImage} />
+        </div>:<></>}
+            <div className={styles.commentDate}>{item.printDate}</div>
         </div>
     </div>
 

@@ -273,3 +273,67 @@
   all: unset;
   cursor: pointer;
 }
+
+.profileImg{
+  width: 33px;
+  height: 33px;
+}
+
+.userNameText{
+  color: #143950;
+  font-family: Pretendard;
+  font-size: 16.2px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 8px; /* 이미지와 텍스트 사이 간격 */
+  margin-bottom: 10px;
+}
+
+.commentContent{
+  color: #143950;
+  font-family: Pretendard;
+  font-size: 16.2px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.commentContainer{
+  margin: 13px 0;
+  padding: 20px 0;
+  border-bottom: 0.9px solid #CFECF0;
+}
+
+.commentImageContainer{
+  width: 300px; /* 컨테이너 크기 */
+  height: 170px;
+  overflow: hidden; /* 넘치는 부분 숨기기 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  margin: 12px 0 6px 0;
+}
+
+.commentImage{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지 비율 유지하면서 채우기 */
+  border-radius: 8px;
+}
+
+.commentDate{
+  color: #858282;
+  font-family: Inter;
+  font-size: 11.7px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 13px;
+}

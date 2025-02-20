@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MainPageMobile from "./MainPageMobile";
 import MainPageWeb from "./MainPageWeb";
 
 const MainPage = () => {
   const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
+  const navigate = useNavigate();
 
   useEffect(()=>{
     const user = navigator.userAgent;

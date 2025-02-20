@@ -1,0 +1,275 @@
+.img{
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 425px;  /* 카드의 너비를 적절하게 조절 */
+  height: 285px;
+  object-fit: contain; 
+}
+
+.contentContainer {
+  width: 1040px;
+  margin: 0 auto;
+  z-index: 5;
+  border-radius: 30px 30px 0 0;
+  display: flex;
+  border-top: #7ACAD6;
+}
+
+.backcolor {
+  background-color: #F6F7F7;
+  border-top: 0.5px solid #7ACAD6;
+}
+
+.sawPeopleContainer {
+  background-color: white;
+  width: 157px;
+  border-radius: 30px;
+  height: 500px;
+  overflow-y: auto;
+  margin: 0 auto;
+}
+
+
+.detailContentsContainer{
+  background-color: white;
+  width: 100%;
+  border-radius: 30px 30px 0 0;
+  margin: 128.28px auto 0 auto;
+}
+
+
+.sawPeopleContents{
+  padding: 26px;
+}
+
+.detailContents{
+  padding: 0 48px;
+  position: relative;
+  bottom: 54px;
+}
+
+.pathTop{
+  margin-bottom: 26.73px;
+}
+
+.foundDetailTitle {
+  color: #193946;
+  font-family: "Gmarket Sans";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 61px;
+}
+
+.sawPeopleTitle{
+  color: #193946;
+  font-family: "Gmarket Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #7ACAD6;
+}
+
+.phone{
+  margin-bottom: 15px;
+}
+
+.path{
+  color: #A2A0A0;
+  font-family: Pretendard;
+  font-size: 14.529px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.pathTitle{
+  color: #807E7E;
+  font-family: Pretendard;
+  font-size: 14.529px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.imgNcontentscontainer{
+  display: flex;
+}
+
+.contentsTitle{
+  color: #000;
+  font-family: Pretendard;
+  font-size: 25.184px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  margin-bottom: 6px;
+}
+
+.catNDate{
+  margin-bottom: 3px;
+}
+
+.expLocationText{
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14.4px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.expLocationValue{
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14.4px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  margin-left: 7.2px;
+}
+
+.category{
+  color: #A2A0A0;
+  font-family: Pretendard;
+  font-size: 14.529px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+
+.printDate{
+  color: #A2A0A0;
+  font-family: Pretendard;
+  font-size: 14.529px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.phoneNum{
+  margin-left: 22px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 15.498px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.contentBox{
+  width: 457px;
+  height: 162px;
+  border-radius: 9.686px;
+  background: rgba(122, 202, 214, 0.25);
+}
+
+.explocation{
+  margin-bottom: 11.72px;
+}
+
+.contentContent{
+  padding: 25px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 17.435px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.topRight{
+  margin-left: 52px;
+}
+
+.phoneTitle{
+  color: #000;
+  font-family: Pretendard;
+  font-size: 15.498px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.address{
+  color: #A2A0A0;
+  font-family: Pretendard;
+  font-size: 17.435px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.detailLocation{
+  color: #A2A0A0;
+  font-family: Pretendard;
+  font-size: 17.435px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.sawNames{
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.mapSize {
+  width: 770px;
+  height: 240px;
+}
+
+.commentInput{
+  width: 745px;
+  height: 30px;
+  border-radius: 9px;
+  padding-left: 17.42px;
+  border: 1.8px solid #143950;
+}
+
+.commentInput::placeholder{
+  color: #143950;
+  font-family: Pretendard;
+  font-size: 17.1px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.imgInputIcon{
+  cursor: pointer;
+  width: 61.25px;
+  height: 39.3px;
+  border-radius: 9px;
+}
+
+.commentSendContainer{
+  width: 936px;
+  margin-top: 40px;
+  display: flex;
+  gap: 15px; 
+}
+
+.sendIconBtn{
+  all: unset;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import MapnLocation from "../API/MapnLocation";
 import axios from "axios";
 import styles from "../../styles/FormMobile.module.css";
+import DefaultImg from "../../assets/icons/DefaultImg.svg";
 
 import { ReactComponent as ImageUploadField } from "../../assets/icons/imageUploadField.svg"; // ReactComponent로 불러오기
 import UploadConfirmModal from "../UploadConfirmModal";
@@ -56,6 +57,16 @@ const FoundFormMobile = () => {
     // 이미지 파일이 있으면 추가
     if (imageFile) {
       formData.append("image", imageFile);
+    } else {
+      try {
+        const response = await fetch(DefaultImg);
+        const blob = await response.blob();
+        const defaultFile = new File([blob], "DefaultImg.svg", { type: "image/svg+xml" });
+        formData.append("image", defaultFile);
+      } catch (err) {
+        console.error("기본 이미지 불러오기 실패:", err);
+        alert("기본 이미지를 불러올 수 없습니다.");
+      }
     }
 
 const boardData = {

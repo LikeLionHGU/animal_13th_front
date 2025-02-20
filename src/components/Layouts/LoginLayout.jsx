@@ -51,6 +51,7 @@ const LoginLayout = ({setShowLogin}) => {
             <button className={styles.closeButton} onClick={() => {
                 setIsLoginModalOpen(false);
                 setShowLogin(false);
+                
                 }}>
               닫기
             </button>

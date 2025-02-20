@@ -146,8 +146,8 @@ const onEditClick = () => {
           <div className={styles.sawPeopleContents}>
             <div className={styles.sawPeopleTitle}>조회한 사람</div>
             <div className={styles.filterContainer}>
-            {sawPeople.map((person) => (
-            <div key={person.userName} className={styles.sawNames}>
+            {sawPeople.map((person, index) => (
+            <div key={index} className={styles.sawNames}>
             {person.userName}
           </div>
           ))}

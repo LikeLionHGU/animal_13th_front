@@ -240,5 +240,31 @@
   font-weight: bold;
 }
 
+/*LoginLayout*/
+.Loginmodal {
+  position: relative;
+  width: 300px; /* 모달 크기 */
+  max-height: 400px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1001; /* 모달이 배경보다 위에 있도록 설정 */
+}
+
+.FoundModalOverlay {
+  position: fixed; /* 전체 화면 덮기 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 
 

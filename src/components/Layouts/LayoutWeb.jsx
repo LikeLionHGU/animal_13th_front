@@ -100,13 +100,6 @@ const Layout = ({ children }) => {
 
 
             localStorage.getItem("isLogin") === "1" ? setIsLogoutModalOpen(true) : setIsLoginModalOpen(true);
-            // if (islogin === "Login") {
-            //   // 로그인 상태가 아니면 로그인 모달 열기
-            //   setIsLoginModalOpen(true);
-            // } else {
-            //   // 로그인 상태이면 로그아웃 모달 열기
-            //   setIsLogoutModalOpen(true);
-            // }
           }}
           className={isLoginModalOpen || isLogoutModalOpen ? styles.active : ""}
         >

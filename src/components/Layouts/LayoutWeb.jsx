@@ -38,6 +38,25 @@ const Layout = ({ children }) => {
 
     // return () => clearInterval(intervalId);
   }
+
+  const handleLogout = async () => {
+    try {
+        // 1️⃣ 구글 SDK를 사용하여 클라이언트 측 로그아웃
+        googleLogout(); // Google OAuth 상태 초기화
+
+        // 2️⃣ 백엔드에도 로그아웃 요청
+        const request= await axios.post("https://koyangyee.info/auth/logout",
+         {}, 
+         { withCredentials: true });
+
+        alert("로그아웃 되었습니다.");
+        console.log("로그아웃 확인: ", request);
+
+    } catch (error) {
+        console.error("로그아웃 실패:", error);
+        alert("로그아웃 실패. 다시 시도해주세요.");
+    }
+};
     
   useEffect(() => {
     const handleClickOutside = (event) => {

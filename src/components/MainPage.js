@@ -1,221 +1,187 @@
-
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-//import GoogleLoginButton from '../components/API/GoogleLoginButton';
-import styles from '../styles/Mainpage.module.css'
+import styles from "../styles/Mainpage.module.css";
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
 import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
 import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 
 import axios from "axios";
-import {Link} from "react-router-dom";
-import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import MainPageMobile from "./MainPageMobile";
-import MainPageWeb from "./MainPageWeb";
-
+//import MainPageWeb from "./MainPageWeb";
 
 const categoryMap = {
-    1: "전자기기",
-    2: "카드/학생증",
-    3: "지갑/현금",
-    4: "택배",
-    5: "도서 및 서류",
-    6: "의류/액세서리",
-    7: "가방",
-    8: "기타",
-  };
-
+  1: "전자기기",
+  2: "카드/학생증",
+  3: "지갑/현금",
+  4: "택배",
+  5: "도서 및 서류",
+  6: "의류/액세서리",
+  7: "가방",
+  8: "기타",
+};
 
 function MainPage() {
-    const navigate = useNavigate();
-    const [lostMain, setLostMain] = useState();
-    const [foundMain, setFoundMain] = useState();
-    const [loading, setLoading] = useState(true); // 로딩 상태 추
+  const navigate = useNavigate();
+  const [lostMain, setLostMain] = useState();
+  const [foundMain, setFoundMain] = useState();
+  const [loading, setLoading] = useState(true);
+  const [browser, setBrowser] = useState("web"); // 기본값 "web"
 
-     useEffect(() => {
-         const fetchData = async () => {
-             try {
-                 const response = await axios.get("https://koyangyee.info/board/lost/main");
-                 console.log("Lost: ", response.data.board);
-                 setLostMain(response.data.board);
-             } catch (error) {
-                 console.error("오류 발생:", error);
-             }
-         };
-         fetchData();
-     }, []);
-
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-                const response = await axios.get("https://koyangyee.info/board/found/main");
-                console.log("Found: ", response.data.board);
-                setFoundMain(response.data.board);
-          } catch (error) {
-                console.error("오류 발생:", error);
-          } finally {
-            setLoading(false); // 로딩 완료
-          }
-        };
-        fetchData();
-    }, []);
-
-    const foundFormClick = () => {
-        navigate("/found-form");
-    }
-    const lostFormClick = async () => {
-        try {
-            const response = await axios.get("https://koyangyee.info/user");
-            console.log("user: ", response.data);
-    
-            if (response.data.isLogin === 0) {
-                const result = await Swal.fire({
-                    title: '로그인이 필요합니다.',
-                    text: '분실물 등록을 위해 로그인해 주세요.',
-                    icon: 'warning',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '확인',
-                });
-    
-                if (result.isConfirmed) {
-                    navigate("/"); // 로그인 페이지로 이동 (원하는 경로로 변경 가능)
-                }
-                return; // 여기서 함수 실행 중단
-            }
-    
-            navigate("/lost-form"); // 로그인된 경우만 분실물 작성 페이지로 이동
-        } catch (error) {
-            console.error("오류 발생:", error);
-        }
-    };
-    
-
-    const foundPageClick = () => {
-        navigate("/found-page");
-    }
-
-    const lostPageClick = () => {
-        navigate("/lost-page");
-  const MainPage = () => {
-  const [browser, setBrowser] = useState(); // 웹인지 모바일인지 인식
-
-  useEffect(()=>{
+  useEffect(() => {
+    // 디바이스 환경 감지
     const user = navigator.userAgent;
-    // 기본 환경 웹으로 설정
-    setBrowser("web")
-  
-    // userAgent 문자열에 iPhone, Android 일 경우 모바일로 업데이트
-    if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
-        setBrowser("mobile")
-
+    if (user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1) {
+      setBrowser("mobile");
     }
-},[])
-    return (
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://koyangyee.info/board/lost/main");
+        console.log("Lost: ", response.data.board);
+        setLostMain(response.data.board);
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://koyangyee.info/board/found/main");
+        console.log("Found: ", response.data.board);
+        setFoundMain(response.data.board);
+      } catch (error) {
+        console.error("오류 발생:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const foundFormClick = () => navigate("/found-form");
+
+  const lostFormClick = async () => {
+    try {
+      const response = await axios.get("https://koyangyee.info/user");
+      console.log("user: ", response.data);
+
+      if (response.data.isLogin === 0) {
+        const result = await Swal.fire({
+          title: "로그인이 필요합니다.",
+          text: "분실물 등록을 위해 로그인해 주세요.",
+          icon: "warning",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "확인",
+        });
+
+        if (result.isConfirmed) navigate("/");
+        return;
+      }
+
+      navigate("/lost-form");
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+  };
+
+  const foundPageClick = () => navigate("/found-page");
+  const lostPageClick = () => navigate("/lost-page");
+
+  if (browser === "mobile") {
+    return <MainPageMobile />;
+  }
+
+  return (
+    <div>
+      <div className={styles.bannerWrapper}>
+        <Banner className={styles.banner} />
+      </div>
+      <div className={styles.contents}>
+        <div className={styles.mainpageButtons}>
+          <WriteLost style={{ cursor: "pointer" }} onClick={lostFormClick} />
+          <WriteFound style={{ cursor: "pointer" }} onClick={foundFormClick} />
+        </div>
+        <div className={styles.title}>
+          <span className={styles.titleText}>
+            <span className={styles.Lost}>LOST</span>
+            <span className={styles.comma}>, </span>
+            <span className={styles.restTitle}>분실물</span>
+            <span className={styles.lineLost}></span>
+            <div className={styles.stroke}></div>
+          </span>
+          <span className={styles.showMore} onClick={lostPageClick}>
+            더보기
+          </span>
+        </div>
         <div>
-            <div className={styles.bannerWrapper}>
-                <Banner className={styles.banner}/>
-            </div>
-            <div className={styles.contents}>
-                <div className={styles.mainpageButtons}>
-                    <WriteLost style={{cursor: "pointer"}} onClick={lostFormClick}/>
-                    <WriteFound style={{cursor: "pointer"}} onClick={foundFormClick}/>
-                </div>
-            <div className={styles.title}>
-                    <span className={styles.titleText}>
-                        <span className={styles.Lost}>LOST</span> 
-                        <span className={styles.comma}>, </span>
-                        <span  className={styles.restTitle}>분실물
-                        </span>
-                        <span className={styles.lineLost}></span>
-                        <div className={styles.stroke}></div>
-                    </span>
-                    <span className={styles.showMore} onClick={lostPageClick}>더보기</span>
-                </div>
-                <div>
-                    
-                    {lostMain ? 
-                    
-                        <div className={styles.cardList} >
-
-                            { lostMain.map((item) => ( // 띄우는 콘텐츠들 배치하기
-                        <Link to={`/lost-detail/${item.id}`}
-                            style={{ textDecoration: "none", color: "inherit" }} >
-                        <div
-                                key={item.id}
-                                className={styles.cardContainer}
-                                style={{ cursor: "pointer" }}
-                                >
-                                    
-                                <img src={item.image} alt={item.title} className={styles.cardImage} />
-                                <div className={styles.cardContent}>
-                                    <span className={styles.cardTitle}>{item.title}</span>
-                                    <span className={styles.cardCategory}>
-                                        {categoryMap[item.category] || "기타"}
-                                    </span>
-                                    <span className={styles.cardDate}>{item.printDate}</span>
-                                </div>
-                            </div>
-                            </Link>
-                            ))}
-                        </div>
-                    :
-                    <>
-                        {loading ? <>로딩 중...</> : <>불러온 정보 없음 </> }
-                    </>} 
-                </div>
-
-                <div className={styles.title}>
-                    <div className={styles.titleText}>
-                        <span className={styles.Lost}>FOUND</span> 
-                        <span className={styles.comma}>,</span>
-                        <span className={styles.restTitle}>습득물</span>
-                        <span className={styles.lineFound}></span>
-                        <div className={styles.stroke}></div>
+          {loading ? (
+            <>로딩 중...</>
+          ) : lostMain ? (
+            <div className={styles.cardList}>
+              {lostMain.map((item) => (
+                <Link to={`/lost-detail/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                  <div key={item.id} className={styles.cardContainer} style={{ cursor: "pointer" }}>
+                    <img src={item.image} alt={item.title} className={styles.cardImage} />
+                    <div className={styles.cardContent}>
+                      <span className={styles.cardTitle}>{item.title}</span>
+                      <span className={styles.cardCategory}>{categoryMap[item.category] || "기타"}</span>
+                      <span className={styles.cardDate}>{item.printDate}</span>
                     </div>
-                    <span className={styles.showMore} onClick={foundPageClick}>더보기</span>
-                </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <>불러온 정보 없음</>
+          )}
+        </div>
 
-                <div>
-               
-                {loading ? (
-            <p>로딩 중...</p> // 로딩 중 메시지 표시
-                ) : foundMain ?
-                <div className={styles.cardList} >
-                    {foundMain.map((item) => (
-                        <Link to={`/found-detail/${item.id}`}
-                        style={{ textDecoration: "none", color: "inherit" }}>
-                        <div
-                        key={item.id} // key는 item.board.id가 아닌 item.id 사용
-                        style={{ cursor: "pointer" }}
-                        >
-                            <div className={styles.cardContainer}>
-                                <img src={item.image} alt={item.title} className={styles.cardImage} />
-                                <div className={styles.cardContent}>
-                                    <span className={styles.cardTitle}>{item.title}</span>
-                                        <span className={styles.cardCategory}>
-                                        {categoryMap[item.category] || "기타"}
-                                        </span>
-                                    <span className={styles.cardDate}>{item.printDate}</span> 
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
-                    ))}
+        <div className={styles.title}>
+          <div className={styles.titleText}>
+            <span className={styles.Lost}>FOUND</span>
+            <span className={styles.comma}>,</span>
+            <span className={styles.restTitle}>습득물</span>
+            <span className={styles.lineFound}></span>
+            <div className={styles.stroke}></div>
+          </div>
+          <span className={styles.showMore} onClick={foundPageClick}>
+            더보기
+          </span>
+        </div>
+
+        <div>
+          {loading ? (
+            <p>로딩 중...</p>
+          ) : foundMain ? (
+            <div className={styles.cardList}>
+              {foundMain.map((item) => (
+                <Link to={`/found-detail/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                  <div key={item.id} style={{ cursor: "pointer" }}>
+                    <div className={styles.cardContainer}>
+                      <img src={item.image} alt={item.title} className={styles.cardImage} />
+                      <div className={styles.cardContent}>
+                        <span className={styles.cardTitle}>{item.title}</span>
+                        <span className={styles.cardCategory}>{categoryMap[item.category] || "기타"}</span>
+                        <span className={styles.cardDate}>{item.printDate}</span>
+                      </div>
                     </div>
-                    
-                : (
-                    <p>불러온 정보 없음</p> // 데이터가 없을 경우
-                )}
-                </div>
+                  </div>
+                </Link>
+              ))}
             </div>
-            </div>
-
-            
-            
-                
-    )
+          ) : (
+            <p>불러온 정보 없음</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
-
-  return browser === "mobile" ? <MainPageMobile /> : <MainPageWeb />;
-};
 
 export default MainPage;

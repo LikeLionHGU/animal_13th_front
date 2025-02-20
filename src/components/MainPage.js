@@ -4,6 +4,7 @@ import styles from "../styles/Mainpage.module.css";
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg"; 
 import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg"; 
 import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 
+import { ReactComponent as Blur } from "../assets/icons/blur.svg"; 
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -27,7 +28,6 @@ function MainPage() {
   const [foundMain, setFoundMain] = useState();
   const [loading, setLoading] = useState(true);
   const [browser, setBrowser] = useState("web"); // 기본값 "web"
-  const [showBlur, setShowBlur] = useState(true); //블러처리 하려고 띄움(글자랑 다르게 대문자자)
 
   useEffect(() => {
     // 디바이스 환경 감지
@@ -160,34 +160,37 @@ function MainPage() {
           {loading ? (
             <p>로딩 중...</p>
           ) : foundMain ? (
-            <div className={styles.cardList}>
-              {foundMain.map((item) => (
-                <Link to={`/found-detail/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div key={item.id} style={{ cursor: "pointer" }}>
-                    <div className={styles.cardContainer}>
-                      <img src={item.image} alt={item.title} className={styles.cardImage} />
-                      <div className={styles.cardContent}>
-                        <span className={styles.cardTitle}>{item.title}</span>
-                        <span className={styles.cardCategory}>{categoryMap[item.category] || "기타"}</span>
-                        <span className={styles.cardDate}>{item.printDate}</span>
+            localStorage.getItem("isLogin") === "1" ? (
+                <div className={styles.cardList}>
+                {foundMain.map((item) => (
+                  <Link to={`/found-detail/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                    <div key={item.id} style={{ cursor: "pointer" }}>
+                      <div className={styles.cardContainer}>
+                        <img src={item.image} alt={item.title} className={styles.cardImage} />
+                        <div className={styles.cardContent}>
+                          <span className={styles.cardTitle}>{item.title}</span>
+                          <span className={styles.cardCategory}>{categoryMap[item.category] || "기타"}</span>
+                          <span className={styles.cardDate}>{item.printDate}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                  </Link>
+                ))}
+              </div>
+            ) : <div className={styles.blur}>
+                <div className={styles.blurText}> 
+                    로그인을 해야지 열람 가능해요!
+                </div> 
+                <button className={styles.blurButton}>로그인</button>
+                    <Blur />
+                </div>
+            
           ) : (
             <p>불러온 정보 없음</p>
           )}
         </div>
       </div>
-      {/*
-      블러 띄우기
-        {showBlur ? ( 
-            <Foundblur className={styles.blur}/>) : 
-            <Foundblur className={styles.blurDelete}/>
-        }
-        */}
+
     </div>
   );
 }

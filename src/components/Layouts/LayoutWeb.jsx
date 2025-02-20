@@ -59,9 +59,12 @@ const Layout = ({ children }) => {
   }, [isLoginModalOpen]);
 
   const handleLoginSuccess = () => {
+    
+    localStorage.setItem("isLogin", 1);
+    window.location.reload();
     setIsLoginModalOpen(false); // 로그인 모달 닫기
     setIslogin("Logout");
-    setShowBlur(false);
+   // setShowBlur(false);
     document.body.style.overflow = "auto"; // 스크롤 다시 가능하도록 설정
   };
 
@@ -94,17 +97,20 @@ const Layout = ({ children }) => {
         <button onClick={() => onAlertBtnClick()}> 알림받기</button>
         <Link
           onClick={() => {
-            if (islogin === "Login") {
-              // 로그인 상태가 아니면 로그인 모달 열기
-              setIsLoginModalOpen(true);
-            } else {
-              // 로그인 상태이면 로그아웃 모달 열기
-              setIsLogoutModalOpen(true);
-            }
+
+
+            localStorage.getItem("isLogin") === "1" ? setIsLogoutModalOpen(true) : setIsLoginModalOpen(true);
+            // if (islogin === "Login") {
+            //   // 로그인 상태가 아니면 로그인 모달 열기
+            //   setIsLoginModalOpen(true);
+            // } else {
+            //   // 로그인 상태이면 로그아웃 모달 열기
+            //   setIsLogoutModalOpen(true);
+            // }
           }}
           className={isLoginModalOpen || isLogoutModalOpen ? styles.active : ""}
         >
-          {islogin}
+          {localStorage.getItem("isLogin") === "1" ? "Logout" : "Login"}
         </Link>
           <Link onClick={() => setIsModalOpen(true)} className={isModalOpen ? styles.active : ""}>
             Alert
@@ -150,7 +156,9 @@ const Layout = ({ children }) => {
                className={styles.closeButton} 
                 onClick={() =>{ 
                   //handleLogout();
-                  setIslogin("Login"); // 상태 변경
+                  localStorage.removeItem('isLogin');
+                  window.location.reload();
+                  // setIslogin("Login"); // 상태 변경
                   setIsLogoutModalOpen(false);
                   setShowBlur(true);
               }}

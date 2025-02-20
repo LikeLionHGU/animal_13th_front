@@ -105,7 +105,7 @@ function MainPage() {
   }
 
   return (
-    <div>
+    <>
       <div className={styles.bannerWrapper}>
         <Banner className={styles.banner} />
       </div>
@@ -161,7 +161,7 @@ function MainPage() {
             <>불러온 정보 없음</>
           )}
         </div>
-
+  
         <div className={styles.title}>
           <div className={styles.titleText}>
             <span className={styles.Lost}>FOUND</span>
@@ -174,7 +174,7 @@ function MainPage() {
             더보기
           </span>
         </div>
-
+  
         <div>
           {loading ? (
             <p>로딩 중...</p>
@@ -207,18 +207,6 @@ function MainPage() {
                   </Link>
                 ))}
               </div>
-            ) : <div className={styles.blur}>
-                <div className={styles.blurText}> 
-                    로그인을 해야지 열람 가능해요!
-                </div> 
-                <button 
-                className={styles.blurButton} 
-                onClick={() => setShowLogin(true)}
-                style={{ cursor: "pointer" }}
-                >
-                로그인
-                </button>
-                    <Blur />
             ) : (
               <div className={styles.blur}>
                 <div className={styles.blurText}>
@@ -226,8 +214,8 @@ function MainPage() {
                 </div>
                 <button
                   className={styles.blurButton}
-                  onClick={() => setshowLogin(true)}
-                  style={{cursor: "pointer"}}
+                  onClick={() => setShowLogin(true)}
+                  style={{ cursor: "pointer" }}
                 >
                   로그인
                 </button>
@@ -239,9 +227,10 @@ function MainPage() {
           )}
         </div>
       </div>
-      {showLogin && <LoginLayout setShowLogin={setShowLogin}/>}
-    </div>
+      {showLogin && <LoginLayout setShowLogin={setShowLogin} />}
+    </>
   );
+  
 }
 
 export default MainPage;

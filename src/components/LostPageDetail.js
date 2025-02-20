@@ -29,8 +29,6 @@ function LostPageDetail( ) {
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
 
-const [reverse, setReverse] = useState();
-
   useEffect(() => {
     const fetchData = async () => {
         try {
@@ -40,8 +38,6 @@ const [reverse, setReverse] = useState();
             setLostDetail(response.data.board);
             setIsUser(response.data.isUser);
             console.log("comment: ", response.data.board.comments.content);
-            setReverse(response.data.board.comments.slice(0).reverse().map(num => num));
-          
         } catch (error) {
             console.error("오류 발생:", error);
         }
@@ -137,6 +133,8 @@ const onSubmitClick = async (event) => {
 //   }
 // };
 
+
+
 const handleFileChange = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -218,8 +216,8 @@ return (
             style={{display: "none"}}
           />
       </form>
-      {reverse ? <div className={styles.cardList} >
-    {reverse.map((item, index) => ( // 띄우는 콘텐츠들 배치하기
+      {lostDetail.comments ? <div className={styles.cardList} >
+    {lostDetail.comments.map((item, index) => ( // 띄우는 콘텐츠들 배치하기
     <div
         className={styles.commentContainer}
         style={{ cursor: "pointer" }}

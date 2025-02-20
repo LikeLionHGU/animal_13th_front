@@ -21,22 +21,22 @@ const Layout = ({ children }) => {
 
   const newsRef = useRef(null);
 
-  const onAlertBtnClick = () => {
-      const fetchData = async () => {
-        try {
-            const response = await axios.get("https://koyangyee.info/notification");
-            console.log("알림: ", response.data.notifications);
-            console.log("데이터: ", response.data);
-            setNewsList(response.data.notifications);
-        } catch (error) {
-            console.error("오류 발생:", error);
-        }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://koyangyee.info/notification");
+        setNewsList(response.data.notifications);
+        console.log(response.data);
+      } catch (error) {
+        console.error("알림 가져오기 오류:", error);
+      }
     };
-    fetchData();
-    // const intervalId = setInterval(fetchData, 10000);
-
-    // return () => clearInterval(intervalId);
-  }
+  
+    fetchData(); // 첫 실행
+    const intervalId = setInterval(fetchData, 10000); // 10초마다 실행
+  
+    return () => clearInterval(intervalId); // 언마운트 시 정리
+  }, []);
     
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -169,7 +169,7 @@ const Layout = ({ children }) => {
           <ul className={styles.newsList}>
             {newsList ? <>
               {newsList.map((news) => (
-              <li onClick={(news) => navigate(`/lost-detail/${news.id}`)} key={news.id} className={styles.newsItem}>
+              <li onClick={() => navigate(`/lost-detail/${news.id}`)} key={news.id} className={styles.newsItem}>
                 <span className={styles.newsCategory}>• {news.category}</span>
                 <strong>{news.title}</strong>
                 <span className={styles.newsDate}>{news.date}</span>

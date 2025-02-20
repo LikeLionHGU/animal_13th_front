@@ -17,22 +17,24 @@ const Layout = ({ children }) => {
 
   const newsRef = useRef(null);
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//         try {
-//             const response = await axios.get("https://koyangyee.info/notification");
-//             console.log("알림: ", response.data.notifications);
-//             console.log("데이터: ", response.data);
-//             setNewsList(response.data.notifications);
-//         } catch (error) {
-//             console.error("오류 발생:", error);
-//         }
-//     };
-//     fetchData();
-//     const intervalId = setInterval(fetchData, 10000);
+  const onAlertBtnClick = () => {
+      const fetchData = async () => {
+        try {
+            const response = await axios.get("https://koyangyee.info/notification");
+            console.log("알림: ", response.data.notifications);
+            console.log("데이터: ", response.data);
+            setNewsList(response.data.notifications);
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+    fetchData();
+    // const intervalId = setInterval(fetchData, 10000);
 
-//     return () => clearInterval(intervalId);
-// }, []);
+    // return () => clearInterval(intervalId);
+  }
+    
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -85,6 +87,7 @@ const Layout = ({ children }) => {
         </div>
 
         <div className={styles.rightSection}>
+        <button onClick={() => onAlertBtnClick()}> 알림받기</button>
           <Link onClick={() => setIsLoginModalOpen(true)} className={isLoginModalOpen ? styles.active : ""}>
             Login
           </Link>

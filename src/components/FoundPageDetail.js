@@ -73,7 +73,7 @@ const onEditClick = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post(`https://koyangyee.info/board/found/saw/${id}`);
-        console.log( response);
+        console.log( "받아온 response:", response.data);
       } catch (error) {
         console.error("오류 발생:", error);
       }
@@ -140,8 +140,7 @@ const onEditClick = () => {
           </div>
           <div>
             <h2>위치</h2>
-            <div className={styles.address}> <span> 주소 띄우기</span></div>
-            <div className={styles.detailLocation}>{address} <span>{foundDetail.detailLocation === "null" ? `${foundDetail.detailLocation}` : "없음"}</span></div>
+            <div className={styles.detailLocation}>{address} </div>
           </div>
           <div className={styles.mapSize}>
             <DetailMap lat={lat} lng={lng} setAddress={setAddress}/>

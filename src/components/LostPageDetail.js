@@ -39,8 +39,9 @@ function LostPageDetail( ) {
             console.log("foundDetail: ", response.data.board);
             console.log("IsUser: ", response.data.isUser);
             setLostDetail(response.data.board);
+            console.log("isFound: ", response.data.isFound);
             setIsUser(response.data.isUser);
-            setIsFound(response.data.isFound);
+            setIsFound(response.data.board.isFound);
             console.log("comment: ", response.data.board.comments.content);
         } catch (error) {
             console.error("오류 발생:", error);
@@ -192,6 +193,7 @@ return (
               <span className={styles.phoneTitle}>전화번호</span>
               <span className={styles.phoneNum}>{lostDetail.phoneNum === "undefined" ? "없음" : `${lostDetail.phoneNum}` }</span>
                 {(isUser === 1 && isFound === 0)  ? <>
+
           <button className={styles.deleteBtn} onClick={() => onDeleteClick()}> 삭제 </button>
         </>:<>
         </>}
@@ -257,7 +259,7 @@ return (
         </div>
       </div>
     </div>
-    {isUser === 1 ? <> <div className={styles.completeContainer}>
+    {isUser === 1 && isFound === 0 ? <> <div className={styles.completeContainer}>
         <div>
           <div className={styles.completeTitle}>분실물을 찾으셨습니까?</div>
           <div className={styles.completeContent}>완료 시 게시글은 게시판에서 삭제되며 마이페이지에서 조회 가능합니다.</div>

@@ -74,8 +74,6 @@ const onEditClick = () => {
       try {
         const response = await axios.post(`https://koyangyee.info/board/found/saw/${id}`);
 
-        console.log(id);
-        console.log( response);
       } catch (error) {
         console.error("오류 발생:", error);
       }finally{
@@ -134,6 +132,7 @@ const onEditClick = () => {
                 <span className={styles.phoneNum}>{foundDetail.phoneNum === "undefined" ? "없음" : `${foundDetail.phoneNum}` }</span>
                 {isUser ? <>
             <button onClick={() => onDeleteClick()}> 삭제 </button>
+
           </>:<>
           </>}
               </div>
@@ -144,8 +143,7 @@ const onEditClick = () => {
           </div>
           <div>
             <h2>위치</h2>
-            <div className={styles.address}> <span> 주소 띄우기</span></div>
-            <div className={styles.detailLocation}>{address} <span>{foundDetail.detailLocation === "null" ? `${foundDetail.detailLocation}` : "없음"}</span></div>
+            <div className={styles.detailLocation}>{address} </div>
           </div>
           <div className={styles.mapSize}>
             <DetailMap lat={lat} lng={lng} setAddress={setAddress}/>

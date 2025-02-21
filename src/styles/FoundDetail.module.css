@@ -224,3 +224,10 @@
     width: 770px;
     height: 240px;
 }
+
+.deleteBtn{
+    margin-left: 320px;
+    border-radius: 19px;
+    border: 2px solid #CFECF0;
+    cursor: pointer;
+  }

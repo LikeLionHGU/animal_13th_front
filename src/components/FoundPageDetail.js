@@ -128,8 +128,8 @@ const onEditClick = () => {
               <div className={styles.phone}>
                 <span className={styles.phoneTitle}>전화번호</span>
                 <span className={styles.phoneNum}>{foundDetail.PhoneNum === "undefined" ? `${foundDetail.category}` : "없음"}</span>
-                {isUser ? <>
-            <button onClick={() => onDeleteClick()}> 삭제 </button>
+                {isUser === 1 ? <>
+            <button className={styles.deleteBtn} onClick={() => onDeleteClick()}> 삭제 </button>
           </>:<>
           </>}
               </div>

@@ -236,7 +236,7 @@ const FoundFormWeb = () => {
             <h1 className={styles.formTitle}>FOUND 글쓰기</h1>
             <div className={styles.formGroup}>
             <label htmlFor="title" className={styles.formLabel}>습득물 명 <span style={{ color: "red" }}>*</span></label>
-              <input id="title" type="text" className={styles.formField} placeholder="어떤 물건인지 간단하게 알려주세요 (ex. 검정색 지갑)" required />
+              <input style={{fontSize: "16.5px" }} id="title" type="text" className={styles.formField} placeholder="어떤 물건인지 간단하게 알려주세요 (ex. 검정색 지갑)" required />
             </div>
 
             <div className={styles.categoryTitle} htmlFor="category">
@@ -266,17 +266,17 @@ const FoundFormWeb = () => {
             <input name="location" type="text" value={address} className={styles.addressDisplay} readOnly />
 
             <div className={styles.formGroup}>
-              <input id="detailLocation" type="text" className={styles.formField} placeholder="물건이 어디에 있는지 상세히 알려주세요 (ex. 뉴턴 102호)" />
+              <input style={{fontSize: "16.5px" }} id="detailLocation" type="text" className={styles.formField} placeholder="물건이 어디에 있는지 상세히 알려주세요 (ex. 뉴턴 102호)" />
               <label htmlFor="detailLocation" className={styles.formLabel}>상세위치</label>
             </div>
 
             <div className={styles.formGroup}>
-              <input id="phoneNum" type="text" maxLength="13" placeholder="010-XXXX-XXXX" className={styles.formField} />
+              <input style={{fontSize: "16.5px" }} id="phoneNum" type="text" maxLength="13" placeholder="010-XXXX-XXXX" className={styles.formField} />
               <label htmlFor="phoneNum" className={styles.formLabel}>전화번호</label>
             </div>
 
             <h3 className={styles.categoryTitle}>상세정보</h3>
-            <textarea id="content" ref={textareaRef} className={styles.contentTextBox} onInput={() => {
+            <textarea style={{fontSize: "16.5px" }} id="content" ref={textareaRef} className={styles.contentTextBox} onInput={() => {
               textareaRef.current.style.height = "auto";
               textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
             }}/>

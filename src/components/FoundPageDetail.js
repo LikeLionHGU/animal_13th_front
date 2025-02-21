@@ -73,9 +73,11 @@ const onEditClick = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post(`https://koyangyee.info/board/found/saw/${id}`);
-        console.log( "받아온 response:", response.data);
+
       } catch (error) {
         console.error("오류 발생:", error);
+      }finally{
+        window.location.reload();
       }
     };
     fetchData();
@@ -127,9 +129,10 @@ const onEditClick = () => {
               </div>
               <div className={styles.phone}>
                 <span className={styles.phoneTitle}>전화번호</span>
-                <span className={styles.phoneNum}>{foundDetail.PhoneNum === "undefined" ? `${foundDetail.category}` : "없음"}</span>
-                {isUser === 1 ? <>
-            <button className={styles.deleteBtn} onClick={() => onDeleteClick()}> 삭제 </button>
+                <span className={styles.phoneNum}>{foundDetail.phoneNum === "undefined" ? "없음" : `${foundDetail.phoneNum}` }</span>
+                {isUser ? <>
+            <button onClick={() => onDeleteClick()}> 삭제 </button>
+
           </>:<>
           </>}
               </div>

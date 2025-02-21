@@ -64,7 +64,8 @@
   .titleText {
       display: flex;
       align-items: center; 
-      margin-left: 40px;
+      margin-left: 30px;
+      flex-wrap: nowrap;
   }
   
   .Lost {
@@ -93,6 +94,8 @@
       font-style: normal;
       font-weight: 700;
       line-height: normal;
+      flex-wrap: nowrap;
+  
   }
   
   .intro {

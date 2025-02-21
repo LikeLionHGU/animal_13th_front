@@ -24,6 +24,7 @@ function FoundPageDetail( ) {
   const [address, setAddress] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
+  const [pushCom, setPushCom] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,21 +66,25 @@ const onDeleteClick = () => {
   fetchData();
 }
 
-const onEditClick = () => {
 
-}
+
   /*사용자 정보 PUSH*/
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.post(`https://koyangyee.info/board/found/saw/${id}`);
-        console.log( "받아온 response:", response.data);
+
       } catch (error) {
         console.error("오류 발생:", error);
+      }finally{
+        console.log("id, ", id);
+        setPushCom(1);
       }
     };
     fetchData();
   }, [id]);
+
+
 
    /* 사용자 이름 GET해오기 */
    useEffect(() => {

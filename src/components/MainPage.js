@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from 'react'
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Mainpage.module.css";
 import { ReactComponent as WriteLost } from "../assets/icons/WriteLost.svg";
@@ -25,76 +25,26 @@ const categoryMap = {
 };
 
 function MainPage() {
-  const navigate = useNavigate();
-  const [lostMain, setLostMain] = useState();
-  const [foundMain, setFoundMain] = useState();
-  const [loading, setLoading] = useState(true);
-  const [browser, setBrowser] = useState("web"); // 기본값 "web"
-  const [showLogin, setshowLogin] = useState(false);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    // 디바이스 환경 감지
-    const user = navigator.userAgent;
-    if (user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1) {
-      setBrowser("mobile");
+    const foundFormClick = () => {
+        navigate("/found-form");
     }
-  }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://koyangyee.info/board/lost/main"
-        );
-        console.log("Lost: ", response.data.board);
-        setLostMain(response.data.board);
-      } catch (error) {
-        console.error("오류 발생:", error);
-      }
-    };
-    fetchData();
-  }, []);
+    const lostFormClick = () => {
+        navigate("/lost-form");
+    }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://koyangyee.info/board/found/main"
-        );
-        console.log("Found: ", response.data.board);
-        setFoundMain(response.data.board);
-      } catch (error) {
-        console.error("오류 발생:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+    const foundPageClick = () => {
+        navigate("/found-page");
+    }
 
-  const foundFormClick = () => navigate("/found-form");
+    const lostPageClick = () => {
+        navigate("/lost-page");
+    }
 
-  const lostFormClick = async () => {
-    try {
-      const response = await axios.get("https://koyangyee.info/user");
-      console.log("user: ", response.data);
-
-      if (response.data.isLogin === 0) {
-        const result = await Swal.fire({
-          title: "로그인이 필요합니다.",
-          text: "분실물 등록을 위해 로그인해 주세요.",
-          icon: "warning",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "확인",
-        });
-
-        if (result.isConfirmed) navigate("/");
-        return;
-      }
-
-      navigate("/lost-form");
-    } catch (error) {
-      console.error("오류 발생:", error);
+    const myPageClick = () => {
+        navigate("/mypage");
     }
   };
 
@@ -224,6 +174,6 @@ function MainPage() {
       {showLogin && <LoginLayout />}
     </div>
   );
-}
 
-export default MainPage;
+
+export default MainPage

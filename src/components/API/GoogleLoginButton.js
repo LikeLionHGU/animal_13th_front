@@ -39,6 +39,7 @@ function GoogleLoginButton( { onLoginSuccess, setIsAuthLoading }) {
                 { googleIdToken },
                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
+            setIsAuthLoading(true);
             alert("로그인 성공");
             if (onLoginSuccess) {
                 onLoginSuccess(); // 부모 컴포넌트에서 전달한 로그인 성공 처리 실행
@@ -56,6 +57,24 @@ function GoogleLoginButton( { onLoginSuccess, setIsAuthLoading }) {
         console.error("구글 로그인 오류:", error);
     };
 
+    // const handleLogout = async () => {
+    //     try {
+    //         console.log("로그아웃 함수 실행")
+    //         // 1️⃣ 구글 SDK를 사용하여 클라이언트 측 로그아웃
+    //         googleLogout(); // Google OAuth 상태 초기화
+
+    //         // 2️⃣ 백엔드에도 로그아웃 요청
+    //         await axios.post("https://koyangyee.info/auth/logout", {}, { withCredentials: true });
+
+    //         alert("로그아웃 되었습니다.");
+    //         setIsAuthenticated(false); // 상태 업데이트
+    //     } catch (error) {
+    //         console.error("로그아웃 실패:", error);
+    //         alert("로그아웃 실패. 다시 시도해주세요.");
+    //     }
+    // };
+
+
     return (
         <div> {/* 필요할 때만 보이게 */}
             <GoogleOAuthProvider clientId={clientId}>
@@ -68,6 +87,8 @@ function GoogleLoginButton( { onLoginSuccess, setIsAuthLoading }) {
                 </div>
             </GoogleOAuthProvider>
         </div>
+
+        
     );
 }
 

@@ -285,6 +285,7 @@
       backdrop-filter: blur(12.350000381469727px);
       position:relative;
       padding-left: 50px;
+      flex-wrap: nowrap;
 
     }
 

@@ -127,7 +127,7 @@ const onEditClick = () => {
               </div>
               <div className={styles.phone}>
                 <span className={styles.phoneTitle}>전화번호</span>
-                <span className={styles.phoneNum}>{foundDetail.PhoneNum === "undefined" ? `${foundDetail.category}` : "없음"}</span>
+                <span className={styles.phoneNum}>{foundDetail.phoneNum === "undefined" ? "없음" : `${foundDetail.phoneNum}` }</span>
                 {isUser === 1 ? <>
             <button className={styles.deleteBtn} onClick={() => onDeleteClick()}> 삭제 </button>
           </>:<>

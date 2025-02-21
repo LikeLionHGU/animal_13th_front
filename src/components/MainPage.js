@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import MainPageMobile from "./MainPageMobile";
 import LoginLayout from "./Layouts/LoginLayout";
+import { ReactComponent as CardImg } from "../assets/icons/CardImage.svg"; 
 //import MainPageWeb from "./MainPageWeb";
 
 const categoryMap = {
@@ -141,11 +142,8 @@ function MainPage() {
                     className={styles.cardContainer}
                     style={{ cursor: "pointer" }}
                   >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className={styles.cardImage}
-                    />
+                    {item.category === 2 ? <><CardImg alt={item.title} className={styles.cardImage}/></> : <><img src={item.image} alt={item.title} className={styles.cardImage} /></>}
+                                
                     <div className={styles.cardContent}>
                       <span className={styles.cardTitle}>{item.title}</span>
                       <span className={styles.cardCategory}>
@@ -188,11 +186,7 @@ function MainPage() {
                   >
                     <div key={item.id} style={{ cursor: "pointer" }}>
                       <div className={styles.cardContainer}>
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className={styles.cardImage}
-                        />
+                      {item.category === 2 ? <><CardImg alt={item.title} className={styles.cardImage}/></> : <><img src={item.image} alt={item.title} className={styles.cardImage} /></>}
                         <div className={styles.cardContent}>
                           <span className={styles.cardTitle}>{item.title}</span>
                           <span className={styles.cardCategory}>

@@ -78,6 +78,23 @@ const Layout = ({ children }) => {
     document.body.style.overflow = "auto"; // 스크롤 다시 가능하도록 설정
   };
 
+  //로그아웃 로직
+  const handleLogout = async () => {
+         try {
+             console.log("로그아웃 함수 실행")
+             // 1️⃣ 구글 SDK를 사용하여 클라이언트 측 로그아웃
+             googleLogout(); // Google OAuth 상태 초기화
+
+             // 2️⃣ 백엔드에도 로그아웃 요청
+             await axios.post("https://koyangyee.info/auth/logout", {}, { withCredentials: true });
+
+             alert("로그아웃 되었습니다.");
+         } catch (error) {
+             console.error("로그아웃 실패:", error);
+             alert("로그아웃 실패. 다시 시도해주세요.");
+         }
+   };
+
   return (
     <div className={styles.container}>
       {isAuthLoading && (
@@ -176,7 +193,7 @@ const Layout = ({ children }) => {
             <button
               className={styles.closeButton}
               onClick={() => {
-                //handleLogout();
+                handleLogout();
                 localStorage.removeItem("isLogin");
                 window.location.reload();
                 setIslogin("Login"); // 상태 변경

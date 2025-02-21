@@ -190,8 +190,8 @@ return (
             </div>
             <div className={styles.phone}>
               <span className={styles.phoneTitle}>전화번호</span>
-              <span className={styles.phoneNum}>{lostDetail.PhoneNum === "undefined" ?  "없음" : `${lostDetail.category}` }</span>
-              {(isUser === 1 && isFound === 0)  ? <>
+              <span className={styles.phoneNum}>{lostDetail.phoneNum === "undefined" ? "없음" : `${lostDetail.phoneNum}` }</span>
+                {(isUser === 1 && isFound === 0)  ? <>
           <button className={styles.deleteBtn} onClick={() => onDeleteClick()}> 삭제 </button>
         </>:<>
         </>}

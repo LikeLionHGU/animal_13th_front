@@ -9,6 +9,7 @@ import FoundPageSearch from "./Small/FoundLostSearch";
 import { useNavigate } from "react-router-dom";
 import FoundWriteModal from "../components/FoundWriteModal";
 import { ReactComponent as TopBtn } from "../assets/icons/TopBtn.svg";
+import { ReactComponent as CardImg } from "../assets/icons/CardImage.svg"; 
 
 const categories = [
   { id: 0 , name: "전체" },
@@ -160,8 +161,8 @@ const onTopBtnClick = () => {
                     onClick={() => onWrite(item.id)}
                     >
                         <div className={styles.cardContainer}>
-                            <img src={item.image} alt={item.title} className={styles.cardImage} />
-                            <div className={styles.cardContent}>
+                        {item.category === 2 ? <><CardImg alt={item.title} className={styles.cardImage}/></> : <><img src={item.image} alt={item.title} className={styles.cardImage} /></>}
+                        <div className={styles.cardContent}>
                                 <span className={styles.cardTitle}>{item.title}</span>
                                 <span className={styles.cardCategory}>
                                   {categoryMap[item.category] || "기타"}

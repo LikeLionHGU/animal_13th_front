@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import MainPageMobile from "./MainPageMobile";
 import LoginLayout from "./Layouts/LoginLayout";
+import { ReactComponent as CardImg } from "../assets/icons/CardImage.svg"; 
 import FoundWriteModal from "../components/FoundWriteModal";
 //import MainPageWeb from "./MainPageWeb";
 
@@ -152,11 +153,8 @@ function MainPage() {
                     className={styles.cardContainer}
                     style={{ cursor: "pointer" }}
                   >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className={styles.cardImage}
-                    />
+                    {item.category === 2 ? <><CardImg alt={item.title} className={styles.cardImage}/></> : <><img src={item.image} alt={item.title} className={styles.cardImage} /></>}
+                                
                     <div className={styles.cardContent}>
                       <span className={styles.cardTitle}>{item.title}</span>
                       <span className={styles.cardCategory}>
@@ -193,24 +191,26 @@ function MainPage() {
             localStorage.getItem("isLogin") === "1" ? (
               <div className={styles.cardList}>
                 {foundMain.map((item) => (
-            <div 
-            key={item.id} 
-            style={{ cursor: "pointer" }} 
-            onClick={() => onWrite(item.id)} // 여기서 올바르게 item.id를 전달
-            >
-            <div className={styles.cardContainer}>
-            <img src={item.image} alt={item.title} className={styles.cardImage} />
-            <div className={styles.cardContent}>
-                <span className={styles.cardTitle}>{item.title}</span>
-                <span className={styles.cardCategory}>
-                {categoryMap[item.category] || "기타"}
-                </span>
-                <span className={styles.cardDate}>{item.printDate}</span>
-            </div>
-            </div>
-        </div>
-        ))}
-
+                  <Link
+                    to={`/found-detail/${item.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <div key={item.id} style={{ cursor: "pointer" }}>
+                      <div className={styles.cardContainer}>
+                      {item.category === 2 ? <><CardImg alt={item.title} className={styles.cardImage}/></> : <><img src={item.image} alt={item.title} className={styles.cardImage} /></>}
+                        <div className={styles.cardContent}>
+                          <span className={styles.cardTitle}>{item.title}</span>
+                          <span className={styles.cardCategory}>
+                            {categoryMap[item.category] || "기타"}
+                          </span>
+                          <span className={styles.cardDate}>
+                            {item.printDate}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
             ) : (
               <div className={styles.blur}>

@@ -1,4 +1,4 @@
-# 잃어버렸다면? 주움하세요!(zuum) :boom:
+# 잃어버렸다면? 주움하세요!(zu_um) :boom:
 
 <img width="1439" alt="image" src="https://github.com/user-attachments/assets/e665f11b-0036-4b34-83b3-785f049d5707" />
 

@@ -1,4 +1,4 @@
-# 장애인 스포츠 강좌 선택 수강 플랫폼, Pickle 🥇
+# 잃어버렸다면? 주움하세요!(zuum) :boom:
 
 ![Pickle](https://github.com/user-attachments/assets/0ad71f9d-1935-455d-89b1-57219e973b81)
 

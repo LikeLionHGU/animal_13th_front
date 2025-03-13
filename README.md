@@ -51,6 +51,8 @@
 - 버전 및 이슈관리 : Github, Github Issues
 - 협업 툴 : Discord, Notion, Figma
 - 서비스 배포 환경 : Netlify
+
+[![Notion](https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg)](https://picturesque-seashore-acf.notion.site/API-081ea8e410c2490aad0ed008ee9f0130?pvs=4)
   
 #  🦁 잃어버렸다면? 주움(Zuum)하세요!
 

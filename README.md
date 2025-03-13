@@ -49,7 +49,7 @@
 
 - Front : HTML, React, styled-components, prettier
 - 버전 및 이슈관리 : Github, Github Issues
-- 협업 툴 : Discord, Notion
+- 협업 툴 : Discord, Notion, Figma
 - 서비스 배포 환경 : Netlify
 
 <br>

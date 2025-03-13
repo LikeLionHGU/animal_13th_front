@@ -2,7 +2,7 @@
 
 <img width="1439" alt="image" src="https://github.com/user-attachments/assets/e665f11b-0036-4b34-83b3-785f049d5707" />
 
-- 배포 URL : https://pickle-pickle.netlify.app
+- 배포 URL : https://lostnfoundservice.netlify.app/
 
 <br>
 

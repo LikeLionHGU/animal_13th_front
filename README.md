@@ -1,6 +1,6 @@
 # 장애인 스포츠 강좌 선택 수강 플랫폼, Pickle 🥇
 
-![Pickle](https://github.com/user-attachments/assets/0ad71f9d-1935-455d-89b1-57219e973b81)
+<img width="1439" alt="image" src="https://github.com/user-attachments/assets/e665f11b-0036-4b34-83b3-785f049d5707" />
 
 - 배포 URL : https://pickle-pickle.netlify.app
 

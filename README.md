@@ -2,7 +2,7 @@
 
 ![Pickle](https://github.com/user-attachments/assets/0ad71f9d-1935-455d-89b1-57219e973b81)
 
-- 배포 URL : https://pickle-pickle.netlify.app
+- 배포 URL : https://lostnfoundservice.netlify.app/
 
 <br>
 

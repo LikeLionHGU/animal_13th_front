@@ -44,7 +44,10 @@
 </div>
 
 <br>
+## ✏ <a href="https://certain-error-7bb.notion.site/API-9357ee0de8d8463384de706842669935?pvs=25" alt="">API 명세
 
+---
+---
 ## 개발 환경
 
 - Front : HTML, React, styled-components, prettier

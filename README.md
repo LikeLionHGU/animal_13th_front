@@ -54,10 +54,8 @@
 - 버전 및 이슈관리 : Github, Github Issues
 - 협업 툴 : Discord, Notion, Figma
 - 서비스 배포 환경 : Netlify
-
+## API 명세서
 [![Notion](https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg)](https://picturesque-seashore-acf.notion.site/API-081ea8e410c2490aad0ed008ee9f0130?pvs=4)
-  
-#  🦁 잃어버렸다면? 주움(Zuum)하세요!
 
 ## Git Task Cycle ♼
 멋쟁이사자처럼 한동대학교의 구성원은 아래와 같은 컨벤션을 따릅니다. 업데이트 하고 싶은 내용이 있다면 Pull Requests 바랍니다. 

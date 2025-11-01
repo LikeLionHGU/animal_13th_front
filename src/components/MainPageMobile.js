@@ -7,6 +7,8 @@ import { ReactComponent as WriteFound } from "../assets/icons/WriteFound.svg";
 import { ReactComponent as Banner } from "../assets/icons/mainpageBanner.svg"; 
 import axios from "axios";
 import {Link} from "react-router-dom";
+import { ReactComponent as CardImg } from "../assets/icons/CardImage.svg"; 
+
 
 const categoryMap = {
     1: "전자기기",
@@ -103,8 +105,8 @@ function MainPageMobile() {
                                 className={styles.cardContainer}
                                 style={{ cursor: "pointer" }}
                                 >
-                                    
-                                <img src={item.image} alt={item.title} className={styles.cardImage} />
+                                {item.category === 2 ? <><CardImg alt={item.title} className={styles.cardImage}/></> : <><img src={item.image} alt={item.title} className={styles.cardImage} /></>}
+                                
                                 <div className={styles.cardContent}>
                                     <span className={styles.cardTitle}>{item.title}</span>
                                     <span className={styles.cardCategory}>
@@ -144,8 +146,8 @@ function MainPageMobile() {
                         style={{ cursor: "pointer" }}
                         >
                             <div className={styles.cardContainer}>
-                                <img src={item.image} alt={item.title} className={styles.cardImage} />
-                                <div className={styles.cardContent}>
+                            {item.category === 2 ? <><CardImg alt={item.title} className={styles.cardImage}/></> : <><img src={item.image} alt={item.title} className={styles.cardImage} /></>}
+                            <div className={styles.cardContent}>
                                     <span className={styles.cardTitle}>{item.title}</span>
                                         <span className={styles.cardCategory}>
                                         {categoryMap[item.category] || "기타"}

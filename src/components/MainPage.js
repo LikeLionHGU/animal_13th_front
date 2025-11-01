@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import MainPageMobile from "./MainPageMobile";
 import LoginLayout from "./Layouts/LoginLayout";
 import { ReactComponent as CardImg } from "../assets/icons/CardImage.svg"; 
+import FoundWriteModal from "../components/FoundWriteModal";
 //import MainPageWeb from "./MainPageWeb";
 
 const categoryMap = {
@@ -25,7 +26,14 @@ const categoryMap = {
 };
 
 function MainPage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [lostMain, setLostMain] = useState();
+  const [foundMain, setFoundMain] = useState();
+  const [loading, setLoading] = useState(true);
+  const [browser, setBrowser] = useState("web"); // 기본값 "web"
+  const [showLogin, setShowLogin] = useState(false);
+  const [ showModal, setShowModal] = useState(false);
+  const [id, setId] = useState(); //모달 창 아이디디
 
     const foundFormClick = () => {
         navigate("/found-form");
@@ -55,8 +63,16 @@ function MainPage() {
     return <MainPageMobile />;
   }
 
+  const onWrite = (itemId) => {
+    setId(itemId); // id 저장
+    setShowModal(true); // 모달 열기
+    console.log("아이디: ", itemId);
+    console.log("저장된 아이디: ", id);
+  };
+  
+
   return (
-    <div>
+    <>
       <div className={styles.bannerWrapper}>
         <Banner className={styles.banner} />
       </div>
@@ -109,7 +125,7 @@ function MainPage() {
             <>불러온 정보 없음</>
           )}
         </div>
-
+  
         <div className={styles.title}>
           <div className={styles.titleText}>
             <span className={styles.Lost}>FOUND</span>
@@ -122,7 +138,7 @@ function MainPage() {
             더보기
           </span>
         </div>
-
+  
         <div>
           {loading ? (
             <p>로딩 중...</p>
@@ -158,8 +174,8 @@ function MainPage() {
                 </div>
                 <button
                   className={styles.blurButton}
-                  onClick={() => setshowLogin(true)}
-                  style={{cursor: "pointer"}}
+                  onClick={() => setShowLogin(true)}
+                  style={{ cursor: "pointer" }}
                 >
                   로그인
                 </button>
@@ -171,8 +187,11 @@ function MainPage() {
           )}
         </div>
       </div>
-      {showLogin && <LoginLayout />}
-    </div>
+      {showLogin && <LoginLayout setShowLogin={setShowLogin} />}
+      {showModal && <FoundWriteModal onClose={() => setShowModal(false)} 
+      onConfirm={() => navigate(`/found-detail/${id}`)}/>}
+
+    </>
   );
 
 

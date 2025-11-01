@@ -38,13 +38,16 @@
 
 |                                                                                        **한규호**                                                                                        |                                                                                         **박서연**                                                                                         |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://github.com/user-attachments/assets/24ac9407-972d-4ebd-a7d5-a4c0787f9dce" height=160 width=160> <br/> @Gyuho-Han](https://github.com/Gyuho-Han) | [<img src="https://github.com/user-attachments/assets/bc729a7c-8f65-41c0-86bb-9287e123477f" height=160 width=160> <br/> @yeji](https://github.com/skwldwld) |
+| [@Gyuho-Han](https://github.com/Gyuho-Han) | [@yean1234](https://github.com/yean1234) |
 
 
 </div>
 
 <br>
 
+
+---
+---
 ## 개발 환경
 
 - Front : HTML, React, styled-components, prettier
@@ -58,6 +61,11 @@
 ---
   
 #  🦁 잃어버렸다면? 주움(Zuum)하세요!
+=======
+ ## ✏ API 명세
+ ---
+[![Notion](https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg)](https://picturesque-seashore-acf.notion.site/API-081ea8e410c2490aad0ed008ee9f0130?pvs=4)
+ ---
 
 ## Git Task Cycle ♼
 멋쟁이사자처럼 한동대학교의 구성원은 아래와 같은 컨벤션을 따릅니다. 업데이트 하고 싶은 내용이 있다면 Pull Requests 바랍니다. 
